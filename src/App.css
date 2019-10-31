@@ -20,3 +20,68 @@
 .App-link {
   color: #09d3ac;
 }
+
+.wbdv-hamburger {
+  color: white;
+  padding-right: 1rem;
+}
+
+.floating-action-button {
+  background: none;
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  border: none;
+  color: #007bff;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.floating-action-button:hover {
+  transform: scale(1.2);
+  outline: none;
+}
+
+.floating-action-button:focus {
+  outline: none;
+}
+
+.format-buttons {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.wbdv-grid-layout {
+  border-color: transparent;
+  background-color: transparent;
+  height: 100%;
+}
+
+.wbdv-list-layout {
+  border-color: transparent;
+  background-color: transparent;
+  height: 100%;
+}
+
+.header-icon {
+  color: black;
+}
+
+.wbdv-new-course-form {
+  flex-flow: unset;
+}
+
+.wbdv-delete {
+  border-color: transparent;
+  float: right;
+  color: black;
+}
+
+.wbdv-edit {
+  border: none;
+  float: right;
+}
+
