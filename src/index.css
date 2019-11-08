@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.subTextFont {
+	font-size: 13px;
+}
+
+.cardTitleFont {
+	font-size: 22px;
+}
+
+.overlay-button {
+    position:absolute;
+    width:100%;
+    border: 0px;
+    background-color: transparent;
+    height:10%;
+}
+
+.card-image{
+  height: 24vh;
+  width:15vw;
+
+}
+
+.item-name{
+  font-size: 14px
+}
+
+.card-size {
+  height:auto;
+  width:15vw;
+}
+
+
+

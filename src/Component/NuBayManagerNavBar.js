@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NuBayManagerNavBar = () => {
+const NuBayManagerNavBar = ({onSearchPressed, searchText, onSearchTextChanged}) => {
         return (
             <div className="row">
                 <div className="col-12">
@@ -25,6 +25,8 @@ const NuBayManagerNavBar = () => {
                             className="form-control wbdv-field wbdv-new-course"
                             type="text"
                             placeholder="New Course Title"
+                            value={searchText}
+                            onChange={onSearchTextChanged}
                         />
                     </form>
                     </div>
@@ -32,6 +34,7 @@ const NuBayManagerNavBar = () => {
                         <button
                             className="btn wbdv-button wbdv-add-course float-left bg-danger"
                             type='button'
+                            onClick={() => onSearchPressed(searchText)}
                         >
                             <i className="fa fa-search fa-2x" style={{color:'white'}}></i>
                         </button>
@@ -50,7 +53,9 @@ const NuBayManagerNavBar = () => {
                         <button
                             className="btn wbdv-button wbdv-add-course float-left"
                             type='button'
-                        >
+                            
+                                >
+                            }
                             <i className="fa fa-shopping-cart fa-2x" style={{color:'white'}}></i>
                         </button>
 

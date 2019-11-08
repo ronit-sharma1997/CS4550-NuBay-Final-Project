@@ -8,23 +8,21 @@ import {connect} from 'react-redux'
 const service = NuBayService.getInstance();
 
 const dispatchToPropertyMapper = dispatch => {
-	debugger;
+		
 	return {
 		makeSearch : (text) => {
-			service.getEbayItems(text, helloWorld)
+			debugger;
+			service.getEbayItems(text,items => dispatch({
+				type: 'SET_ITEMS',
+				items: items
+			}))
 				//dispatch({type:"SET_ITEMS"}))
 
 		}
 
-
 	}		
-
-
 }
 
-function helloWorld(response) {
-	debugger;
-}
 
 const stateToPropertyMapper = (state) => {
 
