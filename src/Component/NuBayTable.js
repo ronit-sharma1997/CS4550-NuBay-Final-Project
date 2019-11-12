@@ -1,7 +1,7 @@
 import React from 'react'
 import ItemCard from './ItemCard'
 
-const NuBayTable = ({items}) =>  
+const NuBayTable = ({items, setItemIdFunc}) =>  
 
 <div className="row ml-3">
 
@@ -10,8 +10,10 @@ const NuBayTable = ({items}) =>
 {return(
 	
 	<div className="col-12 mh-25 col-md-4 col-lg-3">
-	<ItemCard item={item}
-/>
+    <ItemCard 
+        item={item}
+        setItemId={setItemIdFunc}
+        />
 	</div>
 	)
 

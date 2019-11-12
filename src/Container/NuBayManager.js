@@ -3,7 +3,7 @@ import React, { Fragment } from 'react'
 import NuBayManagerNavBar from "../Component/NuBayManagerNavBar";
 import NuBayManagerHeaderBar from "../Component/NuBayManagerHeaderBar";
 import NuBayTable from "../Component/NuBayTable";
-
+import ItemDetail from '../Component/ItemDetail';
 
 export default class NuBayManager extends React.Component {
 
@@ -25,13 +25,18 @@ export default class NuBayManager extends React.Component {
     }
 
     makeSearchHappen = () => {
-        this.props.makeSearch(this.state.searchText)
+        this.props.setItemId(0);
+        this.props.makeSearch(this.state.searchText);
     }
 
+
+
     render() {
+
+        console.log(this.props);
     
         return (
-            <Fragment className="h-100">
+            <div className="h-100">
                 {/* <h1>
                     Manager
                 </h1> */}
@@ -42,17 +47,35 @@ export default class NuBayManager extends React.Component {
                 onSearchTextChanged= {this.searchStringChanged}
                 />
 
-                <NuBayManagerHeaderBar/>
+                <div className={this.props.showItemDetail ? "d-none" : ""}>
+                    <NuBayManagerHeaderBar/>
+                </div>
 
                 <button
                     className="floating-action-button"
                     onClick={this.props.makeSearch}>
                     <i class="fa fa-plus-circle fa-2x"></i>
                 </button>
+
                 <div className="container-fluid">
-                <NuBayTable className="h-75" items={this.props.items} />
+
+                    <div className={this.props.showItemDetail ? "d-none" : ""}>
+                        <NuBayTable 
+                            items={this.props.items}
+                            setItemIdFunc={this.props.setItemId}
+                            />
+                    </div>
+
+                    <div className={this.props.showItemDetail ? "" : "d-none"}>
+                        <ItemDetail
+                            item={this.props.items.filter(item => item.itemId == this.props.currentItemID)}
+                            setItemIdFunc={this.props.setItemId}
+                            />
+                    </div>
+
                 </div>
-            </Fragment>
+
+            </div>
         )
     }
 }

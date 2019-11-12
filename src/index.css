@@ -34,8 +34,16 @@ code {
 
 }
 
+.card-image:hover {
+    cursor: pointer;
+}
+
 .item-name{
   font-size: 14px
+}
+
+.item-name:hover{
+    cursor: pointer;
 }
 
 .card-size {
