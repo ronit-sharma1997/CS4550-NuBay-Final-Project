@@ -11,14 +11,17 @@ const dispatchToPropertyMapper = dispatch => {
 		
 	return {
 		makeSearch : (text) => {
-			debugger;
+			// debugger;
 			service.getEbayItems(text,items => dispatch({
 				type: 'SET_ITEMS',
 				items: items
 			}))
 				//dispatch({type:"SET_ITEMS"}))
 
-		}
+        },
+        setItemId: (id) => {
+            dispatch({type:'SET_CURR_ITEM_ID', itemId: id})
+        }
 
 	}		
 }
@@ -26,9 +29,11 @@ const dispatchToPropertyMapper = dispatch => {
 
 const stateToPropertyMapper = (state) => {
 
-return {
-	items: state.items
-}
+    return {
+        items: state.items,
+        showItemDetail: state.showItemDetail,
+        currentItemID: state.currentItemID
+    }
 
 }
 

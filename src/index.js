@@ -11,11 +11,11 @@ import NuBayContainer from './containers/NuBayContainer';
 import NuBayReducer from './reducers/NuBayReducer'
 
 
-  const store = createStore(NuBayReducer, {})
+const store = createStore(NuBayReducer, {})
 
 ReactDOM.render(
  <Provider store={store}>
-<NuBayContainer/>
+    <NuBayContainer/>
 </Provider>
 , document.getElementById('root'))
 

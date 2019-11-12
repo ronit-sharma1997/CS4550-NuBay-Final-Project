@@ -24,7 +24,7 @@ const NuBayManagerNavBar = ({onSearchPressed, searchText, onSearchTextChanged}) 
                         <input
                             className="form-control wbdv-field wbdv-new-course"
                             type="text"
-                            placeholder="New Course Title"
+                            placeholder="Search Item Here"
                             value={searchText}
                             onChange={onSearchTextChanged}
                         />
