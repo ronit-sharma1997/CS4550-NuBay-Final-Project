@@ -13,6 +13,18 @@ export default class NuBayService {
 	getEbayItems(text,callback) {
         let ebayUrl = `https://peaceful-caverns-80012.herokuapp.com/api/ebayItems/${text}`
         fetch(ebayUrl).then(response => response.json()).then(callback)
+	}
+
+	getEbayItemById(id,callback) {
+	let ebayUrl = `http://localhost:8080/api/ebayItem/${id}`
+	fetch(ebayUrl).then(response => response.json()).then(callback)
+	}
+
+	getEbayItemByCategory(id, callback) {
+	let ebayUrl = `http://localhost:8080/api/ebayCategories/${id}`
+	fetch(ebayUrl).then(response => response.json()).then(callback)
 
 	}
+
 }
+

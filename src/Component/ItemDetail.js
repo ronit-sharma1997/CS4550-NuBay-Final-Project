@@ -1,48 +1,81 @@
 import React, { Fragment } from 'react'
+import NuBayService from '../services/NuBayService'
+import ImageCarosel from './ImageCarosel'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import ItemCard from './ItemCard'
 
 class ItemDetail extends React.Component {
-    constructor(props) {
-        super(props)
 
+    constructor(props) {
+        super(props);
+        this.nuBayService = NuBayService.getInstance()
+        this.setItem = this.setItem.bind(this);
+        this.setRelatedItems = this.setRelatedItems.bind(this);
+        this.responsive = {
+               superLargeDesktop: {
+                 // the naming can be any, depends on you.
+                 breakpoint: { max: 4000, min: 3000 },
+                 items: 5,
+               },
+               desktop: {
+                 breakpoint: { max: 3000, min: 1024 },
+                 items: 4,
+               },
+               tablet: {
+                 breakpoint: { max: 1024, min: 464 },
+                 items: 1,
+               },
+               mobile: {
+                 breakpoint: { max: 464, min: 0 },
+                 items: 1,
+               },
+             }
+        this.images = [
+                                           "https://i.ebayimg.com/00/s/ODAwWDgwMA==/z/XwYAAOSwofFbmx6N/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/FnoAAOSwHupbmx6a/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/ODAwWDgwMA==/z/IjwAAOSwGs9bmx6b/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/MTYwMFg2MTU=/z/cxYAAOSwVxdbmx6d/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/ODAwWDgwMA==/z/bvIAAOSwK3Zbmx6d/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/MTYwMFg1OTA=/z/OjQAAOSwIJtbmx6f/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/51UAAOSw12pbmx6i/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/ODAwWDgwMA==/z/EdIAAOSw4Qdbmx6k/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/MTUwMFgxNTAw/z/2hEAAOSwvGdbmx6m/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/MTYwMFg2NDM=/z/kmUAAOSwHUlbmx6n/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/MTYwMFg2NDM=/z/1RMAAOSw8fJbmx6p/$_57.JPG?set_id=8800005007",
+                                           "https://i.ebayimg.com/00/s/ODAwWDgwMA==/z/3CUAAOSwsTtbmx6q/$_57.JPG?set_id=8800005007"
+                                       ]
+        this.state = {
+        item: {},
+        relatedItems: []
+
+        }
+
+        if(props.match) {
+
+        this.nuBayService.getEbayItemById(props.match.params.id, this.setItem)
+}
+    }
+
+    setItem(item) {
+    this.nuBayService.getEbayItemByCategory(item.categoryId, this.setRelatedItems)
+        this.setState(prevState => ({
+          ...prevState,
+          item: item
+        }))
+      }
+
+    setRelatedItems(items) {
+    debugger;
+    this.setState(prevState => ({
+              ...prevState,
+              relatedItems: items
+            }))
     }
 
     render() {
-
-        console.log(this.props)
-
-        let item;
-        if (this.props.item.length < 3) {
-            item = this.props.item[0];
-        }
-        else {
-            item = this.props.item[1];
-        }
-        console.log(item);
-
-        let itemName = "";
-        let itemLink = "";
-        let imageSource = "";
-        let itemPrice = "";
-        let itemLocation = "";
-        let itemSeller = "";
-        let itemSellerRating = "";
-        let itemCategory = "";
-        let itemCondition = "";
-
-        if (item) {
-            itemName = item.title;
-            itemLink = item.viewItemURL;
-            imageSource = item.galleryURL;
-            itemPrice = item.price;
-            itemLocation = item.location;
-            itemSeller = item.seller;
-            itemSellerRating = item.sellerRating;
-            itemCategory = item.categoryName;
-            itemCondition = item.conditionType;
-        }
-
         return (
-            <Fragment>
+            <div class="container-fluid">
                 <div className="row">
                     <button
                         className="btn btn-secondary"
@@ -50,43 +83,89 @@ class ItemDetail extends React.Component {
                     >
                         Back to List
                         </button>
-                    <h1 className="item-detail-name">{itemName}</h1>
+
                 </div>
                 <div className="row">
-                    <div className="col-6">
-                        <img
-                            src={imageSource}
-                            className="item-detail-image"
-                        />
+                    <div className="col-5 detail-image h-25 mh-25">
+                        <ImageCarosel images={this.state.item.imageUrl ? this.state.item.imageUrl
+                        : []} />
                     </div>
-                    <div className="col-6">
+                    <div className="col-7">
                         <div className="item-detail-next-to-image">
-                            <h4 className="item-detail-next-to-image-category">Category</h4>
-                            <h6>{itemCategory}</h6>
+                            <b className="item-title">{ this.state.item.title ? this.state.item.title : "" } </b>
                         </div>
-                        <div className="item-detail-next-to-image">
-                            <h4 className="item-detail-next-to-image-category">Condition</h4>
-                            <h6>{itemCondition}</h6>
+
+                        <div className="row detail-image container-fluid">
+                        <div className="col-12">
+                        <span>
+                            <span className="condition-type-font">Seller: </span>
+                            <a href="#">
+                            <b className="price-title-font text-dark ml-2">
+                            {this.state.item.sellerId}
+                            </b>
+                            </a>
+                         </span>
+                         </div>
+                         <div className="col-12">
+                            <span>
+                               <span className="condition-type-font">Category: </span>
+                                 <b className="price-title-font ml-2">
+                                 {this.state.item.categoryName}
+                                    </b>
+                                    </span>
+                                   </div>
+                         <div className="col-12">
+                         <span>
+                          <span className="condition-type-font">Condition: </span>
+                          <b className="price-title-font ml-2">
+                            {this.state.item.conditionString}
+                             </b>
+                        </span>
+                         </div>
                         </div>
-                        <div className="item-detail-next-to-image">
-                            <h4 className="item-detail-next-to-image-category">Location</h4>
-                            <h6>{itemLocation}</h6>
+                        <div className="row detail-image container-fluid">
+                        <div className="col-12">
+                            <span>
+                                <b className="price-title-font"> Price: </b>
+                                <span className="price-font"> {this.state.item.value ? this.state.item.value : ""} </span>
+                            </span>
+                            </div>
+                        <div className="col-8 ml-0">
+                        <button type="button" className="btn btn-success w-100">Buy Now on eBay</button>
                         </div>
-                        <div className="item-detail-next-to-image">
-                            <h4 className="item-detail-next-to-image-category">Price</h4>
-                            <h6>{itemPrice}</h6>
+                        <div className="col-8 ml-0 mt-3">
+                       <button type="button" className="btn btn-warning w-100">Add to Cart</button>
+                       </div>
                         </div>
-                        <div className="item-detail-next-to-image">
-                            <h4 className="item-detail-next-to-image-category">Seller (Rating)</h4>
-                            <h6>{itemSeller} ({itemSellerRating})</h6>
                         </div>
-                    </div>
 
                 </div>
 
-                <a className="item-detail-description" href={itemLink}>Link to item on Ebay</a>
-            </Fragment>
+                <div className ="row h-25 w-100">
+                <div className ="col-12 mt-3 mb-3">
+                <h3> View Related Items </h3>
+
+                </div>
+                <div className="col-12 h-100 w-100">
+                    <Carousel responsive={this.responsive}>
+                      {this.state.relatedItems.map((item) => {
+                         return(
+                            <div>
+                            <ItemCard
+                            item={item}
+                            />
+                            </div>
+                        ) }
+                         )
+
+                      }
+                    </Carousel>
+                </div>
+               </div>
+
+            </div>
         )
+
     }
 }
 

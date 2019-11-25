@@ -1,4 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
+
 
 var divStyle = {
 	width: '100%',
@@ -28,11 +30,13 @@ const ItemCard = ({item, setItemId})  => {
 	<div className="card-body mt-0 ml-0 pl-0 mb-0 pt-0">
 
 	<div className ="row ml-1">
-        <b 
-            className="item-name"
-            onClick={() => {setItemId(item.itemId)}}> 
+
+            <Link to={`/item-detail/${item.itemId}`}>
+            <b
+                        className="item-name">
                 {item.title} 
             </b>
+            </Link>
 	</div>
 
 	<div className ="row mt-0 pl-0 ml-1">
