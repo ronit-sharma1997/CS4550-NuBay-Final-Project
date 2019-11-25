@@ -67,10 +67,7 @@ export default class NuBayManager extends React.Component {
                     </div>
 
                     <div className={this.props.showItemDetail ? "" : "d-none"}>
-                        <ItemDetail
-                            item={this.props.items.filter(item => item.itemId == this.props.currentItemID)}
-                            setItemIdFunc={this.props.setItemId}
-                            />
+                        <ItemDetail/>
                     </div>
 
                 </div>
