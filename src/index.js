@@ -14,9 +14,7 @@ import NuBayReducer from './reducers/NuBayReducer'
 const store = createStore(NuBayReducer, {})
 
 ReactDOM.render(
- <Provider store={store}>
-    <NuBayContainer/>
-</Provider>
+ <App/>
 , document.getElementById('root'))
 
 

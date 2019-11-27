@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import NuBayManager from "./Container/NuBayManager";
+import ProfileTabs from "./Component/ProfileTabs";
+
+
 
 function App() {
   return (
     <div className="App">
-      <NuBayManager/>
+      <ProfileTabs/>
     </div>
   );
 }
