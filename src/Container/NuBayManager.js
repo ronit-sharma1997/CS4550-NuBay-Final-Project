@@ -11,7 +11,8 @@ export default class NuBayManager extends React.Component {
         super(props)
         this.searchStringChanged = this.searchStringChanged.bind(this)
         this.state = {
-        searchText : ""
+        searchText : "",
+        previousSearchTerm: ""
         }
     }
 
@@ -27,6 +28,11 @@ export default class NuBayManager extends React.Component {
     makeSearchHappen = () => {
         this.props.setItemId(0);
         this.props.makeSearch(this.state.searchText);
+        this.setState(prevState => ({
+            ...prevState,
+            previousSearchTerm: prevState.searchText,
+                searchText: ""
+        }))
     }
 
 
@@ -48,13 +54,13 @@ export default class NuBayManager extends React.Component {
                 />
 
                 <div className={this.props.showItemDetail ? "d-none" : ""}>
-                    <NuBayManagerHeaderBar/>
+                    <NuBayManagerHeaderBar searchResult={this.state.previousSearchTerm}/>
                 </div>
 
                 <button
                     className="floating-action-button"
                     onClick={this.props.makeSearch}>
-                    <i class="fa fa-plus-circle fa-2x"></i>
+                    <i className="fa fa-plus-circle fa-2x"></i>
                 </button>
 
                 <div className="container-fluid">

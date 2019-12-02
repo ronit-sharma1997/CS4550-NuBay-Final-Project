@@ -17,19 +17,19 @@ const store = createStore(NuBayReducer, {})
 
 ReactDOM.render(
 <Router>
-   <div className ="row h-100">
-   <div className="col-12">
-   <Provider store={store}>
+  <div className ="row h-100">
+  <div className="col-12">
+  <Provider store={store}>
 
 
-   <Route exact path="/item-detail/:id" component={ItemDetail}/>
+  <Route exact path="/item-detail/:id" component={ItemDetail}/>
 
 <Route exact path="/" component={NuBayContainer}/>
-     </Provider>
+    </Provider>
 </div>
 </div>
 </Router>
-, document.getElementById('root'))
+   , document.getElementById('root'))
 
 
 // If you want your app to work offline and load faster, you can change
