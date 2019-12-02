@@ -1,69 +1,140 @@
 import React from 'react'
+import { Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    Dropdown, Button } from 'reactstrap';
 
-const NuBayManagerNavBar = ({onSearchPressed, searchText, onSearchTextChanged}) => {
+export class NuBayManagerNavBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.toggle = this.toggle.bind(this);
+        this.toggleDropDownSearch = this.toggleDropDownSearch.bind(this);
+        this.toggleDropDownSignIn = this.toggleDropDownSignIn(this);
+        this.onMouseEnterSignIn = this.onMouseEnterSignIn.bind(this);
+        this.onMouseLeaveSignIn = this.onMouseLeaveSignIn.bind(this);
+        this.onMouseEnterSearch = this.onMouseEnterSearch.bind(this);
+        this.onMouseLeaveSearch = this.onMouseLeaveSearch.bind(this);
+        this.state = {
+            dropdownOpenSignIn: false,
+            dropdownSearch: false,
+            isOpen: false
+        };
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+            ...prevState,
+            isOpen: !prevState.isOpen
+        }))
+
+    }
+
+    toggleDropDownSignIn() {
+        this.setState(prevState => ({
+            ...prevState,
+            dropdownOpenSignIn: !prevState.dropdownOpenSignIn
+        }));
+    }
+
+    toggleDropDownSearch() {
+        this.setState(prevState => ({
+            ...prevState,
+            dropdownSearch: !prevState.dropdownSearch
+        }));
+    }
+
+
+    onMouseEnterSignIn() {
+        this.setState(prevState => ({
+            ...prevState,
+            dropdownOpenSignIn: true
+        }));
+    }
+
+    onMouseLeaveSignIn() {
+        this.setState(prevState => ({
+            ...prevState,
+            dropdownOpenSignIn: false
+        }));
+    }
+
+    onMouseEnterSearch() {
+        this.setState(prevState => ({
+            ...prevState,
+            dropdownSearch: true
+        }));
+    }
+
+    onMouseLeaveSearch() {
+        this.setState(prevState => ({
+            ...prevState,
+            dropdownSearch: false
+        }));
+    }
+
+    afterSubmission(event, onSearchPressed, searchText) {
+        event.preventDefault()
+        onSearchPressed(searchText)
+    }
+
+
+    render() {
         return (
-            <div className="row">
-                <div className="col-12">
-                <nav className="navbar sticky-top navbar-expand-xl navbar-dark bg-dark">
-                    <div className="col-1">
-                    <a href="#" className="wbdv-field wbdv-hamburger">
-                        <i className="fa fa-bars fa-2x"></i>
-                    </a>
-                    </div>
-
-                    <div className="col-1">
-                    <div className="d-sm-inline-block d-none">
-                        <span className="navbar-brand wbdv-label wbdv-course-manager" href="#">
-                            <b>NuBay</b>
-                        </span>
-                    </div>
-                    </div>
-
-                    <div className="col-7 mr-0 pr-0">
-                    <form className="form my-auto wbdv-new-course-form">
-                        <input
-                            className="form-control wbdv-field wbdv-new-course"
-                            type="text"
-                            placeholder="Search Item Here"
-                            value={searchText}
-                            onChange={onSearchTextChanged}
-                        />
-                    </form>
-                    </div>
-                    <div className="col-1 pl-0 ml-0 my-auto justify-content-start">
-                        <button
-                            className="btn wbdv-button wbdv-add-course float-left bg-danger"
-                            type='button'
-                            onClick={() => onSearchPressed(searchText)}
-                        >
-                            <i className="fa fa-search fa-2x" style={{color:'white'}}></i>
-                        </button>
-
-                    </div>
-
-                    <div className="col-1 ">
-                        <div className="d-sm-inline-block d-none">
-                        <span className="navbar-brand wbdv-label wbdv-course-manager" href="#">
-                            <b>Hello!<br/>Jose</b>
-                        </span>
-                        </div>
-                    </div>
-
-                    <div className="col-2 my-auto justify-content-start">
-                        <button
-                            className="btn wbdv-button wbdv-add-course float-left"
-                            type='button'
-                            
-                                >
-                            }
-                            <i className="fa fa-shopping-cart fa-2x" style={{color:'white'}}></i>
-                        </button>
-
-                    </div>
-
-                </nav>
-            </div>
+            <div>
+                <Navbar sticky={true} color="dark" dark expand="md">
+                    <NavbarBrand href="/">NuBay</NavbarBrand>
+                    <NavbarToggler onClick={() => this.toggle()} />
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                        <Nav className="ml-auto" navbar>
+                            <UncontrolledDropdown className="mr-3" onMouseOver={this.onMouseEnterSearch} onMouseLeave={this.onMouseLeaveSearch} isOpen={this.state.dropdownSearch} toggle={this.toggleDropDownSearch} nav inNavbar>
+                                <DropdownToggle nav>
+                                    <i className="fa fa-search"></i> Search
+                                </DropdownToggle>
+                                <div id="searchBar">
+                                <DropdownMenu right>
+                                    <form onSubmit={(event) => this.afterSubmission(event, this.props.onSearchPressed, this.props.searchText)}>
+                                    <input height={'200px'} type="text" className="form-control"
+                                           placeholder="What can we help you find?"
+                                           value={this.props.searchText}
+                                           onChange={this.props.onSearchTextChanged}
+                                           />
+                                    </form>
+                                </DropdownMenu>
+                                </div>
+                            </UncontrolledDropdown>
+                            <UncontrolledDropdown onMouseOver={this.onMouseEnterSignIn} onMouseLeave={this.onMouseLeaveSignIn} isOpen={this.state.dropdownOpenSignIn} toggle={this.toggleDropDownSignIn} nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    Sign In
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <Button size={"md"} className="btn btn-primary CenterSignIn">
+                                        Sign In
+                                    </Button>
+                                    <DropdownItem disabled/>
+                                    <DropdownItem disabled/>
+                                    <DropdownItem disabled/>
+                                    <Button size={"md"} className="btn btn-primary CenterRegister">
+                                        Register
+                                    </Button>
+                                    <DropdownItem divider />
+                                    <DropdownItem>
+                                        <b className="ml-2">Your Account</b>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </Nav>
+                    </Collapse>
+                </Navbar>
             </div>
         )
+    }
 }
 export default NuBayManagerNavBar

@@ -1,14 +1,14 @@
 import React, {Fragment} from 'react'
 
-const NuBayManagerHeaderBar = () => {
+const NuBayManagerHeaderBar = ({searchResult}) => {
 
 return(
     <div className="row bg-light">
         <div className="col-12 col-md-12">
             <nav className="navbar navbar-light bg-light d-none d-md-block">
                 <div className="container-fluid ">
-                    <div className="col-10" style={{"text-align": "left"}}>
-                        <b>100 results for "bose"</b>
+                    <div className="col-10" style={{"textAlign": "left"}}>
+                        <b>100 results for {searchResult}</b>
                     </div>
                     <div className="col-2 pl-2 justify-content-end">
                         <select className="custom-select" defaultValue="Sort by: ">
