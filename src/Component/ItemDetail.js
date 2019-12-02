@@ -70,16 +70,8 @@ class ItemDetail extends React.Component {
     render() {
         return (
             <div class="container-fluid">
-                <div className="row">
-                    <button
-                        className="btn btn-secondary"
-                        onClick={() => { this.props.setItemIdFunc(0) }}
-                    >
-                        Back to List
-                        </button>
 
-                </div>
-                <div className="row">
+                <div className=" mt-2 row">
                     <div className="col-5 h-25 mh-25">
                     <div className="row detail-image">
                     <div className="col-12 h-100">

@@ -1,8 +1,13 @@
 import React from 'react'
 import ItemCard from './ItemCard'
 import ItemRow from './ItemRow'
+import NuBayManagerHeaderBar from "./NuBayManagerHeaderBar";
+const NuBayTable = ({items, setItemIdFunc, showItemDetail,previousSearchTerm}) =>
 
-const NuBayTable = ({items, setItemIdFunc}) =>  
+<div>
+<div className={showItemDetail ? "d-none" : ""}>
+                    <NuBayManagerHeaderBar searchResult={previousSearchTerm}/>
+                </div>
 
 <div className="row ml-3">
 
@@ -21,6 +26,8 @@ const NuBayTable = ({items, setItemIdFunc}) =>
 
 }})}
 
+
+</div>
 
 </div>
 

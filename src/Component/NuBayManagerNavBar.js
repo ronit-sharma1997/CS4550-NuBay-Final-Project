@@ -110,7 +110,9 @@ export class NuBayManagerNavBar extends React.Component {
                                 </DropdownMenu>
                                 </div>
                             </UncontrolledDropdown>
-                            <UncontrolledDropdown onMouseOver={this.onMouseEnterSignIn} onMouseLeave={this.onMouseLeaveSignIn} isOpen={this.state.dropdownOpenSignIn} toggle={this.toggleDropDownSignIn} nav inNavbar>
+                            <UncontrolledDropdown onMouseOver={this.onMouseEnterSignIn}
+                            onMouseLeave={this.onMouseLeaveSignIn}
+                            isOpen={this.state.dropdownOpenSignIn} toggle={this.toggleDropDownSignIn} nav inNavbar>
                                 <DropdownToggle nav caret>
                                     Sign In
                                 </DropdownToggle>

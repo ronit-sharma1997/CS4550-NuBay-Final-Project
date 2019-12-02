@@ -4,6 +4,8 @@ import NuBayManagerNavBar from "../Component/NuBayManagerNavBar";
 import NuBayManagerHeaderBar from "../Component/NuBayManagerHeaderBar";
 import NuBayTable from "../Component/NuBayTable";
 import ItemDetail from '../Component/ItemDetail';
+import {BrowserRouter as Router,Route}
+	from 'react-router-dom';
 
 export default class NuBayManager extends React.Component {
 
@@ -53,32 +55,31 @@ export default class NuBayManager extends React.Component {
                 onSearchTextChanged= {this.searchStringChanged}
                 />
 
-                <div className={this.props.showItemDetail ? "d-none" : ""}>
-                    <NuBayManagerHeaderBar searchResult={this.state.previousSearchTerm}/>
-                </div>
 
-                <button
-                    className="floating-action-button"
-                    onClick={this.props.makeSearch}>
-                    <i className="fa fa-plus-circle fa-2x"></i>
-                </button>
+
+
 
                 <div className="container-fluid">
+                    <Router>
+                           <Route exact path="/item-detail/:id" component={ItemDetail}/>
 
-                    <div className={this.props.showItemDetail ? "d-none" : ""}>
-                        <NuBayTable 
+                    <Route exact path ="/" render={(props) =>
+                        <NuBayTable
+                            {...props}
                             items={this.props.items}
                             setItemIdFunc={this.props.setItemId}
-                            />
-                    </div>
+                            showItemDetail={this.props.showItemDetail}
+                            searchResult={this.state.previousSearchTerm}
 
-                    <div className={this.props.showItemDetail ? "" : "d-none"}>
-                        <ItemDetail/>
-                    </div>
+                            />}/>
 
-                </div>
+
+            </Router>
 
             </div>
+
+            </div>
+
         )
     }
 }

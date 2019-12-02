@@ -16,19 +16,14 @@ import ItemDetail from './Component/ItemDetail'
 const store = createStore(NuBayReducer, {})
 
 ReactDOM.render(
-<Router>
   <div className ="row h-100">
   <div className="col-12">
   <Provider store={store}>
+    <NuBayContainer/>
 
-
-  <Route exact path="/item-detail/:id" component={ItemDetail}/>
-
-<Route exact path="/" component={NuBayContainer}/>
     </Provider>
 </div>
 </div>
-</Router>
    , document.getElementById('root'))
 
 
