@@ -11,7 +11,7 @@ export default class NuBayService {
     }
 
 	getEbayItems(text,callback) {
-        let ebayUrl = `https://peaceful-caverns-80012.herokuapp.com/api/ebayItems/${text}`
+        let ebayUrl = `http://localhost:8080/api/ebayItems/${text}`
         fetch(ebayUrl).then(response => response.json()).then(callback)
 	}
 

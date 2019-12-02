@@ -13,7 +13,8 @@ code {
 }
 
 .subTextFont {
-	font-size: 13px;
+	font-size: 17px;
+	font-weight:550;
 }
 
 .cardTitleFont {
@@ -30,7 +31,7 @@ code {
 
 .card-image{
   height: 24vh;
-  width:15vw;
+  width:18vw;
 
 }
 .detail-image {
@@ -68,16 +69,136 @@ width: 30%;
 }
 
 .item-name{
-  font-size: 14px
+  font-size: 19px;
+  color:black;
+  height:5vh;
+  font-weight: 450;
 }
 
-.item-name:hover{
+.item-detail-name{
+  font-size: 19px;
+  color:black;
+  height:5vh;
+  font-weight: 480;
+}
+
+.seller-link{
+font-size:17px;
+font-weight:500;
+}
+
+.item-categories {
+    font-size: 17px;
+    font-weight: 350;
+    color:grey;
+}
+
+.item-quantity-detail {
+    font-size:17px;
+    font-weight:450;
+    color:black;
+}
+
+.more-details-font {
+    font-size: 21px;
+    font-weight:550;
+}
+
+.view-related-items-font {
+    font-size: 23px;
+    font-weight:550;
+}
+
+
+
+
+.more-detail-items {
+    font-size: 15px;
+    font-weight:300;
+}
+
+.item-condition-detail {
+font-size:16px;
+font-weight:450;
+color:grey;
+
+}
+
+.item-detail-price {
+font-size: 18px;
+}
+
+.description-text {
+    font-size:14px;
+    font-weight:350;
+}
+
+
+.item-detail-shipping-cost {
+color: grey;
+font-size:14px;
+font-weight:450;
+}
+
+.shipping-cost{
+  font-size:14px;
+  font-weight: 500;
+  color:black;
+}
+
+.price-label-detail {
+
+
+}
+
+
+.price-stars {
+  position: 'absolute';
+   left: '50%';
+   top: '80%';
+    transform: 'translate(-50%, -50%)'
+
+}
+
+
+.condition-text {
+font-weight: 450;
+    font-size:16px;
+    color:grey;
+}
+
+.price-string{
+font-size:22px;
+color:black;
+}
+
+
+.seller-link {
+ text-decoration: underline;
+ color:grey;
+ font-size:16px;
+ font-weight:400;
+}
+
+.table-image-width {
+    width:80%
+}
+
+.card-item-title{
+ font-size:14px;
+ font-weight:450;
+ color:black;
+
+}
+
+.card-item-title:hover{
     cursor: pointer;
+
 }
 
 .card-size {
   height:auto;
-  width:15vw;
+  width:18vw;
 }
 
 

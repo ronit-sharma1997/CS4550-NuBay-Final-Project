@@ -1,5 +1,6 @@
 import React from 'react'
 import ItemCard from './ItemCard'
+import ItemRow from './ItemRow'
 
 const NuBayTable = ({items, setItemIdFunc}) =>  
 
@@ -9,12 +10,13 @@ const NuBayTable = ({items, setItemIdFunc}) =>
 
 {return(
 	
-	<div className="col-12 mh-25 col-md-4 col-lg-3">
-    <ItemCard 
+	<table className ="table row col-12">
+    <tbody className="col-12">
+    <ItemRow
         item={item}
-        setItemId={setItemIdFunc}
         />
-	</div>
+    </tbody>
+	</table>
 	)
 
 }})}
