@@ -9,7 +9,7 @@ import {BrowserRouter as Router,Route}
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../node_modules/font-awesome/css/font-awesome.css'
-import NuBayContainer from './containers/NuBayContainer';
+import NuBayContainer from './Container/NuBayContainer';
 import ListItemComponent from './Component/ListItemComponent'
 import NuBayReducer from './reducers/NuBayReducer'
 import ItemDetail from './Component/ItemDetail'
@@ -28,6 +28,10 @@ ReactDOM.render(
 </div>
 </div>
    , document.getElementById('root'))
+
+// ReactDOM.render(
+//     <App/>
+//     , document.getElementById('root'))
 
 
 // If you want your app to work offline and load faster, you can change

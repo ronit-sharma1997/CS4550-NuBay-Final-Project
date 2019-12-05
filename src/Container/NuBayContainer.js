@@ -1,5 +1,5 @@
 import React from 'react'
-import NuBayManager from '../Container/NuBayManager';
+import NuBayManager from './NuBayManager';
 import {createStore} from 'redux'
 import NuBayService from '../services/NuBayService'
 import {Provider} from 'react-redux'   
