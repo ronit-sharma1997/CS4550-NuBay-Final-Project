@@ -15,18 +15,14 @@ const ProfileDetails = () => {
             </div>
             <div className="row">
                 <div className="col-6" align={"end"}>
-                    <a href="#">
-                        <div className="btn-group">
-                            <button className="btn"><span><b>10</b></span> Following</button>
+                        <div className="btn-group disabled">
+                            <button className="btn"><span><b>10</b></span> Listings</button>
                         </div>
-                    </a>
                 </div>
                 <div className="col-6" align={"start"}>
-                    <a href="#">
-                        <div className="btn-group">
-                            <button className="btn"><span><b>10</b></span> Followers</button>
+                        <div className="btn-group disabled">
+                            <button className="btn"><span><b>10</b></span> Bookmarks</button>
                         </div>
-                    </a>
                 </div>
             </div>
             <br/>

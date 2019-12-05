@@ -13,9 +13,11 @@ import NuBayReducer from './reducers/NuBayReducer'
 
 const store = createStore(NuBayReducer, {})
 
+
 ReactDOM.render(
- <App/>
-, document.getElementById('root'))
+<App/>
+   , document.getElementById('root'))
+
 
 
 // If you want your app to work offline and load faster, you can change
