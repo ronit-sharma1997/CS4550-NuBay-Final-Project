@@ -26,9 +26,7 @@ const ItemCard = ({item, setItemId})  => {
 	<div className="card-body mt-0 ml-0 pl-0 mb-0 pt-0">
 
 	<div className ="row ml-1">
-
             <Link to={`/item-detail/${item.itemId}`}>
-
                <b className="card-item-title">
                 {item.title}
                 </b>
