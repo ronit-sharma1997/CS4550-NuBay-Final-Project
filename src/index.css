@@ -31,7 +31,7 @@ code {
 
 .card-image{
   height: 24vh;
-  width:18vw;
+  width:100%;
 
 }
 .detail-image {
@@ -219,7 +219,7 @@ color:black;
 
 .card-size {
   height:auto;
-  width:18vw;
+  width:100%;
 }
 
 
