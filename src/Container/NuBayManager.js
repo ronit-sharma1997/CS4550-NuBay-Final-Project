@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import NuBayManagerNavBar from "../Component/NuBayManagerNavBar";
 import NuBayManagerHeaderBar from "../Component/NuBayManagerHeaderBar";
 import NuBayTable from "../Component/NuBayTable";
+import ListItemComponent from '../Component/ListItemComponent'
 import ItemDetail from '../Component/ItemDetail';
 import {BrowserRouter as Router,Route}
 	from 'react-router-dom';
@@ -72,7 +73,11 @@ export default class NuBayManager extends React.Component {
                             searchResult={this.state.previousSearchTerm}
 
                             />}/>
+                    <Route exact path ="/list-new-item" render={(props) =>
+                                            <ListItemComponent
+                                                {...props}
 
+                                                />}/>
 
             </Router>
 

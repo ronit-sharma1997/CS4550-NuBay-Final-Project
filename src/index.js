@@ -10,6 +10,7 @@ import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../node_modules/font-awesome/css/font-awesome.css'
 import NuBayContainer from './containers/NuBayContainer';
+import ListItemComponent from './Component/ListItemComponent'
 import NuBayReducer from './reducers/NuBayReducer'
 import ItemDetail from './Component/ItemDetail'
 
@@ -18,10 +19,12 @@ const store = createStore(NuBayReducer, {})
 ReactDOM.render(
   <div className ="row h-100">
   <div className="col-12">
+
   <Provider store={store}>
     <NuBayContainer/>
 
     </Provider>
+
 </div>
 </div>
    , document.getElementById('root'))

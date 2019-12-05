@@ -151,7 +151,10 @@ font-weight:450;
 
 }
 
-
+.preview-image-height{
+    width:25%;
+    height:15%;
+}
 .price-stars {
   position: 'absolute';
    left: '50%';
@@ -160,6 +163,24 @@ font-weight:450;
 
 }
 
+.big-image-pick-size {
+    height:20vw;
+    width:23vw;
+
+}
+
+
+.delete-picture-button {
+    position:absolute;
+    height:10%;
+
+
+}
+.pick-image-size {
+    width:13vw;
+    height:10vw;
+
+}
 
 .condition-text {
 font-weight: 450;

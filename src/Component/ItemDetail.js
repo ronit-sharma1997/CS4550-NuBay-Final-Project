@@ -75,7 +75,7 @@ class ItemDetail extends React.Component {
                     <div className="col-5 h-25 mh-25">
                     <div className="row detail-image">
                     <div className="col-12 h-100">
-                        <ImageCarosel images={this.state.item.imageUrl ? this.state.item.imageUrl
+                        <ImageCarosel className="mh-100"images={this.state.item.imageUrl ? this.state.item.imageUrl
                         : []} />
                         </div>
                         </div>
