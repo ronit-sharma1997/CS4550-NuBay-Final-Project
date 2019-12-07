@@ -7,8 +7,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 class ListItemComponent extends React.Component {
 constructor(props) {
         super(props);
-        this.state = { pictures: [],images:[],images2:[] };
+        this.state = { pictures: [],images:[],images2:[]};
 		this.onDrop = this.onDrop.bind(this);
+		this.getBaseUrlFromImage = this.getBaseUrlFromImage.bind(this)
 		this.onImageDelete = this.onImageDelete.bind(this);
 		this.onImageSelected = this.onImageSelected.bind(this);
 		this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
@@ -30,13 +31,29 @@ constructor(props) {
  }
 
  onImageSelected(index) {
+ var result = "https://www.nba.com/images/cms/2019-12/GettyImages-1186307216.jpg?cw=2090&w=2241&x=0&ch=1176&h=1494&y=74"
+ debugger;
+   result = this.getBaseUrlFromImage((this.state.pictures[0]))
     this.setState(prevState => ({
         ...prevState,
-        editingPhoto: prevState.images[index]
+        editingPhoto:result
 
     }))
 
  }
+
+
+ getBaseUrlFromImage(file) {
+    var fileReader = new FileReader()
+    fileReader.readAsDataURL(file)
+    fileReader.addEventListener("load",function() {
+     debugger;
+         return fileReader.result
+
+        })
+    }
+
+
 
 
  onDrop(pictureFiles) {

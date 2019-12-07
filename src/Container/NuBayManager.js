@@ -4,6 +4,7 @@ import NuBayManagerNavBar from "../Component/NuBayManagerNavBar";
 import NuBayManagerHeaderBar from "../Component/NuBayManagerHeaderBar";
 import NuBayTable from "../Component/NuBayTable";
 import ListItemComponent from '../Component/ListItemComponent'
+import HomePage from '../Component/HomePage'
 import ItemDetail from '../Component/ItemDetail';
 import {BrowserRouter as Router,Route}
 	from 'react-router-dom';
@@ -78,6 +79,11 @@ export default class NuBayManager extends React.Component {
                                                 {...props}
 
                                                 />}/>
+                    <Route exact path ="/home" render={(props) =>
+                                    <HomePage
+                                      {...props}
+
+                                      />}/>
 
             </Router>
 

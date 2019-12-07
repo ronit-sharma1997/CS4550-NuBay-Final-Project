@@ -119,7 +119,7 @@ class ItemDetail extends React.Component {
                                                 </div>
                         <div className="col-12 ml-0">
                           <span>
-                           <a href="#">
+                           <a href={"https://www.ebay.com/usr/".concat(this.state.item.sellerId)}>
                          <span className="seller-link text-dark">
                            {this.state.item.sellerId}
                            </span>
