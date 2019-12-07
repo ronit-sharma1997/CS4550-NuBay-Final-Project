@@ -54,8 +54,8 @@ export default class ServiceItemService {
             })
     }
 
-    // Update an item via itemid
-    // Return newly updated item object
+    // Update a service item via service item id
+    // Return newly updated service item object
     updateServiceItem(serviceItem, serviceItemId, callback) {
         fetch(this.EbayURL + 'serviceitems/' + serviceItemId, {
             method: 'put', 
