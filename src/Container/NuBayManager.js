@@ -1,43 +1,20 @@
 import React, { Fragment } from 'react'
 
 import NuBayManagerNavBar from "../Component/NuBayManagerNavBar";
-import NuBayManagerHeaderBar from "../Component/NuBayManagerHeaderBar";
 import NuBayTable from "../Component/NuBayTable";
 import ListItemComponent from '../Component/ListItemComponent'
 import ItemDetail from '../Component/ItemDetail';
 import {BrowserRouter as Router,Route}
 	from 'react-router-dom';
+import LoginPage from "../Component/LoginPage";
+import RegisterPage from "../Component/RegisterPage";
+import ProfileTabs from "./ProfileTabs";
 
 export default class NuBayManager extends React.Component {
 
     constructor (props) {
         super(props)
-        this.searchStringChanged = this.searchStringChanged.bind(this)
-        this.state = {
-        searchText : "",
-        previousSearchTerm: ""
-        }
     }
-
-
-    searchStringChanged = (event) => {
-        let newValue = event.target.value;
-        this.setState(prevState => ({
-            ...prevState,
-            searchText: newValue
-        }))
-    }
-
-    makeSearchHappen = () => {
-        this.props.setItemId(0);
-        this.props.makeSearch(this.state.searchText);
-        this.setState(prevState => ({
-            ...prevState,
-            previousSearchTerm: prevState.searchText,
-                searchText: ""
-        }))
-    }
-
 
 
     render() {
@@ -45,45 +22,43 @@ export default class NuBayManager extends React.Component {
         console.log(this.props);
     
         return (
+            <Router>
             <div className="h-100">
-                {/* <h1>
-                    Manager
-                </h1> */}
-
-                <NuBayManagerNavBar
-                onSearchPressed={this.makeSearchHappen}
-                searchText={this.state.searchText}
-                onSearchTextChanged= {this.searchStringChanged}
-                />
 
 
+                <Route exact path="/login" render={(props) => <LoginPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
+                <Route exact path="/register" render={(props) => <RegisterPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
+
+                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id", "/list-new-item"]} render={(props) =>
+                    <NuBayManagerNavBar
+                        {...props}
+                        searchText={this.props.searchText}
+                        onSearchTextChanged= {this.props.searchStringChanged}
+                    />}/>
+                <Route exact path="/profile/:id" component={ProfileTabs}/>
+
+                <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
 
 
 
-                <div className="container-fluid">
-                    <Router>
-                           <Route exact path="/item-detail/:id" component={ItemDetail}/>
 
-                    <Route exact path ="/" render={(props) =>
+                           <Route exact path="/details/:id" component={ItemDetail}/>
+                <div style={{'backgroundColor': '#EAEDED'}}>
+                    <Route exact path ="/search/:searchTerm" render={(props) =>
                         <NuBayTable
                             {...props}
-                            items={this.props.items}
-                            setItemIdFunc={this.props.setItemId}
-                            showItemDetail={this.props.showItemDetail}
-                            searchResult={this.state.previousSearchTerm}
-
                             />}/>
+                </div>
                     <Route exact path ="/list-new-item" render={(props) =>
                                             <ListItemComponent
                                                 {...props}
-
                                                 />}/>
 
+
+
+
+            </div>
             </Router>
-
-            </div>
-
-            </div>
 
         )
     }

@@ -52,7 +52,7 @@ class ItemDetail extends React.Component {
         if(props.match) {
 
         this.nuBayService.getEbayItemById(props.match.params.id, this.setItem)
-}
+    }
     }
 
     setItem(item) {
@@ -70,6 +70,12 @@ class ItemDetail extends React.Component {
               ...prevState,
               relatedItems: items
             }))
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.match.params.id != nextProps.match.params.id) {
+            this.nuBayService.getEbayItemById(nextProps.match.params.id, this.setItem)
+        }
     }
 
     render() {

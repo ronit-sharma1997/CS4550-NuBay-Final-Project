@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 
-const NuBayManagerHeaderBar = ({searchResult}) => {
+const NuBayManagerHeaderBar = ({itemlength, searchResult}) => {
 
 return(
     <div className="row bg-light">
@@ -8,7 +8,7 @@ return(
             <nav className="navbar navbar-light bg-light d-none d-md-block">
                 <div className="container-fluid ">
                     <div className="col-10" style={{"textAlign": "left"}}>
-                        <b>100 results for {searchResult}</b>
+                        <b>{itemlength} results for "{searchResult}"</b>
                     </div>
                     <div className="col-2 pl-2 justify-content-end">
                         <select className="custom-select" defaultValue="Sort by: ">

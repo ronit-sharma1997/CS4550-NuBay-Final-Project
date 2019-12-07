@@ -22,7 +22,7 @@ export default class UserService {
     findUserById(userId, callback) {
         fetch(this.EbayURL + 'users/' + userId)
         .then(response => response.json())
-        .then(user => callback(user))
+        .then(callback)
     }
 
     // Return an integer depending on result
@@ -38,8 +38,8 @@ export default class UserService {
             headers: {
                 'content-type': 'application/json'   }
             })
-            .then(response => console.log("Create User Result: " + response))
-            .then(result => callback(result))
+            .then(response => response.json())
+            .then(actualResponse => callback(actualResponse))
     }
 
     // Return an integer depending on result
@@ -54,7 +54,7 @@ export default class UserService {
             headers: {
                 'content-type': 'application/json'   }
             })
-            .then(response => console.log("Login User Result: " + response))
+            .then(response => response.json())
             .then(result => callback(result))
     }
 
