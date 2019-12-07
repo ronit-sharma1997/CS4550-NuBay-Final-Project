@@ -11,12 +11,14 @@ export default class UserService {
 
     EbayURL = 'https://peaceful-caverns-80012.herokuapp.com/api/'
 
+    // Return array of user objects
 	getAllUsers(callback) {
         fetch(this.EbayURL + 'users')
         .then(response => response.json())
         .then(users => callback(users))
     }
     
+    // Return one user object
     findUserById(userId, callback) {
         fetch(this.EbayURL + 'users/' + userId)
         .then(response => response.json())
@@ -56,7 +58,8 @@ export default class UserService {
             .then(result => callback(result))
     }
 
-    // NOTE: Technically, userId is not necessary.
+    // Update a user via user object and user id 
+    // NOTE: Technically, userId is not necessary. (should be able to access from user object)
     updateUser(user, userId, callback) {
         fetch(this.EbayURL + 'users/' + userId, {
             method: 'put', 
@@ -69,10 +72,36 @@ export default class UserService {
     }
 
     // Bookmark Item
+    // Return 0 if success
+    bookmarkItemForUser(userId, itemId, callback) {
+        fetch(this.EbayURL + 'users/' + userId + '/bookmarks/' + itemId, {
+            method: 'post', 
+            body: [],
+            headers: {
+                'content-type': 'application/json'   }
+            })
+            .then(response => console.log("Bookmark Item Result: " + response))
+            .then(result => callback(result))
+    }
 
     // Get Bookmarked Items
+    // Returns List of Bookmarked Items
+    getBookmarkedItemsForUser(userId, callback) {
+        fetch(this.EbayURL + 'users/' + userId + '/bookmarks')
+        .then(response => response.json())
+        .then(bookmarkedItemList => callback(bookmarkedItemList))
+    }
 
     // Delete Bookmarked Items
-
+    // Return 0 if success
+    deleteBookmarkedItemForUser(userId, itemId, callback) {
+        fetch(this.EbayURL + 'users/' + userId + '/bookmarks/' + itemId, {
+            method: 'delete', 
+            headers: {
+                'content-type': 'application/json'   }
+            })
+            .then(response => console.log("Deleted Bookmark Item Result: " + response))
+            .then(result => callback(result))
+    }
 }
 
