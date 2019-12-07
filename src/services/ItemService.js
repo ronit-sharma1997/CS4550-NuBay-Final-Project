@@ -26,7 +26,6 @@ export default class ItemService {
     }
 
     // Return an Item object if successful
-    // NOTE: Not sure if the .then() clauses are set up correctly
     createItemForUser(userId, item, callback) {
         fetch(this.EbayURL + 'users/' + userId + '/items', {
             method: 'post', 
