@@ -45,7 +45,7 @@ class ListItemComponent extends React.Component {
 
  }
  onImageDelete(selectedIndex) {
- debugger;
+
     this.setState(prevState => ({
         ...prevState,
         editingPhoto: prevState.editingPhoto == prevState.images[this.selectedIndex] ? null :
@@ -105,83 +105,6 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
 }))}
 
 
- renderGrid(index) {
- if(index < this.state.images.length) {
- return (
-    <PickImageComponent image={this.state.images[index]}
-    index={index}
-    onImageDelete={this.onImageDelete}
-     onImageSelect={this.onImageSelected}/>)
- }
- if(index != 0 && index == this.state.images.length) {
-    return(
-    <div className="mh-100 h-100 w-100 mw-100">
-    <label className="btn justify-content-center w-100">
-
-    <i className="fa fa-4x justify-content-center fa-plus"></i>
-    <input type="file" onChange={this.fileSelectedHandler} style={{"display":"none"}}/>
-    </label>
-    </div>
-    )
- }
- else {
-    return <div> </div>
- }
-
- }
- render() {
-    return(
-    <div className="container-fluid mt-3">
-    <div className="container mt-2">
-    <div className="row">
-        <h2> List Your New Item </h2>
-    </div>
-    </div>
-    <div className="container border-bottom mt-2">
-    <div className="row">
-        <div className="col-8">
-            <h4> What is the name of your product? </h4>
-
-        </div>
-        </div>
-
-        <div className="form-group float-left col-12">
-                   <label htmlFor="title" className="col-form-label float-left">
-                            Product Name </label>
-                    <input className="form-control" id="title"
-                    placeholder="Product Title"/>
-              </div>
-
-    </div>
-    <div className="container mt-2">
-    <div className="row">
-            <div className="col-8 border-bottom">
-                <h4> Describe Your Product </h4>
-
-            </div>
-            </div>
-            <div className="form-group col-12">
-                               <label for="item-description"
-                               className="float-left">
-                                        Product Description </label>
-                                <textarea className="form-control" id="item-description"
-                                placeholder="Limit to 2 sentences"> </textarea>
-                          </div>
-
-    </div>
-    <div className="container mt-2 top-border">
-        <div className="row">
-                <div className="col-8 border-bottom">
-                    <h4> Pricing </h4>
-
-                </div>
-        this.state = {pictures: [], images: [], images2: []};
-        this.onDrop = this.onDrop.bind(this);
-        this.onImageDelete = this.onImageDelete.bind(this);
-        this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
-        // this.renderGrid = this.renderGrid.bind(this);
-
-    }
 
     onImageDelete(selectedIndex) {
         debugger;
