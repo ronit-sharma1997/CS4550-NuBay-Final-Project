@@ -2,53 +2,49 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Constants from '../constants/constants'
 
-const ItemRow = ({item}) => {
+const ItemRow = ({item, index}) => {
 var constants = Constants.getInstance()
 
 
 return(
-    <div className="row container-fluid">
-        <div className ="col-2">
-        <div className="detail-image table-image-width">
-            <img src={item.galleryURL} className="mx-auto w-100"/>
+    <div className="my-auto">
+        <div className="row">
+            <div className={index === 0 ? "col-md-3 col-12 mt-3" : "col-md-3 col-12"}>
+                <div className="detail-image table-image-width mx-auto my-auto">
+                    <img src={item.galleryURL} className="mx-auto w-100"/>
+                </div>
+            </div>
+            <div className="col-md-7 col-12 my-auto">
+                <div className="row">
+                    <div className="col-12 text-center text-md-left">
+                        <Link to={`/details/${item.itemId}`}>
+                            <b className="item-name"> {item.title} </b></Link>
+                    </div>
+                    <div className="col-12 text-center text-md-left">
+                        <span className="condition-text"> {item.condition} • {item.categoryName}</span>
+                    </div>
+                    <div className="col-12 text-center text-md-left">
+                            <a className="seller-link" href="#">
+                                {item.sellerName}
+                            </a>
+                    </div>
+                    <div className="col-12 mt-1 text-center text-md-left">
+                        <b className="price-string"> {constants.getItemPrice(item.__value__)}
+                        </b>
+                    </div>
+                    <div className="col-12 text-center text-md-left">
+                        <b className="shipping-cost"> {constants.getItemPrice(item.shippingCost)} Shipping </b>
+                    </div>
+                    <div className="col-12 text-center text-md-left">
+                            <button type="button" className="btn btn-success">Contact Seller</button>
+                            <button type="button" className="ml-2 btn btn-warning">Bookmark</button>
+                    </div>
+                </div>
             </div>
         </div>
-    <div className="col-7">
-    <div className="row">
-    <div>
-    <Link to={`/item-detail/${item.itemId}`}>
-    <b className="item-name"> {item.title} </b>
-    </Link>
-    </div>
-    </div>
-    <div className="row">
-     <span className="condition-text"> {item.condition} • {item.categoryName} </span>
-    </div>
-    <div className="row">
-    <a className="seller-link" href="#">
-    {item.sellerName}
-    </a>
-
+        <hr/>
     </div>
 
-    <div className="row mt-1">
-       <b className="price-string"> {constants.getItemPrice(item.__value__)}
-       </b>
-    </div>
-   <div className="row">
-    <b className="shipping-cost"> {constants.getItemPrice(item.shippingCost)} Shipping </b>
-   </div>
-   <div className="row mt-1">
-   <div className="justify-content-start ml-0 mr-1">
-   <button type="button" class="btn btn-success">Contact Seller</button>
-   </div>
-   <div className="">
-   <button type="button" class="btn btn-warning">Bookmark</button>
-   </div>
-   </div>
-</div>
-
-    </div>
 )
 
 }

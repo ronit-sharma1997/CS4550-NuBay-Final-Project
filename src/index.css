@@ -177,9 +177,8 @@ font-weight:450;
 
 }
 .pick-image-size {
-    width:13vw;
-    height:10vw;
-
+    height: 28vh;
+    /*padding-top: 56.25%;*/
 }
 
 .condition-text {
@@ -220,6 +219,10 @@ color:black;
 .card-size {
   height:auto;
   width:100%;
+}
+
+.thick-upload-picture-border {
+    border: 2px solid #dee2e6;
 }
 
 

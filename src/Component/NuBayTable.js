@@ -1,34 +1,69 @@
 import React from 'react'
-import ItemCard from './ItemCard'
 import ItemRow from './ItemRow'
 import NuBayManagerHeaderBar from "./NuBayManagerHeaderBar";
-const NuBayTable = ({items, setItemIdFunc, showItemDetail,previousSearchTerm}) =>
+import NuBayService from "../services/NuBayService";
 
-<div>
-<div className={showItemDetail ? "d-none" : ""}>
-                    <NuBayManagerHeaderBar searchResult={previousSearchTerm}/>
-                </div>
+class NuBayTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.nuBayService = NuBayService.getInstance()
+        this.setItems = this.setItems.bind(this);
+        this.state = {
+            items: [],
+            initialLoad: false
+        }
 
-<div className="row ml-3">
+        if(props.match) {
 
-{items.map((item) => { 
+            this.nuBayService.getEbayItems(props.match.params.searchTerm, this.setItems)
+        }
+    }
 
-{return(
-	
-	<table className ="table row col-12">
-    <tbody className="col-12">
-    <ItemRow
-        item={item}
-        />
-    </tbody>
-	</table>
-	)
+    setItems(items) {
+        debugger;
+        this.setState(prevState => ({
+            ...prevState,
+            items: items,
+            initialLoad: true
+        }))
+    }
 
-}})}
+    componentWillReceiveProps(nextProps) {
+        if (this.props.match.params.searchTerm != nextProps.match.params.searchTerm) {
+            this.nuBayService.getEbayItems(nextProps.match.params.searchTerm, this.setItems)
+        }
+    }
+
+    render() {
+        return(
+        <div>
+            <div className={this.props.initialLoad ? "d-none" : ""}>
+                <NuBayManagerHeaderBar itemlength={this.state.items.length} searchResult={this.props.match.params.searchTerm}/>
+            </div>
+            <div className="container" style={{'background-color': 'white'}}>
+                {this.state.items.length !== 0 && <div className="row">
+                    <div className="container-fluid">
+                    <h4>Ebay Items</h4>
+                    </div>
+                </div>}
+
+                {this.state.items.map( function(item, index) {
+
+                    {
+                        return (
+
+                            <ItemRow
+                                item={item}
+                                index={index}
+                            />
+                        )
+
+                    }
+                })}
 
 
-</div>
-
-</div>
-
+            </div>
+        </div>)
+    }
+}
 export default NuBayTable

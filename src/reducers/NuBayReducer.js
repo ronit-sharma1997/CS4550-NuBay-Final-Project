@@ -1,37 +1,30 @@
 import React from 'react'
 
-const initalItems = {
+const initialItems = {
+	searchText : "",
+	loginIn: false,
+	userInfo: {}
+}
 
-
-		items : [
-
-		]
-
-
-	}
-
-const NuBayReducer = (state=initalItems, action) => {
-    console.log(state,action);
+const NuBayReducer = (state=initialItems, action) => {
 
 	switch(action.type) {
-		case 'SET_ITEMS':
+		case 'CHANGE_SEARCH_STRING':
 			return {
 				...state,
-				items: action.items
-            }
-        case 'SET_CURR_ITEM_ID':
-            // If your item id is 0, you should not display item details
-            return Object.assign({}, state, {
-                currentItemID: action.itemId,
-                showItemDetail: (action.itemId != 0)
-            })
-
+				searchText: action.newValue
+			}
+		case 'SET_LOGGED_IN_USER':
+			return {
+				...state,
+				loginIn: true,
+				userInfo: action.user
+			}
 		default:
 		return {
 			...state,
-            items:initalItems.items,
-            showItemDetail: false,
-            currentItemID: 0
+			loginIn: initialItems.loginIn,
+			userInfo: initialItems.userInfo
 		}
 
 	}

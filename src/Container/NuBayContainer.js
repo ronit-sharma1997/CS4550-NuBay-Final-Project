@@ -1,38 +1,34 @@
 import React from 'react'
 import NuBayManager from './NuBayManager';
-import {createStore} from 'redux'
-import NuBayService from '../services/NuBayService'
-import {Provider} from 'react-redux'   
 import {connect} from 'react-redux'
+import UserService from "../services/UserService";
 
-const service = NuBayService.getInstance();
+const userService = UserService.getInstance()
 
 const dispatchToPropertyMapper = dispatch => {
-		
+
 	return {
-		makeSearch : (text) => {
+		searchStringChanged: (event) => {
+			dispatch({type: 'CHANGE_SEARCH_STRING', newValue: event.target.value})
+		},
+		setLoggedInUser: (userId) => {
 			// debugger;
-			service.getEbayItems(text,items => dispatch({
-				type: 'SET_ITEMS',
-				items: items
+			userService.findUserById(userId, user => dispatch({
+				type: 'SET_LOGGED_IN_USER',
+				user: user
 			}))
-				//dispatch({type:"SET_ITEMS"}))
 
-        },
-        setItemId: (id) => {
-            dispatch({type:'SET_CURR_ITEM_ID', itemId: id})
-        }
-
-	}		
+		}
+	}
 }
 
 
 const stateToPropertyMapper = (state) => {
 
     return {
-        items: state.items,
-        showItemDetail: state.showItemDetail,
-        currentItemID: state.currentItemID
+		searchText : state.searchText,
+		loginIn: state.loginIn,
+		userInfo: state.userInfo
     }
 
 }

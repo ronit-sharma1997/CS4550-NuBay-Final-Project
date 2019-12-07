@@ -1,4 +1,7 @@
 import React from 'react'
+import {
+    withRouter
+} from 'react-router-dom';
 import { Collapse,
     Navbar,
     NavbarToggler,
@@ -12,7 +15,7 @@ import { Collapse,
     DropdownItem,
     Dropdown, Button } from 'reactstrap';
 
-export class NuBayManagerNavBar extends React.Component {
+class NuBayManagerNavBar extends React.Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -80,16 +83,25 @@ export class NuBayManagerNavBar extends React.Component {
         }));
     }
 
-    afterSubmission(event, onSearchPressed, searchText) {
+    afterSubmission(event, searchText) {
         event.preventDefault()
-        onSearchPressed(searchText)
+        this.props.history.push(`/search/${searchText}`)
     }
+
+    loginSelected() {
+        this.props.history.push(`/login`)
+    }
+
+    registerSelected() {
+        this.props.history.push(`/register`)
+    }
+
 
 
     render() {
         return (
             <div>
-                <Navbar sticky={true} color="dark" dark expand="md">
+                <Navbar color="dark" dark expand="md">
                     <NavbarBrand href="/">NuBay</NavbarBrand>
                     <NavbarToggler onClick={() => this.toggle()} />
                     <Collapse isOpen={this.state.isOpen} navbar>
@@ -100,7 +112,7 @@ export class NuBayManagerNavBar extends React.Component {
                                 </DropdownToggle>
                                 <div id="searchBar">
                                 <DropdownMenu right>
-                                    <form onSubmit={(event) => this.afterSubmission(event, this.props.onSearchPressed, this.props.searchText)}>
+                                    <form onSubmit={(event) => this.afterSubmission(event, this.props.searchText)}>
                                     <input height={'200px'} type="text" className="form-control"
                                            placeholder="What can we help you find?"
                                            value={this.props.searchText}
@@ -117,13 +129,13 @@ export class NuBayManagerNavBar extends React.Component {
                                     Sign In
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <Button size={"md"} className="btn btn-primary CenterSignIn">
+                                    <Button size={"md"} onClick={() => this.loginSelected()} className="btn btn-primary CenterSignIn">
                                         Sign In
                                     </Button>
                                     <DropdownItem disabled/>
                                     <DropdownItem disabled/>
                                     <DropdownItem disabled/>
-                                    <Button size={"md"} className="btn btn-primary CenterRegister">
+                                    <Button size={"md"} onClick={() => this.registerSelected()} className="btn btn-primary CenterRegister">
                                         Register
                                     </Button>
                                     <DropdownItem divider />
@@ -139,4 +151,4 @@ export class NuBayManagerNavBar extends React.Component {
         )
     }
 }
-export default NuBayManagerNavBar
+export default withRouter(NuBayManagerNavBar)

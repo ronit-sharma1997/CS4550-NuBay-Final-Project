@@ -157,3 +157,7 @@ hr {
   margin-left: -100px;
 }
 
+.thickBorderBottom {
+  border-bottom: 1.5px solid #dee2e6;
+}
+

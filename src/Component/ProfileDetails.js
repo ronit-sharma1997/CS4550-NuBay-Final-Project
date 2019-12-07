@@ -4,108 +4,144 @@ const wordWrap = {
     wordWrap: 'break-word'
 }
 
-const ProfileDetails = () => {
-    return (
-        <div>
-            <div className="avatar-circle mt-2">
-                <span className="initials">RS</span>
-            </div>
-            <div className="col-12" style={wordWrap}>
-                <h1>Ronit Sharmakjdskjfsdjkfsdjkdfskjfsdjkfsd</h1>
-            </div>
-            <div className="row">
-                <div className="col-6" align={"end"}>
-                    <div className="btn-group disabled">
-                        <button className="btn"><span><b>10</b></span> Listings</button>
-                    </div>
-                </div>
-                <div className="col-6" align={"start"}>
-                    <div className="btn-group disabled">
-                        <button className="btn"><span><b>10</b></span> Bookmarks</button>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <div className="alert alert-success wbdv-message collapse">
-                Profile Successfully saved
-            </div>
-            <form>
-                <div className="form-group row">
-                    <label htmlFor="username" className="col-sm-2 col-form-label">
-                        Username </label>
-                    <div className="col-sm-10">
-                        <input className="form-control wbdv-field wbdv-username" id="username" placeholder="Alice"
-                               readOnly/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="firstname" className="col-sm-2 col-form-label">
-                        First Name </label>
-                    <div className="col-sm-10">
-                        <input className="form-control wbdv-field wbdv-firstname" id="firstname"
-                               placeholder="LastName Ever" readOnly/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="lastname" className="col-sm-2 col-form-label">
-                        Last Name </label>
-                    <div className="col-sm-10">
-                        <input className="form-control wbdv-field wbdv-username" id="lastname"
-                               placeholder="Firstname Greatest" readOnly/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="password" className="col-sm-2 col-form-label">
-                        Password </label>
-                    <div className="col-sm-10">
-                        <input type="password" className="form-control wbdv-field wbdv-password" id="password"
-                               placeholder="123qwe#$%"/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="phone" className="col-sm-2 col-form-label">
-                        Phone </label>
-                    <div className="col-sm-10">
-                        <input type="tel" className="form-control wbdv-field wbdv-phone" id="phone"
-                               placeholder="5551234324"/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="email" className="col-sm-2 col-form-label">
-                        Email </label>
-                    <div className="col-sm-10">
-                        <input type="email" className="form-control wbdv-field wbdv-email" id="email"
-                               placeholder="alice@wonderland.com"/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="role" className="col-sm-2 col-form-label">
-                        Role </label>
-                    <div className="col-sm-10">
-                        <select className="custom-select wbdv-field wbdv-role" id="role">
-                            <option value="Buyer">Buyer</option>
-                            <option value="Seller">Seller</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="dob" className="col-sm-2 col-form-label">
-                        Date of Birth </label>
-                    <div className="col-sm-10">
-                        <input type="date" className="form-control wbdv-field wbdv-dob" id="dob"
-                               placeholder="mm/dd/yyyy"/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label className="col-sm-2 col-form-label"></label>
-                    <div className="col-sm-10">
-                        <a href="" className="btn btn-success btn-block wbdv-button wbdv-update"
-                           role="button">Update</a>
-                    </div>
-                </div>
+export default class ProfileDetails extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            editingTextPassword: "",
+            editingTextPhone: "",
+            editingTextEmail: "",
+            editingRoleType: ""
+        }
+    }
 
-            </form>
-        </div>
-    )
+    passwordChangeRegister = (event) => {
+        event.persist()
+        this.setState(prevState => ({
+            ...prevState,
+            editingTextPassword: event.target.value
+        }))
+
+    }
+
+    phoneChangeRegister = (event) => {
+        event.persist()
+        this.setState(prevState => ({
+            ...prevState,
+            editingTextPhone: event.target.value
+        }))
+    }
+
+    emailChangeRegister = (event) => {
+        event.persist()
+        this.setState(prevState => ({
+            ...prevState,
+            editingTextEmail: event.target.value
+        }))
+    }
+
+    roleChangeRegister = (event) => {
+        event.persist()
+        this.setState(prevState => ({
+            ...prevState,
+            editingRoleType: event.target.value
+        }))
+    }
+
+    render() {
+
+        return (
+                <form className="container">
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label"></label>
+                        <div className="col-sm-10">
+                        <div className="avatar-circle mt-2">
+                            {this.props.dataExists && <span
+                                className="initials">{this.props.userInfo.firstName.substr(0, 1) + this.props.userInfo.lastName.substr(0, 1)}</span>}
+                        </div>
+                        </div>
+                    </div>
+                    <div className="form-group row mb-0">
+                        <label className="col-sm-2 col-form-label"></label>
+                        <div className="col-sm-10"  style={wordWrap}>
+                            {this.props.dataExists && <h1>{this.props.userInfo.firstName + " " + this.props.userInfo.lastName}</h1>}
+                        </div>
+                    </div>
+                    <div className="form-group row mt-0">
+                        <label className="col-sm-2 col-form-label"></label>
+                        <div className="col-sm-10" >
+                            {this.props.dataExists && <span> <b>{this.props.userInfo.items.length}</b> Listings • <b>{this.props.userInfo.bookmarkedItems.length}</b> Bookmarks</span>}
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="username" className="col-sm-2 col-form-label">
+                            Username </label>
+                        <div className="col-sm-10">
+                            <input className="form-control wbdv-field wbdv-username" id="username"
+                                   placeholder={this.props.dataExists ? this.props.userInfo.username : ""}
+                                   readOnly/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="firstname" className="col-sm-2 col-form-label">
+                            First Name </label>
+                        <div className="col-sm-10">
+                            <input className="form-control wbdv-field wbdv-firstname" id="firstname"
+                                   placeholder={this.props.dataExists ? this.props.userInfo.firstName : ""} readOnly/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="lastname" className="col-sm-2 col-form-label">
+                            Last Name </label>
+                        <div className="col-sm-10">
+                            <input className="form-control wbdv-field wbdv-username" id="lastname"
+                                   placeholder={this.props.dataExists ? this.props.userInfo.lastName : ""} readOnly/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="password" className="col-sm-2 col-form-label">
+                            Password </label>
+                        <div className="col-sm-10">
+                            <input type="password" className="form-control wbdv-field wbdv-password" id="password" onChange={this.passwordChangeRegister}
+                                   placeholder={this.props.dataExists ? this.props.userInfo.password : ""} value={this.state.editingTextPassword}/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="phone" className="col-sm-2 col-form-label">
+                            Phone </label>
+                        <div className="col-sm-10">
+                            <input type="tel" className="form-control wbdv-field wbdv-phone" id="phone" onChange={this.phoneChangeRegister}
+                                   placeholder={this.props.dataExists ? this.props.userInfo.phoneNumber : ""} value={this.state.editingTextPhone}/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="email" className="col-sm-2 col-form-label">
+                            Email </label>
+                        <div className="col-sm-10">
+                            <input type="email" className="form-control wbdv-field wbdv-email" id="email" onChange={this.emailChangeRegister}
+                                   placeholder={this.props.dataExists ? this.props.userInfo.email : ""} value={this.state.editingTextEmail}/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="role" className="col-sm-2 col-form-label">
+                            Role </label>
+                        <div className="col-sm-10">
+                            <select className="custom-select wbdv-field wbdv-role" id="role" onChange={this.roleChangeRegister} placeholder={this.props.dataExists ? this.props.userInfo.userRole : ""}
+                                    value={this.state.editingRoleType}>
+                                <option value="BUYER">Buyer</option>
+                                <option value="SELLER">Seller</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-sm-2 col-form-label"></label>
+                        <div className="col-sm-10">
+                            <a href="" className="btn btn-success btn-block wbdv-button wbdv-update"
+                               role="button">Update</a>
+                        </div>
+                    </div>
+
+                </form>
+        )
+    }
 }
-export default ProfileDetails
