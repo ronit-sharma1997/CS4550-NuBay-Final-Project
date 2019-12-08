@@ -41,22 +41,23 @@ class ListItemComponent extends React.Component {
         item:{
             title:'',
             description:'',
-            price:'',
-            shippingCost:'',
+            value:'',
+            quantity:'',
             conditionString:'',
-            paymentMethods:'',
-            categories:'',
+            location:'',
+            paymentOptions:'',
+            categoryName:'',
             refundPolicy: '',
-            picturesString:'',
-            pictures:[]
+            base64Image:''
+
 
 
         }};
 		this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
 		this.fileUploadedDone = this.fileUploadedDone.bind(this);
-		this.getBaseUrlFromImage = this.getBaseUrlFromImage.bind(this)
+		this.getByteArrayFromImage = this.getByteArrayFromImage.bind(this)
 		this.onImageDelete = this.onImageDelete.bind(this);
-		this.onImageSelected = this.onImageSelected.bind(this);
+		this.itemSubmit = this.itemSubmit.bind(this);
 
 
     }
@@ -75,32 +76,40 @@ class ListItemComponent extends React.Component {
 
     }
 
- onImageSelected(index) {
- var result = "https://www.nba.com/images/cms/2019-12/GettyImages-1186307216.jpg?cw=2090&w=2241&x=0&ch=1176&h=1494&y=74"
-   result = this.getBaseUrlFromImage((this.state.pictures[0]))
-    this.setState(prevState => ({
-        ...prevState,
-        editingPhoto:result
-    }))
-    }
+callBack(json) {
+debugger;
+}
+
+itemSubmit() {
+    this.nuBayService.createItemForUser("151", this.state.item, this.callBack)
+
+}
+
+
 
  fileUploadedDone(fileReader) {
+
+    var fileByteArray = [];
+  var arrayBuffer = fileReader.srcElement.result,
+            array = new Uint8Array(arrayBuffer);
+        for (var i = 0; i < array.length; i++) {
+            fileByteArray.push(array[i]);
+         }
     this.setState(prevState => ({
     ...prevState,
     item :{
         ...prevState.item,
-        picturesString: prevState.item.picturesString.concat(",",fileReader.srcElement.result)
-
+        image1: fileByteArray
     }
-    })
+    }
 
-    )
+    ))
  }
 
 
- getBaseUrlFromImage(file) {
+ getByteArrayFromImage(file) {
     var fileReader = new FileReader()
-    fileReader.readAsDataURL(file)
+    fileReader.readAsArrayBuffer(file)
     fileReader.addEventListener("load",this.fileUploadedDone)
     }
 
@@ -127,7 +136,16 @@ conditionStringChanged = (event) => {
   		}))
 }
 
-
+quantityChanged = (event) => {
+    event.persist()
+     this.setState(prevState => ({
+       ...prevState,
+       item: {
+       ...prevState.item,
+        quantity: event.target.value
+     }
+    }))
+                }
 
 
     descriptionChanged = (event) => {
@@ -158,7 +176,7 @@ conditionStringChanged = (event) => {
                    		    ...prevState,
                    			item: {
                              ...prevState.item,
-                   			price: event.target.value
+                   			value: event.target.value
                    			}
                    		}))
     }
@@ -188,7 +206,7 @@ conditionStringChanged = (event) => {
             ...prevState,
             item :{
                 ...prevState.item,
-                paymentMethods: paymentMethodString
+                paymentOptions: paymentMethodString
 
             }
             }
@@ -210,7 +228,7 @@ conditionStringChanged = (event) => {
                   ...prevState,
                    item :{
                      ...prevState.item,
-                     categories: categoryString
+                     categoryName: categoryString
 
                                 }
                                 }
@@ -236,11 +254,11 @@ conditionStringChanged = (event) => {
 
     fileSelectedHandler = event => {
         event.persist()
-        this.getBaseUrlFromImage(event.target.files[0])
+        this.getByteArrayFromImage(event.target.files[0])
         this.setState(prevState => ({
-            images: [...prevState.images, URL.createObjectURL(event.target.files[0])],
+                    images: [...prevState.images, URL.createObjectURL(event.target.files[0])],
 
-        }))
+                }))
     }
 
 
@@ -287,10 +305,10 @@ conditionStringChanged = (event) => {
                     <div className="row border-bottom mt-2">
                         <div className="col-8">
                             <h4> Describe Your Product </h4>
-
+                            </div>
                     <div className="form-group float-left col-12">
                         <textarea className="form-control" id="item-description"
-                        value={this.state.item.value}
+                        value={this.state.item.description}
                         onChange={this.descriptionChanged}
                         placeholder="Limit to 2 sentences"></textarea>
                     </div>
@@ -306,21 +324,12 @@ conditionStringChanged = (event) => {
                                 Item Cost </label>
                             <input className="form-control" id="item-cost"
                                    placeholder="$34"
-                                   value={this.state.item.price}
+                                   value={this.state.item.value}
                                    onChange={this.pricingChanged}/>
 
 
                             </div>
-                            <div className="form-group col-12">
 
-                            <label htmlFor="shipping-cost" className="col-form-label float-left">
-                                Shipping Cost </label>
-                            <input className="form-control" id="shipping-cost"
-                            value={this.state.item.shippingCost}
-                            onChange={this.shippingChanged}
-                                   placeholder="$4"/>
-
-                        </div>
                         <div className="form-group col-12">
 
                             <Autocomplete
@@ -374,7 +383,20 @@ conditionStringChanged = (event) => {
                                     )}/>
                             </div>
                         </div>
-                        <div className="row mt-2">
+                        <div className="row mt-2 border-bottom">
+                                                    <div className="col-8">
+                                                        <h4> Quantity </h4>
+
+                                                    </div>
+
+                                                <div className="form-group col-12">
+                                                <input className="form-control" id="item-quanity"
+                                                            placeholder="4"
+                                                            value={this.state.item.quantity}
+                                                            onChange={this.quantityChanged}/>
+                           </div>
+                        </div>
+                        <div className="row border-bottom mt-2">
                             <div className="col-8">
                                 <h4> Refund Policy </h4>
 
@@ -403,11 +425,12 @@ conditionStringChanged = (event) => {
                         </div>
                         <div className="container mt-2 mb-2">
                             <div className="row">
-                                <button type="button" className="btn btn-success btn">List Item</button>
+                                <button type="button" onClick = {this.itemSubmit}
+                                className="btn btn-success btn">List Item</button>
                                 <button type="button" className="ml-2 btn btn-danger btn">Delete Listing</button>
                             </div>
                         </div>
-                        </div>
+
 
                     </form>
                 </div>

@@ -1,13 +1,15 @@
 import React from 'react'
 import ItemRow from './ItemRow'
+import ItemService from '../services/ItemService'
 import NuBayManagerHeaderBar from "./NuBayManagerHeaderBar";
 import NuBayService from "../services/NuBayService";
 
 class NuBayTable extends React.Component {
-debugger;
+
     constructor(props) {
         super(props);
         this.nuBayService = NuBayService.getInstance()
+        this.itemService = ItemService.getInstance()
         this.setItems = this.setItems.bind(this);
         this.state = {
             items: [],
@@ -15,8 +17,14 @@ debugger;
         }
 
         if(props.match) {
-
-            this.nuBayService.getEbayItems(props.match.params.searchTerm, this.setItems)
+            if(props.itemType == "ebay") {
+            this.nuBayService.getEbayItems(props.match.params.searchTerm,
+            this.setItems)
+       }
+        else if(props.itemType == "northeasternItem") {
+            this.itemService.findItemsByKeyword(props.match.params.searchTerm,
+            this.setItems)
+        }
         }
         console.log(this.props)
     }
@@ -57,6 +65,7 @@ debugger;
 
                             <ItemRow
                                 item={item}
+                                itemType={componentProps.itemType}
                                 index={index}
                                 loggedIn={componentProps.loggedIn}
                             />

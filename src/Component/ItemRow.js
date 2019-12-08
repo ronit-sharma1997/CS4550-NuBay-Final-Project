@@ -2,16 +2,17 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Constants from '../constants/constants'
 
-const ItemRow = ({item, index, loggedIn}) => {
+const ItemRow = ({item, index, loggedIn, itemType}) => {
 var constants = Constants.getInstance()
 console.log(loggedIn)
+debugger;
 
 return(
     <div className="my-auto">
         <div className="row">
             <div className={index === 0 ? "col-md-3 col-12 mt-3" : "col-md-3 col-12"}>
                 <div className="detail-image table-image-width mx-auto my-auto">
-                    <img src={item.imageUrl.length > 0 ? item.imageUrl[0] : ""} className="mx-auto w-100"/>
+                    <img src={constants.getImageSource(item, itemType)} className="mx-auto w-100"/>
                 </div>
             </div>
             <div className="col-md-7 col-12 my-auto">

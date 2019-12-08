@@ -10,7 +10,10 @@ export default class Constants {
         return this.myInstance
     }
 
+
+
     getItemPrice(price) {
+        if(price) {
         if (price.includes("USD")) {
             if (price.substring(4) == "0.0") {
                 return "Free"
@@ -19,9 +22,21 @@ export default class Constants {
         } else {
             return price;
         }
+        }
+        else {
+        return ""
+        }
     }
 
+getImageSource(item, itemType) {
+    if(itemType == "ebay") {
+    return item.imageUrl.length > 0 ? item.imageUrl[0] : ""
+    }
+    else {
+        return "data:image/png;base64,".concat(item.image1)
+    }
 
+}
 
 getRatingValue(item){
 if (item.sellerRating) {

@@ -58,12 +58,20 @@ export default class NuBayManager extends React.Component {
                            <Route exact path="/details/:id" component={ItemDetail}/>
                 <div style={{'backgroundColor': '#EAEDED'}}>
                     <Route exact path ="/search/:searchTerm" render={(props) =>
+                       <div>
+                       <NuBayTable
+                         {...props}
+                          itemType="northeasternItem"
+                         loggedIn={this.props.loggedIn}
+                                                   />
                         <NuBayTable
                             {...props}
 
-                            items1={["hello world"]}
+                            itemType="ebay"
                             loggedIn={this.props.loggedIn}
-                            />}/>
+                            />
+                            </div>}/>
+
                 </div>
                     <Route exact path ="/list-new-item" render={(props) =>
                                             <ListItemComponent
