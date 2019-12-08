@@ -49,7 +49,7 @@ export default class ProfileDetails extends React.Component {
     }
 
     render() {
-
+        let listingText = this.props.userInfo.userRole === "SELLER" ?  " Listings •" : "";
         return (
                 <form className="container">
                     <div className="form-group row">
@@ -70,7 +70,7 @@ export default class ProfileDetails extends React.Component {
                     <div className="form-group row mt-0">
                         <label className="col-sm-2 col-form-label"></label>
                         <div className="col-sm-10" >
-                            {this.props.dataExists && <span> <b>{this.props.userInfo.items.length}</b> Listings • <b>{this.props.userInfo.bookmarkedItems.length}</b> Bookmarks</span>}
+                            {this.props.dataExists && <span> {this.props.userInfo.userRole === "SELLER" && <b>{this.props.userInfo.items.length}</b>}{this.props.userInfo.userRole === "SELLER" && listingText}<b>{this.props.userInfo.bookmarkedItems.length}</b> Bookmarks</span>}
                         </div>
                     </div>
                     <div className="form-group row">

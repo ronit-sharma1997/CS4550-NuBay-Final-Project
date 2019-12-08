@@ -118,6 +118,14 @@ html {
   margin-left: 25%;
 }
 
+.CenterAddItem {
+  margin-left: 22%;
+}
+
+.CenterAddService {
+  margin-left: 16%;
+}
+
 #searchBar .dropdown-menu {
   width: 400px;
 }

@@ -28,7 +28,6 @@ export default class ProfileTabs extends React.Component {
         if(this.state.selectedTab === 0) {
             tabContent = <ProfileDetails userInfo={this.props.userInfo} dataExists={dataExists}/>
         } else if (this.state.selectedTab === 1) {
-            console.log(this.props.userInfo.items)
             tabContent = <ListingsDetails items={this.props.userInfo.items} dataExists={dataExists} headingTitle="My Listings"/>
         } else if (this.state.selectedTab === 2) {
             tabContent = <ListingsDetails items={this.props.userInfo.bookmarkedItems} dataExists={dataExists} headingTitle="My Bookmarks"/>
@@ -42,8 +41,10 @@ export default class ProfileTabs extends React.Component {
                         <div className="nav flex-column nav-pills w-50 align-content-center" role="tablist" aria-orientation="vertical">
                             <a className={this.state.selectedTab === 0 ? "nav-link mt-5 active" : "nav-link mt-5"} data-toggle="pill" href="#" role="tab"
                                onClick={() => this.selectTab(0)}>{Object.keys(this.props.match.params).length === 0 ? 'My': "Seller's"} Details</a>
-                            <a className={this.state.selectedTab === 1 ? "nav-link mt-5 active" : "nav-link mt-5"} data-toggle="pill" href="#" role="tab"
-                               onClick={() => this.selectTab(1)}>{Object.keys(this.props.match.params).length === 0 ? 'My': "Seller's"} Listings</a>
+                            {Object.keys(this.props.match.params).length === 0 && this.props.userInfo.userRole === "SELLER" && <a className={this.state.selectedTab === 1 ? "nav-link mt-5 active" : "nav-link mt-5"} data-toggle="pill" href="#" role="tab"
+                               onClick={() => this.selectTab(1)}>My Listings</a>}
+                            {Object.keys(this.props.match.params).length !== 0 && <a className={this.state.selectedTab === 1 ? "nav-link mt-5 active" : "nav-link mt-5"} data-toggle="pill" href="#" role="tab"
+                                                                                                                                  onClick={() => this.selectTab(1)}>Seller's Listings</a>}
                             {Object.keys(this.props.match.params).length === 0 && <a className={this.state.selectedTab === 2 ? "nav-link mt-5 active" : "nav-link mt-5"} data-toggle="pill" href="#" role="tab"
                                onClick={() => this.selectTab(2)}>My Bookmarks</a>}
                         </div>
