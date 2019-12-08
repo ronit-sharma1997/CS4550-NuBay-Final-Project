@@ -18,6 +18,7 @@ debugger;
 
             this.nuBayService.getEbayItems(props.match.params.searchTerm, this.setItems)
         }
+        console.log(this.props)
     }
 
     setItems(items) {
@@ -36,6 +37,7 @@ debugger;
     }
 
     render() {
+        let componentProps = this.props;
         return(
         <div>
             <div className={this.props.initialLoad ? "d-none" : ""}>
@@ -56,6 +58,7 @@ debugger;
                             <ItemRow
                                 item={item}
                                 index={index}
+                                loggedIn={componentProps.loggedIn}
                             />
                         )
 

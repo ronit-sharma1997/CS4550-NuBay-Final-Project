@@ -2,13 +2,13 @@ import React from 'react'
 import ItemRow from "./ItemRow";
 import ListingRow from "./ListingRow";
 
-const ListingsDetails = ({items, headingTitle}) => {
+const ListingsDetails = ({items, dataExists, headingTitle}) => {
     return(
         <div>
             <div className="row align-items-end mt-5">
                 <div className="col-10">
                     <div className="float-left">
-                        <h3>{headingTitle} ({items.length})</h3>
+                        {dataExists && <h3>{headingTitle} ({items.length})</h3>}
                     </div>
                 </div>
                 <div className="col-2 d-none d-md-block">
@@ -16,7 +16,7 @@ const ListingsDetails = ({items, headingTitle}) => {
                 </div>
             </div>
             <hr className="mt-0"/>
-            {items.map((item) => {
+            {dataExists && items.map((item) => {
 
                 {return(
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 const initialItems = {
 	searchText : "",
-	loginIn: false,
+	loggedIn: false,
 	userInfo: {}
 }
 
@@ -17,13 +17,19 @@ const NuBayReducer = (state=initialItems, action) => {
 		case 'SET_LOGGED_IN_USER':
 			return {
 				...state,
-				loginIn: true,
+				loggedIn: true,
 				userInfo: action.user
+			}
+		case 'REMOVE_LOGGED_IN_USER':
+			return {
+				...state,
+				loggedIn: false,
+				userInfo: {}
 			}
 		default:
 		return {
 			...state,
-			loginIn: initialItems.loginIn,
+			loggedIn: initialItems.loggedIn,
 			userInfo: initialItems.userInfo
 		}
 

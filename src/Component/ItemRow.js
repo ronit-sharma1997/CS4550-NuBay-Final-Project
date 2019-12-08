@@ -2,9 +2,9 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Constants from '../constants/constants'
 
-const ItemRow = ({item, index}) => {
+const ItemRow = ({item, index, loggedIn}) => {
 var constants = Constants.getInstance()
-
+console.log(loggedIn)
 
 return(
     <div className="my-auto">
@@ -24,7 +24,8 @@ return(
                         <span className="condition-text"> {item.conditionString} • {item.categoryName}</span>
                     </div>
                     <div className="col-12 text-center text-md-left">
-                            <a className="seller-link" href="#">
+
+           <a className="seller-link" href={loggedIn ? "https://www.ebay.com/usr/".concat(item.sellerId) : "/login"}>
                                 {item.sellerId}
                             </a>
                     </div>
@@ -36,7 +37,7 @@ return(
                         <b className="shipping-cost"> {constants.getItemPrice(item.shippingCost)} Shipping </b>
                     </div>
                     <div className="col-12 text-center text-md-left">
-                            <button type="button" className="btn btn-success">Contact Seller</button>
+                        <a href={item.ebayUrl}> <button type="button" className="btn btn-success">View On Ebay</button></a>
                             <button type="button" className="ml-2 btn btn-warning">Bookmark</button>
                     </div>
                 </div>

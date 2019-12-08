@@ -1,4 +1,8 @@
 import React from 'react'
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import {createMuiTheme, makeStyles, MuiThemeProvider} from '@material-ui/core/styles';
 import {
     withRouter
 } from 'react-router-dom';
@@ -7,13 +11,21 @@ import { Collapse,
     NavbarToggler,
     NavbarBrand,
     Nav,
-    NavItem,
-    NavLink,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
     Dropdown, Button } from 'reactstrap';
+
+const theme = createMuiTheme({
+    overrides: {
+        MuiSvgIcon: {
+            root: {
+                color: "rgba(255, 255, 255, 0.5)",
+            }
+        }
+    }
+});
 
 class NuBayManagerNavBar extends React.Component {
     constructor(props) {
@@ -30,6 +42,8 @@ class NuBayManagerNavBar extends React.Component {
             dropdownSearch: false,
             isOpen: false
         };
+        // this.classes = useStyles();
+
     }
 
     toggle() {
@@ -96,6 +110,18 @@ class NuBayManagerNavBar extends React.Component {
         this.props.history.push(`/register`)
     }
 
+    logOutSelected() {
+        this.props.logOut();
+        this.props.history.push('/')
+    }
+
+    navigateToProfile() {
+        if(this.props.loggedIn) {
+            this.props.history.push('/profile')
+        } else {
+            this.props.history.push('/login')
+        }
+    }
 
 
     render() {
@@ -125,25 +151,38 @@ class NuBayManagerNavBar extends React.Component {
                             <UncontrolledDropdown onMouseOver={this.onMouseEnterSignIn}
                             onMouseLeave={this.onMouseLeaveSignIn}
                             isOpen={this.state.dropdownOpenSignIn} toggle={this.toggleDropDownSignIn} nav inNavbar>
-                                <DropdownToggle nav caret>
+                                {!this.props.loggedIn && <DropdownToggle nav caret>
                                     Sign In
-                                </DropdownToggle>
+                                </DropdownToggle>}
+                                {this.props.loggedIn && <DropdownToggle nav caret>
+                                    Hello, {this.props.userInfo.firstName}!
+                                </DropdownToggle>}
                                 <DropdownMenu right>
-                                    <Button size={"md"} onClick={() => this.loginSelected()} className="btn btn-primary CenterSignIn">
+                                    {!this.props.loggedIn && <Button size={"md"} onClick={() => this.loginSelected()} className="btn btn-primary CenterSignIn">
                                         Sign In
-                                    </Button>
-                                    <DropdownItem disabled/>
-                                    <DropdownItem disabled/>
-                                    <DropdownItem disabled/>
-                                    <Button size={"md"} onClick={() => this.registerSelected()} className="btn btn-primary CenterRegister">
+                                    </Button>}
+                                    {!this.props.loggedIn && <DropdownItem disabled/>}
+                                    {!this.props.loggedIn && <DropdownItem disabled/>}
+                                    {!this.props.loggedIn && <DropdownItem disabled/>}
+                                    {!this.props.loggedIn && <Button size={"md"} onClick={() => this.registerSelected()} className="btn btn-primary CenterRegister">
                                         Register
-                                    </Button>
+                                    </Button>}
+                                    {this.props.loggedIn && <Button size={"md"} onClick={() => this.logOutSelected()} className="btn btn-primary CenterRegister">
+                                        Log Out
+                                    </Button>}
                                     <DropdownItem divider />
-                                    <DropdownItem>
-                                        <b className="ml-2">Your Account</b>
+                                    <DropdownItem onClick={() => this.navigateToProfile()}>
+                                        <b className="ml-2">Your Profile</b>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
+                            <IconButton aria-label="4 pending messages" className="col-1 col-md-2" >
+                                <MuiThemeProvider theme={theme}>
+                                <Badge badgeContent={0} color="primary">
+                                    <BookmarkIcon className={"bookmark-icon"} />
+                                </Badge>
+                                </MuiThemeProvider>
+                            </IconButton>
                         </Nav>
                     </Collapse>
                 </Navbar>

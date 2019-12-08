@@ -93,7 +93,7 @@ export default class RegisterPage extends React.Component {
                 "items": [],
                 "serviceItems": [],
                 "bookmarkedItems": [],
-                "email": "myemail@nubay.com",
+                "email": "myemail@husky.neu.edu",
                 "phoneNumber": "1111111111",
             }, this.submitUserInfoCallback)
         }

@@ -4,8 +4,8 @@ import PickImageComponent from './PickImageComponent'
 import TextField from '@material-ui/core/TextField';
 import ItemService from '../services/ItemService'
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { createMuiTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import { MuiThemeProvider, createMuiTheme} from "@material-ui/core/styles";
+import {ThemeProvider} from "@material-ui/styles";
 
 const theme = createMuiTheme({
     overrides: {
@@ -58,20 +58,22 @@ class ListItemComponent extends React.Component {
 		this.onImageDelete = this.onImageDelete.bind(this);
 		this.onImageSelected = this.onImageSelected.bind(this);
 
- }
- onImageDelete(selectedIndex) {
 
-    this.setState(prevState => ({
-        ...prevState,
-        editingPhoto: prevState.editingPhoto == prevState.images[this.selectedIndex] ? null :
-        prevState.editingPhoto,
-        pictures: prevState.pictures.filter((picture,index) => selectedIndex != index),
-        images: prevState.images.filter((picture,index) => selectedIndex != index)
+    }
+
+    onImageDelete(selectedIndex) {
+
+        this.setState(prevState => ({
+            ...prevState,
+            editingPhoto: prevState.editingPhoto == prevState.images[this.selectedIndex] ? null :
+                prevState.editingPhoto,
+            pictures: prevState.pictures.filter((picture, index) => selectedIndex != index),
+            images: prevState.images.filter((picture, index) => selectedIndex != index)
 
 
-    }))
+        }))
 
- }
+    }
 
  onImageSelected(index) {
  var result = "https://www.nba.com/images/cms/2019-12/GettyImages-1186307216.jpg?cw=2090&w=2241&x=0&ch=1176&h=1494&y=74"
@@ -79,10 +81,8 @@ class ListItemComponent extends React.Component {
     this.setState(prevState => ({
         ...prevState,
         editingPhoto:result
-
     }))
-
- }
+    }
 
  fileUploadedDone(fileReader) {
     this.setState(prevState => ({
@@ -103,6 +103,7 @@ class ListItemComponent extends React.Component {
     fileReader.readAsDataURL(file)
     fileReader.addEventListener("load",this.fileUploadedDone)
     }
+
 
     itemTitleChanged = (event) => {
     event.persist()
@@ -243,22 +244,21 @@ conditionStringChanged = (event) => {
     }
 
 
-
     render() {
         return (
             <div>
-            <div className="row mt-3 thickBorderBottom">
-                <div className="container">
-            <h2> List Your New Item </h2>
+                <div className="row mt-3 thickBorderBottom">
+                    <div className="container">
+                        <h2> List Your New Item </h2>
+                    </div>
                 </div>
-            </div>
-            <div className="container mt-4">
+                <div className="container mt-4">
 
-                <form>
-                    <div className="row border-bottom mt-2">
-                        <div className="col-8">
-                            <h4> What is the name of your product? </h4>
-                        </div>
+                    <form>
+                        <div className="row border-bottom mt-2">
+                            <div className="col-8">
+                                <h4> What is the name of your product? </h4>
+                            </div>
 
                         <div className="form-group float-left col-12">
                             {/*<label htmlFor="title" className="col-form-label float-left">*/}
@@ -288,7 +288,6 @@ conditionStringChanged = (event) => {
                         <div className="col-8">
                             <h4> Describe Your Product </h4>
 
-                        </div>
                     <div className="form-group float-left col-12">
                         <textarea className="form-control" id="item-description"
                         value={this.state.item.value}
@@ -301,7 +300,7 @@ conditionStringChanged = (event) => {
                                 <h4> Pricing </h4>
 
                             </div>
-                        <div className="form-group col-12">
+                            <div className="form-group col-12">
 
                             <label htmlFor="item-cost" className="col-form-label float-left">
                                 Item Cost </label>
@@ -310,8 +309,9 @@ conditionStringChanged = (event) => {
                                    value={this.state.item.price}
                                    onChange={this.pricingChanged}/>
 
-                        </div>
-                        <div className="form-group col-12">
+
+                            </div>
+                            <div className="form-group col-12">
 
                             <label htmlFor="shipping-cost" className="col-form-label float-left">
                                 Shipping Cost </label>
@@ -346,33 +346,33 @@ conditionStringChanged = (event) => {
                                     </ThemeProvider>
                                 )}/>
 
-                        </div>
+                            </div>
                         </div>
                         <div className="row border-bottom mt-2">
                             <div className="col-8">
                                 <h4> Categories </h4>
 
                             </div>
-                        <div className="form-group col-12 mt-0">
-                            <Autocomplete
-                                className="w-100 mt-0"
-                                multiple
-                                id="category-selector"
-                                options={[{"categoryName": "Sports", "id": 1},
-                                    {"categoryName": "Clothing", "id": 2},
-                                    {"categoryName": "Clothing123", "id": 3}]}
-                                getOptionLabel={option => option.categoryName}
-                                renderInput={params => (
-                                    <TextField
-                                        {...params}
-                                        variant="standard"
-                                        label="Categories"
-                                        placeholder="categories"
-                                        margin="normal"
-                                        fullWidth
-                                    />
-                                )}/>
-                        </div>
+                            <div className="form-group col-12 mt-0">
+                                <Autocomplete
+                                    className="w-100 mt-0"
+                                    multiple
+                                    id="category-selector"
+                                    options={[{"categoryName": "Sports", "id": 1},
+                                        {"categoryName": "Clothing", "id": 2},
+                                        {"categoryName": "Clothing123", "id": 3}]}
+                                    getOptionLabel={option => option.categoryName}
+                                    renderInput={params => (
+                                        <TextField
+                                            {...params}
+                                            variant="standard"
+                                            label="Categories"
+                                            placeholder="categories"
+                                            margin="normal"
+                                            fullWidth
+                                        />
+                                    )}/>
+                            </div>
                         </div>
                         <div className="row mt-2">
                             <div className="col-8">
@@ -397,18 +397,20 @@ conditionStringChanged = (event) => {
                                 <span> Add up to 3 photos of your product </span>
                             </div>
                             <div className="col-12">
-                            <ImageGrid images={this.state.images} onDrop={this.fileSelectedHandler}
-                                       onImageDelete={this.onImageDelete}/>
+                                <ImageGrid images={this.state.images} onDrop={this.fileSelectedHandler}
+                                           onImageDelete={this.onImageDelete}/>
                             </div>
                         </div>
-                    <div className="container mt-2 mb-2">
-                        <div className="row">
-                            <button type="button" className="btn btn-success btn">List Item</button>
-                            <button type="button" className="ml-2 btn btn-danger btn">Delete Listing</button>
+                        <div className="container mt-2 mb-2">
+                            <div className="row">
+                                <button type="button" className="btn btn-success btn">List Item</button>
+                                <button type="button" className="ml-2 btn btn-danger btn">Delete Listing</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         )
     }

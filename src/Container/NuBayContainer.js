@@ -18,6 +18,9 @@ const dispatchToPropertyMapper = dispatch => {
 				user: user
 			}))
 
+		},
+		removeLoggedInUser: () => {
+			dispatch({type: 'REMOVE_LOGGED_IN_USER'})
 		}
 	}
 }
@@ -27,7 +30,7 @@ const stateToPropertyMapper = (state) => {
 
     return {
 		searchText : state.searchText,
-		loginIn: state.loginIn,
+		loggedIn: state.loggedIn,
 		userInfo: state.userInfo
     }
 
