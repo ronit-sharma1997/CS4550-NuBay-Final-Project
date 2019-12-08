@@ -1,6 +1,6 @@
 import React from 'react'
 import HomeSection from './HomeSection'
-
+import HomePageBanner from './HomePageBanner'
 
 const HomePage = ({cards, title}) => {
 var items = [
@@ -122,7 +122,10 @@ var items = [
                 ]
 
 return(
-<div className="container-fluid h-100">
+<div className="container w-100 h-100">
+<div className="row w-100">
+<HomePageBanner> </HomePageBanner>
+</div>
 <div className="row border-bottom mb-2">
 <HomeSection title={"Your Bookmarks"}items={items}> </HomeSection>
 </div>

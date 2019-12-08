@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import NuBayService from '../services/NuBayService'
 import ImageCarosel from './ImageCarosel'
+import {BrowserRouter as Router,Route, Link}
+	from 'react-router-dom';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Constants from '../constants/constants';
@@ -56,7 +58,6 @@ class ItemDetail extends React.Component {
     }
 
     setItem(item) {
-    debugger;
     this.nuBayService.getEbayItemByCategory(item.categoryId, this.setRelatedItems)
         this.setState(prevState => ({
           ...prevState,
@@ -65,7 +66,7 @@ class ItemDetail extends React.Component {
       }
 
     setRelatedItems(items) {
-    debugger;
+
     this.setState(prevState => ({
               ...prevState,
               relatedItems: items
@@ -121,7 +122,8 @@ class ItemDetail extends React.Component {
                         </div>
                         </div>
                          <div className="col-12 mt-2">
-                                                    <span className="item-categories"> {this.state.item.categoryName} </span>
+                                                    <span className="item-categories">
+                                                    {this.state.item.categoryName} </span>
                                                 </div>
                         <div className="col-12 ml-0">
                           <span>
@@ -131,7 +133,8 @@ class ItemDetail extends React.Component {
                            </span>
                               </a>
                               <StarRatings className="price-stars"
-                                                              rating={5.0}
+                                                              rating={this.constants.
+                                                              getRatingValue(this.state.item)}
                                                               starRatedColor="gold"
                                                               numberOfStars={5}
                                                               starDimension='20px'
@@ -179,8 +182,14 @@ class ItemDetail extends React.Component {
 
                         <div className="row mt-4 container-fluid">
                         <div className="col-8 ml-0">
-                        <button type="button" className="btn btn-success w-100">Buy Now on eBay</button>
+
+                        <button type="button" className="btn btn-success w-100">
+
+                        <a className="text-white w-100" href={this.state.item.ebayUrl}>Buy Now on eBay </a>
+                        </button>
+
                         </div>
+
                         <div className="col-8 ml-0 mt-3">
                        <button type="button" className="btn btn-warning w-100">Add to Cart</button>
                        </div>
@@ -195,7 +204,7 @@ class ItemDetail extends React.Component {
 
                 </div>
                 <div className="col-12 h-100 w-100">
-                    <Carousel responsive={this.responsive}>
+                    <Carousel responsive={this.responsive} keyBoardControl={false}>
                       {this.state.relatedItems.map((item) => {
                          return(
                             <div>

@@ -2,6 +2,7 @@ import React from 'react'
 import ImageGrid from './ImageGrid'
 import PickImageComponent from './PickImageComponent'
 import TextField from '@material-ui/core/TextField';
+import ItemService from '../services/ItemService'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -35,13 +36,27 @@ const theme = createMuiTheme({
 class ListItemComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { pictures: [],images:[],images2:[]};
-		this.onDrop = this.onDrop.bind(this);
+        this.nuBayService = ItemService.getInstance()
+        this.state = { pictures: [],images:[],images2:[],
+        item:{
+            title:'',
+            description:'',
+            price:'',
+            shippingCost:'',
+            conditionString:'',
+            paymentMethods:'',
+            categories:'',
+            refundPolicy: '',
+            picturesString:'',
+            pictures:[]
+
+
+        }};
+		this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
+		this.fileUploadedDone = this.fileUploadedDone.bind(this);
 		this.getBaseUrlFromImage = this.getBaseUrlFromImage.bind(this)
 		this.onImageDelete = this.onImageDelete.bind(this);
 		this.onImageSelected = this.onImageSelected.bind(this);
-		this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
-		this.renderGrid = this.renderGrid.bind(this);
 
  }
  onImageDelete(selectedIndex) {
@@ -60,7 +75,6 @@ class ListItemComponent extends React.Component {
 
  onImageSelected(index) {
  var result = "https://www.nba.com/images/cms/2019-12/GettyImages-1186307216.jpg?cw=2090&w=2241&x=0&ch=1176&h=1494&y=74"
- debugger;
    result = this.getBaseUrlFromImage((this.state.pictures[0]))
     this.setState(prevState => ({
         ...prevState,
@@ -70,39 +84,141 @@ class ListItemComponent extends React.Component {
 
  }
 
+ fileUploadedDone(fileReader) {
+    this.setState(prevState => ({
+    ...prevState,
+    item :{
+        ...prevState.item,
+        picturesString: prevState.item.picturesString.concat(",",fileReader.srcElement.result)
+
+    }
+    })
+
+    )
+ }
+
 
  getBaseUrlFromImage(file) {
     var fileReader = new FileReader()
     fileReader.readAsDataURL(file)
-    fileReader.addEventListener("load",function() {
-     debugger;
-         return fileReader.result
-
-        })
+    fileReader.addEventListener("load",this.fileUploadedDone)
     }
 
+    itemTitleChanged = (event) => {
+    event.persist()
+  		this.setState(prevState => ({
+  		    ...prevState,
+  			item: {
+            ...prevState.item,
+  				title: event.target.value
+  			}
+  		}))
+}
+
+conditionStringChanged = (event) => {
+    event.persist()
+  		this.setState(prevState => ({
+  		    ...prevState,
+  			item: {
+            ...prevState.item,
+  				conditionString: event.target.value
+  			}
+  		}))
+}
 
 
 
- onDrop(pictureFiles) {
 
- 		this.setState(prevState => ({
-             pictures: this.state.pictures.concat(pictureFiles),
-             images: [...prevState.images,URL.createObjectURL(pictureFiles[pictureFiles.length - 1])],
-             editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(pictureFiles[0])
-              : prevState.editingPhoto
-         }));
- 	}
-fileSelectedHandler = event => {
+    descriptionChanged = (event) => {
+    event.persist()
+         this.setState(prevState => ({
+           		    ...prevState,
+           			item: {
+                     ...prevState.item,
+           			description: event.target.value
+           			}
+           		}))
+         }
 
-event.persist()
-this.setState(prevState => ({
-pictures:[...prevState.pictures,event.target.files[0]],
-images :  [...prevState.images,URL.createObjectURL(event.target.files[0])],
-editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.files[0])
-              : prevState.editingPhoto
+    refundPolicyChanged = (event) => {
+    event.persist()
+    this.setState(prevState => ({
+               		    ...prevState,
+               			item: {
+                         ...prevState.item,
+               			refundPolicy: event.target.value
+               			}
+               		}))
+    }
 
-}))}
+    pricingChanged = (event) => {
+        event.persist()
+        this.setState(prevState => ({
+                   		    ...prevState,
+                   			item: {
+                             ...prevState.item,
+                   			price: event.target.value
+                   			}
+                   		}))
+    }
+    shippingChanged = (event) => {
+            event.persist()
+            this.setState(prevState => ({
+              ...prevState,
+              item: {
+                ...prevState.item,
+                price: event.target.value
+              }
+            }))
+        }
+
+    paymentMethodAdded = (event, values) => {
+        event.persist()
+        var paymentMethodString = ""
+        values.map((item, index) => {
+            if (index != (values.length - 1)) {
+               paymentMethodString = paymentMethodString.concat(item["paymentMethod"] + ", ")
+            }
+            else {
+           paymentMethodString = paymentMethodString.concat(item["paymentMethod"])
+            }
+        })
+        this.setState(prevState => ({
+            ...prevState,
+            item :{
+                ...prevState.item,
+                paymentMethods: paymentMethodString
+
+            }
+            }
+        ))
+    }
+
+    addCategories = (event, values) => {
+           event.persist()
+           var categoryString = ""
+           values.map((item, index) => {
+             if (index != (values.length - 1)) {
+                categoryString = categoryString.concat(item["categoryName"] + ", ")
+            }
+             else {
+                categoryString = categoryString.concat(item["categoryName"])
+             }
+             })
+             this.setState(prevState => ({
+                  ...prevState,
+                   item :{
+                     ...prevState.item,
+                     categories: categoryString
+
+                                }
+                                }
+                            ))
+                        }
+
+
+
+
 
 
 
@@ -116,19 +232,11 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
 
     }
 
-    onDrop(pictureFiles) {
-
-        this.setState(prevState => ({
-            pictures: this.state.pictures.concat(pictureFiles),
-            images: [...prevState.images, URL.createObjectURL(pictureFiles[pictureFiles.length - 1])],
-        }));
-    }
 
     fileSelectedHandler = event => {
-
         event.persist()
+        this.getBaseUrlFromImage(event.target.files[0])
         this.setState(prevState => ({
-            pictures: [...prevState.pictures, event.target.files[0]],
             images: [...prevState.images, URL.createObjectURL(event.target.files[0])],
 
         }))
@@ -155,21 +263,37 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
                         <div className="form-group float-left col-12">
                             {/*<label htmlFor="title" className="col-form-label float-left">*/}
                             {/*    Product Name </label>*/}
-                            <input className="form-control" id="title"
+                            <input className="form-control" id="title" value={this.state.item.title}
+                            onChange={this.itemTitleChanged}
                                    placeholder="Product Title"/>
                         </div>
 
                     </div>
+                    <div className="row border-bottom mt-2">
+                                            <div className="col-8">
+                                                <h4> What is the condition of your product? </h4>
+                                            </div>
+
+                                            <div className="form-group float-left col-12">
+                                                {/*<label htmlFor="title" className="col-form-label float-left">*/}
+                                                {/*    Product Name </label>*/}
+                                                <input className="form-control" id="title"
+                                                value={this.state.item.conditionString}
+                                                onChange={this.conditionStringChanged}
+                                                       placeholder="Condition String"/>
+                                            </div>
+
+                                        </div>
                     <div className="row border-bottom mt-2">
                         <div className="col-8">
                             <h4> Describe Your Product </h4>
 
                         </div>
                     <div className="form-group float-left col-12">
-                        {/*<label htmlFor="item-description"*/}
-                        {/*       className="col-form-label float-left">*/}
-                        {/*    Product Description </label>*/}
-                        <textarea className="form-control" id="item-description" placeholder="Limit to 2 sentences"></textarea>
+                        <textarea className="form-control" id="item-description"
+                        value={this.state.item.value}
+                        onChange={this.descriptionChanged}
+                        placeholder="Limit to 2 sentences"></textarea>
                     </div>
                     </div>
                         <div className="row border-bottom mt-2">
@@ -182,7 +306,9 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
                             <label htmlFor="item-cost" className="col-form-label float-left">
                                 Item Cost </label>
                             <input className="form-control" id="item-cost"
-                                   placeholder="$34"/>
+                                   placeholder="$34"
+                                   value={this.state.item.price}
+                                   onChange={this.pricingChanged}/>
 
                         </div>
                         <div className="form-group col-12">
@@ -190,6 +316,8 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
                             <label htmlFor="shipping-cost" className="col-form-label float-left">
                                 Shipping Cost </label>
                             <input className="form-control" id="shipping-cost"
+                            value={this.state.item.shippingCost}
+                            onChange={this.shippingChanged}
                                    placeholder="$4"/>
 
                         </div>
@@ -197,6 +325,7 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
 
                             <Autocomplete
                                 multiple
+                                onChange={this.paymentMethodAdded}
                                 id="payment-options"
                                 options={[{"paymentMethod": "Venmo", "id": 1},
                                     {"paymentMethod": "PayPal", "id": 2},
@@ -208,6 +337,7 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
                                     <TextField
                                         {...params}
                                         variant="standard"
+
                                         label="Available Payment Methods"
                                         placeholder="payment methods"
                                         margin="normal"
@@ -251,7 +381,10 @@ editingPhoto: prevState.images.length == 0 ? URL.createObjectURL(event.target.fi
                             </div>
 
                         <div className="form-group col-12">
-                            <textarea className="form-control" id="refund-policy" placeholder="Describe your refund policy"></textarea>
+                            <textarea className="form-control" id="refund-policy"
+                            value={this.state.item.refundPolicy}
+                            onChange={this.refundPolicyChanged}
+                            placeholder="Describe your refund policy"></textarea>
                         </div>
                         </div>
 

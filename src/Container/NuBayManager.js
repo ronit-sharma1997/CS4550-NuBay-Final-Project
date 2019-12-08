@@ -19,7 +19,7 @@ export default class NuBayManager extends React.Component {
 
 
     render() {
-
+        debugger;
         console.log(this.props);
     
         return (
@@ -27,10 +27,12 @@ export default class NuBayManager extends React.Component {
             <div className="h-100">
 
 
-                <Route exact path="/login" render={(props) => <LoginPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
+                <Route exact path="/login" render={(props) => <LoginPage {...props}
+                setLoggedInUser={this.props.setLoggedInUser}/>}/>
                 <Route exact path="/register" render={(props) => <RegisterPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
 
-                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id", "/list-new-item"]} render={(props) =>
+                <Route exact path={["/details/:id", "/search/:searchTerm", "/home","/", "/profile/:id", "/list-new-item"]}
+                render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
                         searchText={this.props.searchText}
@@ -40,7 +42,11 @@ export default class NuBayManager extends React.Component {
 
                 <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
 
+                     <Route exact path ="/home" component={HomePage}render={(props) =>
+                                                        <HomePage
+                                                          {...props}
 
+                                                />}/>
 
 
                            <Route exact path="/details/:id" component={ItemDetail}/>
@@ -48,20 +54,13 @@ export default class NuBayManager extends React.Component {
                     <Route exact path ="/search/:searchTerm" render={(props) =>
                         <NuBayTable
                             {...props}
+                            items1={["hello world"]}
                             />}/>
                 </div>
                     <Route exact path ="/list-new-item" render={(props) =>
                                             <ListItemComponent
                                                 {...props}
                                                 />}/>
-                    <Route exact path ="/home" render={(props) =>
-                                    <HomePage
-                                      {...props}
-
-                                      />}/>
-
-
-
 
             </div>
             </Router>

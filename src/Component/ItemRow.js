@@ -11,7 +11,7 @@ return(
         <div className="row">
             <div className={index === 0 ? "col-md-3 col-12 mt-3" : "col-md-3 col-12"}>
                 <div className="detail-image table-image-width mx-auto my-auto">
-                    <img src={item.galleryURL} className="mx-auto w-100"/>
+                    <img src={item.imageUrl.length > 0 ? item.imageUrl[0] : ""} className="mx-auto w-100"/>
                 </div>
             </div>
             <div className="col-md-7 col-12 my-auto">
@@ -21,15 +21,15 @@ return(
                             <b className="item-name"> {item.title} </b></Link>
                     </div>
                     <div className="col-12 text-center text-md-left">
-                        <span className="condition-text"> {item.condition} • {item.categoryName}</span>
+                        <span className="condition-text"> {item.conditionString} • {item.categoryName}</span>
                     </div>
                     <div className="col-12 text-center text-md-left">
                             <a className="seller-link" href="#">
-                                {item.sellerName}
+                                {item.sellerId}
                             </a>
                     </div>
                     <div className="col-12 mt-1 text-center text-md-left">
-                        <b className="price-string"> {constants.getItemPrice(item.__value__)}
+                        <b className="price-string"> {constants.getItemPrice(item.value)}
                         </b>
                     </div>
                     <div className="col-12 text-center text-md-left">

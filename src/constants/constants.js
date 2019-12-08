@@ -17,7 +17,17 @@ if(price.includes("USD")) {
     return "$".concat(price.substring(4));
 }
 else {
-return "";
+return price;
+}
+}
+
+getRatingValue(item){
+if (item.sellerRating) {
+return item.sellerRating / 20
+}
+else {
+    return 4.0
+
 }
 }
 

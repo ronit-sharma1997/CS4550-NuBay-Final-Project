@@ -17,7 +17,6 @@ return(
                             <option value="Name: A to Z">Name: A to Z</option>
                             <option value="Name: Z to A">Name: Z to A</option>
                         </select>
-
                     </div>
 
                 </div>

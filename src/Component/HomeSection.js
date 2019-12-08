@@ -2,6 +2,7 @@ import React from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ItemCard from './ItemCard'
+import {Link} from 'react-router-dom'
 
 const HomeSection = ({items, title}) => {
 var responsive = {
@@ -30,13 +31,15 @@ var responsive = {
              }
 return(
     <div className ="row h-25 w-100 bg-white">
+
                     <div className ="col-8 mt-3 mb-3">
                     <b class="view-related-items-font"> {title} </b>
 
                     </div>
                     <div className="col-4 mt-3 mb-3">
-                   <button type="button" className="btn float-right btn-link">
-                   <span className="view-related-items-font">
+
+                   <button type="button" className="btn float-right btn-link my-auto">
+                   <span className="see-all-home">
                    See All
                    </span>
                    </button>

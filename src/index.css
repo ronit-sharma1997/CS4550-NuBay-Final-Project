@@ -105,12 +105,16 @@ font-weight:500;
 }
 
 .view-related-items-font {
-    font-size: 20px;
+    font-size: 21px;
     font-weight:500;
 }
 
 
+.see-all-home {
+    font-size:19px;
+    font-weight:400
 
+}
 
 .more-detail-items {
     font-size: 15px;

@@ -4,6 +4,7 @@ import NuBayManagerHeaderBar from "./NuBayManagerHeaderBar";
 import NuBayService from "../services/NuBayService";
 
 class NuBayTable extends React.Component {
+debugger;
     constructor(props) {
         super(props);
         this.nuBayService = NuBayService.getInstance()
