@@ -30,13 +30,16 @@ export default class NuBayManager extends React.Component {
                 <Route exact path="/login" render={(props) => <LoginPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
                 <Route exact path="/register" render={(props) => <RegisterPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
 
-                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id", "/list-new-item"]} render={(props) =>
+                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id", "/list-new-item", "/profile"]} render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
                         searchText={this.props.searchText}
                         onSearchTextChanged= {this.props.searchStringChanged}
+                        userInfo={this.props.userInfo}
+                        loggedIn={this.props.loggedIn}
+                        logOut={this.props.removeLoggedInUser}
                     />}/>
-                <Route exact path="/profile/:id" component={ProfileTabs}/>
+                <Route exact path="/profile/:id" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
 
                 <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
 
@@ -48,6 +51,7 @@ export default class NuBayManager extends React.Component {
                     <Route exact path ="/search/:searchTerm" render={(props) =>
                         <NuBayTable
                             {...props}
+                            loggedIn={this.props.loggedIn}
                             />}/>
                 </div>
                     <Route exact path ="/list-new-item" render={(props) =>

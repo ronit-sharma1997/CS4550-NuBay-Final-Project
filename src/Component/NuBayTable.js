@@ -17,6 +17,7 @@ class NuBayTable extends React.Component {
 
             this.nuBayService.getEbayItems(props.match.params.searchTerm, this.setItems)
         }
+        console.log(this.props)
     }
 
     setItems(items) {
@@ -35,6 +36,7 @@ class NuBayTable extends React.Component {
     }
 
     render() {
+        let componentProps = this.props;
         return(
         <div>
             <div className={this.props.initialLoad ? "d-none" : ""}>
@@ -55,6 +57,7 @@ class NuBayTable extends React.Component {
                             <ItemRow
                                 item={item}
                                 index={index}
+                                loggedIn={componentProps.loggedIn}
                             />
                         )
 
