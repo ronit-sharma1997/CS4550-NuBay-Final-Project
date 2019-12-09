@@ -81,4 +81,10 @@ export default class ItemService {
         .then(response => response.json())
         .then(items => callback(items))
     }
+
+    findTrendingItems(callback) {
+        fetch(this.EbayURL + 'hotitems')
+        .then(response => response.json())
+        .then(items => callback(items))
+    }
 }
