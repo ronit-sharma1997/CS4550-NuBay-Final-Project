@@ -32,8 +32,6 @@ export default class NuBayManager extends React.Component {
 
                 <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id",
                 "/add/:type", "/profile","/home", '/editService/:serviceid',"/editItem/:itemid"]} render={(props) =>
-                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id",
-                "/add/:type", "/profile", "/home"]} render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
                         searchText={this.props.searchText}
