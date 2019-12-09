@@ -5,21 +5,21 @@ import NuBayTable from "../Component/NuBayTable";
 import ListItemComponent from '../Component/ListItemComponent'
 import HomePage from '../Component/HomePage'
 import ItemDetail from '../Component/ItemDetail';
-import {BrowserRouter as Router,Route}
-	from 'react-router-dom';
+import { BrowserRouter as Router, Route }
+    from 'react-router-dom';
 import LoginPage from "../Component/LoginPage";
 import RegisterPage from "../Component/RegisterPage";
 import ProfileTabs from "./ProfileTabs";
 
 export default class NuBayManager extends React.Component {
 
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
 
 
     render() {
-
+        // debugger;
         console.log(this.props);
 
         return (
@@ -30,7 +30,7 @@ export default class NuBayManager extends React.Component {
                 <Route exact path="/login" render={(props) => <LoginPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
                 <Route exact path="/register" render={(props) => <RegisterPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
 
-                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id", "/add/:type", "/profile"]} render={(props) =>
+                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id", "/add/:type", "/profile", "/home"]} render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
                         searchText={this.props.searchText}

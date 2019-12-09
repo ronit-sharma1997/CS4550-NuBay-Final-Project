@@ -10,6 +10,7 @@ export default class ItemService {
     }
 
     EbayURL = 'https://peaceful-caverns-80012.herokuapp.com/api/'
+    localURL = 'http://localhost:8080/api/'
 
     // Return array of item objects
 	getAllItems(callback) {
@@ -73,5 +74,11 @@ export default class ItemService {
         fetch(this.EbayURL + 'items/' + itemId + '/bookmarks')
         .then(response => console.log("Number of Bookmarks for Item: " + response))
         .then(numberOfBookmarks => callback(numberOfBookmarks))
+    }
+
+    findFiveRecentItems(callback) {
+        fetch(this.EbayURL + 'recentitems')
+        .then(response => response.json())
+        .then(items => callback(items))
     }
 }
