@@ -2,11 +2,30 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Constants from '../constants/constants'
 
-const ItemRow = ({item, index, loggedIn, itemType, bookmarkIds, addBookmark}) => {
+const ItemRow = ({item, index, loggedIn, userId, itemType, bookmarkIds, addBookmark, deleteBookmark, editItem, editService}) => {
+    console.log(item)
 var constants = Constants.getInstance()
-    var itemAlreadyBookmarked = bookmarkIds.includes(item.itemId)
-console.log(loggedIn)
-debugger;
+    var itemAlreadyBookmarked = false;
+    var itemOwner = false;
+    var serviceOwner = false;
+    if(itemType === "ebay") {
+        itemAlreadyBookmarked = bookmarkIds.includes(item.itemId)
+    } else if (itemType === "northeasternItem") {
+        if(item.sellerId === userId) {
+            itemOwner = true;
+        }
+        for(var i = 0; i < bookmarkIds.length; i++) {
+            if (bookmarkIds[i].itemId === item.itemId) {
+                itemAlreadyBookmarked = true;
+                break;
+            }
+        }
+    } else if (itemType === "northeasternService") {
+        if(item.sellerId === userId) {
+            serviceOwner = true;
+        }
+    }
+
 
 return(
     <div className="my-auto">
@@ -40,8 +59,11 @@ return(
                     </div>
                     <div className="col-12 text-center text-md-left">
                         <a href={item.ebayUrl}> <button type="button" className="btn btn-success">View On Ebay</button></a>
-                        {loggedIn && !itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-warning" onClick={() => addBookmark(item.itemId)}>Bookmark</button>}
-                        {!loggedIn && <Link to="/login"><button type="button" className="ml-2 btn btn-warning" onClick={() => addBookmark(item.itemId)}>Bookmark</button></Link>}
+                        {loggedIn && !itemOwner && !itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-warning" onClick={() => addBookmark(item.itemId)}>Bookmark</button>}
+                        {!loggedIn && <Link to="/login"><button type="button" className="ml-2 btn btn-warning">Bookmark</button></Link>}
+                        {loggedIn && itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-danger" onClick={() => deleteBookmark(item.itemId)}>Unbookmark</button>}
+                        {loggedIn && itemOwner && <button type="button" className="ml-2 btn btn-danger" onClick={() => editItem(item.itemId)}>Edit Item</button>}
+                        {loggedIn && serviceOwner && <button type="button" className="ml-2 btn btn-danger" onClick={() => editService(item.id)}>Edit Service</button>}
                     </div>
                 </div>
             </div>

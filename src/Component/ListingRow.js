@@ -1,8 +1,19 @@
 import React from 'react'
 import Constants from '../constants/constants'
+import {Link} from 'react-router-dom'
 
-const ListingRow = ({item, itemType}) => {
+const ListingRow = ({item, itemType, userRole}) => {
     var constants = Constants.getInstance()
+    var linkItem;
+    if (userRole === "SELLER") {
+        if(itemType === "northeasternItem") {
+            linkItem = `/editItem/${item.itemId}`
+        } else if (itemType === "northeasternService") {
+            linkItem = `/editService/${item.id}`
+        }
+    } else if (userRole === "BUYER") {
+        linkItem = `/details/${item.itemId}`
+    }
     return(
         <div className="my-auto">
             <div className="row">
@@ -13,9 +24,8 @@ const ListingRow = ({item, itemType}) => {
                 </div>
                 <div className="col-md-7 col-12 my-auto">
                     <div className="row">
-                        {/*<Link to={`/item-detail/${item.itemId}`}>*/}
                         <div className="col-12">
-                            {item && <b className="item-name"> {item.title} </b>}
+                            {item && <Link to={linkItem}><b className="item-name"> {item.title} </b></Link>}
                         </div>
                         <div className="col-12">
                             {item && <span className="condition-text"> {item.conditionString} • {item.categoryName}</span>}

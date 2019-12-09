@@ -29,6 +29,7 @@ export default class HomePage extends React.Component {
             loggedIn: _loggedIn,
             userId: _userId,
             bookmarked_neu_items: [],
+            trending_neu_items: [],
             recent_neu_items: [],
             recent_neu_services: []
         }
@@ -40,7 +41,7 @@ export default class HomePage extends React.Component {
         this.setState(prevState => ({
             ...prevState,
             bookmarked_neu_items: bookmarkedItems
-          })
+        })
         );
     }
 
@@ -48,7 +49,7 @@ export default class HomePage extends React.Component {
         this.setState(prevState => ({
             ...prevState,
             recent_neu_items: recentNeuItems
-          })
+        })
         );
     }
 
@@ -56,13 +57,22 @@ export default class HomePage extends React.Component {
         this.setState(prevState => ({
             ...prevState,
             recent_neu_services: recentNeuServices
-          })
+        })
         );
     }
 
-    componentDidMount () {
+    setTrendingNeuItems = (trendingNeuItems) => {
+        this.setState(prevState => ({
+            ...prevState,
+            trending_neu_items: trendingNeuItems
+        })
+        );
+    }
+
+    componentDidMount() {
         this.itemService.findFiveRecentItems(this.setRecentNeuItems);
         this.serviceItemService.findFiveRecentServiceItems(this.setRecentNeuServiceItems);
+        this.itemService.findTrendingItems(this.setTrendingNeuItems);
         if (this.state.loggedIn) {
             this.userService.getRecentBookmarkedItemsForUser(this.state.userId, this.setBookmarkedNeuItems)
         }
@@ -136,6 +146,16 @@ export default class HomePage extends React.Component {
                         </div>
                     </section>
                 }
+
+                <section className="py-5">
+                    <div className="row border-bottom mb-2">
+                        <HomeSection
+                            title={"Trending NEU Items"}
+                            items={this.state.trending_neu_items}
+                            desc={"Here are the hottest NEU Items, in order of most bookmarked to least from left to right."}
+                            type={"ITEM_TYPE"}> </HomeSection>
+                    </div>
+                </section>
 
                 <section className="py-5">
                     <div className="row border-bottom mb-2">

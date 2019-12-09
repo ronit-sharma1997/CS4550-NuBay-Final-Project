@@ -14,6 +14,9 @@ class NuBayTable extends React.Component {
         this.userService = UserService.getInstance()
         this.setItems = this.setItems.bind(this);
         this.addBookmark = this.addBookmark.bind(this);
+        this.deleteBookmark = this.deleteBookmark.bind(this);
+        this.editItem = this.editItem.bind(this);
+        this.editService = this.editService.bind(this);
         this.setNewUserState = this.setNewUserState.bind(this);
         this.state = {
             items: [],
@@ -54,13 +57,33 @@ class NuBayTable extends React.Component {
         }
     }
 
+    deleteBookmark(itemId) {
+        console.log("deleting bookmark")
+        if(this.props.itemType == "ebay") {
+            this.userService.deleteEbayBookmarkedItemForUser(this.props.userId,
+                itemId, this.setNewUserState)
+        }
+        else if(this.props.itemType == "northeasternItem") {
+            this.userService.deleteBookmarkedItemForUser(this.props.userId,
+                itemId, this.setNewUserState)
+        }
+    }
+
+    editItem(itemId) {
+        this.props.history.push(`/editItem/${itemId}`)
+    }
+
+    editService(serviceId) {
+        this.props.history.push(`/editService/${serviceId}`)
+    }
+
     setNewUserState(responseCode) {
         console.log(responseCode)
         if(this.props.itemType == "northeasternItem") {
             if(responseCode === 0) {
                 this.props.setLoggedInUser(this.props.userId)
             } else {
-                alert("Error adding bookmarked item")
+                alert("Error adding/deleting bookmarked item")
             }
         } else {
             this.props.setLoggedInUser(this.props.userId)
@@ -81,7 +104,7 @@ class NuBayTable extends React.Component {
     render() {
         let componentProps = this.props;
         let component = this;
-        let headingText = this.props.itemType === "northeasternItem" ? "Northeastern Items" : "Ebay Items"
+        let headingText = this.props.itemType === "northeasternItem" ? "Northeastern Items" : this.props.itemType === "ebay"?  "Ebay Items" : "Northeastern Services"
         return(
         <div>
             <div className={this.props.initialLoad ? "d-none" : ""}>
@@ -104,8 +127,12 @@ class NuBayTable extends React.Component {
                                 itemType={componentProps.itemType}
                                 index={index}
                                 loggedIn={componentProps.loggedIn}
+                                userId={componentProps.userId}
                                 bookmarkIds={componentProps.bookmarkIds}
                                 addBookmark={component.addBookmark}
+                                deleteBookmark={component.deleteBookmark}
+                                editItem={component.editItem}
+                                editService={component.editService}
                             />
                         )
 

@@ -168,6 +168,17 @@ class NuBayManagerNavBar extends React.Component {
         }
     }
 
+    navigateToBookmarks() {
+        if(this.props.loggedIn) {
+            this.props.history.push({
+                pathname: '/profile',
+                state: { tab: 2 }
+            })
+        } else {
+            this.props.history.push('/login')
+        }
+    }
+
 
     render() {
         console.log(this.props.userInfo.id, this.props.loggedIn)
@@ -230,7 +241,7 @@ class NuBayManagerNavBar extends React.Component {
                                                   onMouseLeave={this.onMouseLeaveAddObject}
                                                   isOpen={this.state.addObjectOpen} toggle={this.toggleDropDownAddObject} nav inNavbar>
                                 <DropdownToggle nav>
-                                    <i className="fa fa-plus mt-2 ml-4 ml-md-2"></i>
+                                    <i className="fa fa-plus fa-lg mt-2 ml-4 ml-md-2"></i>
                                 </DropdownToggle>
                                 <DropdownMenu className="col-4" right>
                                     <Button size={"md"} onClick={() => this.addItemSelected()} className="btn btn-primary CenterAddItem">
@@ -243,7 +254,7 @@ class NuBayManagerNavBar extends React.Component {
 
                                 </DropdownMenu>
                             </UncontrolledDropdown>
-                            <IconButton className="col-1 ml-2 my-auto" >
+                            <IconButton onClick={() => this.navigateToBookmarks()} className="col-1 ml-2 my-auto" >
                                 <MuiThemeProvider theme={theme}>
                                 <Badge badgeContent={this.props.bookmarkCount} color="primary">
                                     <BookmarkIcon className={"bookmark-icon"} />
