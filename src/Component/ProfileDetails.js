@@ -111,7 +111,7 @@ export default class ProfileDetails extends React.Component {
                     <div className="form-group row mt-0">
                         <label className="col-sm-2 col-form-label"></label>
                         <div className="col-sm-10" >
-                            {this.props.dataExists && <span> {this.props.userInfo.userRole === "SELLER" && <b>{this.props.userInfo.items.length + this.props.userInfo.serviceItems.length}</b>}{this.props.userInfo.userRole === "SELLER" && listingText}<b>{this.props.userInfo.bookmarkedItems.length + this.props.userInfo.bookmarkedEbayItems.split(",").length}</b> Bookmarks</span>}
+                            {this.props.dataExists && <span> {this.props.userInfo.userRole === "SELLER" && <b>{this.props.userInfo.items.length + this.props.userInfo.serviceItems.length}</b>}{this.props.userInfo.userRole === "SELLER" && listingText}<b>{this.props.userInfo.bookmarkedItems.length + (this.props.userInfo.bookmarkedEbayItems === "" || this.props.userInfo.bookmarkedEbayItems === null ? 0 : this.props.userInfo.bookmarkedEbayItems.split(",").length)}</b> Bookmarks</span>}
                         </div>
                     </div>
                     <div className="form-group row">

@@ -120,7 +120,7 @@ export default class UserService {
             headers: {
                 'content-type': 'application/json'   }
             })
-            .then(response => console.log("Deleted Bookmark Item Result: " + response))
+            .then(response => response.json())
             .then(result => callback(result))
     }
 
@@ -129,15 +129,14 @@ export default class UserService {
         .then(response => response.json())
         .then(bookmarkedItemList => callback(bookmarkedItemList))
     }
-    
+
     deleteEbayBookmarkedItemForUser(userId, itemId, callback) {
-        fetch(this.EbayURL + 'users/' + userId + 'ebaybookmarks/' + itemId, {
+        fetch(this.EbayURL + 'users/' + userId + '/ebaybookmarks/' + itemId, {
             method: 'delete',
             headers: {
                 'content-type': 'application/json'   }
             })
-            .then(response => response.json())
-            .then(result => callback(result))
+            .then(callback)
         }
 }
 

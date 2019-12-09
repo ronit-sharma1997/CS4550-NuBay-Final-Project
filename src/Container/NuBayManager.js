@@ -34,7 +34,7 @@ export default class NuBayManager extends React.Component {
                 "/add/:type", "/profile", "/home", '/editService/:serviceid',"/editItem/:itemid"]} render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
-                        bookmarkCount={Object.keys(this.props.userInfo).length === 0 ? 0 : this.props.userInfo.bookmarkedItems.length + this.props.userInfo.bookmarkedEbayItems.split(",").length}
+                        bookmarkCount={Object.keys(this.props.userInfo).length === 0 ? 0 : this.props.userInfo.bookmarkedItems.length + (this.props.userInfo.bookmarkedEbayItems === "" || this.props.userInfo.bookmarkedEbayItems === null ? 0 : this.props.userInfo.bookmarkedEbayItems.split(",").length)}
                         searchText={this.props.searchText}
                         onSearchTextChanged= {this.props.searchStringChanged}
                         userInfo={this.props.userInfo}
