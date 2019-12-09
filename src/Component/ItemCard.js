@@ -15,6 +15,18 @@ const ItemCard = ({item, card_type})  => {
     // console.log(item)
     // console.log(card_type)
    var constants = Constants.getInstance()
+
+   // logic for determining which page to link to goes here
+   // in other words, prepending 'i', 's' or 'e' to id depending on type
+   // note: use card_type here
+   var item_id_for_link = "";
+   if (card_type == "ITEM_TYPE") {
+       item_id_for_link = "i" + item.itemId;
+   }
+   else if (card_type == "SERVICE_TYPE") {
+       item_id_for_link = "s" + item.itemId;
+   }
+   
 	return (
 	<div className="container-fluid">
 	<div className="card card-size" styles={divStyle}>
@@ -29,7 +41,7 @@ const ItemCard = ({item, card_type})  => {
 	<div className="card-body mt-0 ml-0 pl-0 mb-0 pt-0">
 
 	<div className ="row ml-1">
-            <Link to={`/details/${item.itemId}`}>
+            <Link to={`/details/${item_id_for_link}`}>
                <b className="card-item-title">
                 {item.title}
                 </b>
