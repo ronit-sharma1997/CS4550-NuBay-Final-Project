@@ -14,11 +14,20 @@ export default class HomePage extends React.Component {
         this.itemService = ItemService.getInstance();
         this.serviceItemService = ServiceItemService.getInstance();
 
+        console.log(this.props)
         console.log(this.props.location.state)
 
+        let _loggedIn = false;
+        let _userId = 1;
+
+        if (this.props.location.state) {
+            _loggedIn = this.props.location.state.logged_in;
+            _userId = this.props.location.state.user_id;
+        }
+
         this.state = {
-            loggedIn: this.props.location.state.logged_in,
-            userId: this.props.location.state.user_id,
+            loggedIn: _loggedIn,
+            userId: _userId,
             bookmarked_neu_items: [],
             recent_neu_items: [],
             recent_neu_services: []
