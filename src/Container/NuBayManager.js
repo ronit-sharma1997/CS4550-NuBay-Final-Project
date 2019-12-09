@@ -45,9 +45,6 @@ export default class NuBayManager extends React.Component {
 
                 <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo} setLoggedInUser={this.props.setLoggedInUser}/>}/>
 
-
-
-
                            <Route exact path="/details/:id" component={ItemDetail}/>
                 <div style={{'backgroundColor': '#EAEDED'}}>
                     <Route exact path ="/search/:searchTerm" render={(props) =>
@@ -73,6 +70,7 @@ export default class NuBayManager extends React.Component {
                     <Route exact path ="/add/:type" render={(props) =>
                                             <ListItemComponent
                                                 {...props}
+                                                userId={this.props.userInfo.id}
                                                 />}/>
                     <Route exact path ="/editItem/:itemid" render={(props) =>
                                   <ListItemComponent

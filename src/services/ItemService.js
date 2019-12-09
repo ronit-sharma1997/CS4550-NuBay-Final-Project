@@ -68,6 +68,14 @@ export default class ItemService {
             .then(item => callback(item))
     }
 
+    //get similar categories
+    findSimilarItems(categoryName, callback) {
+        fetch(this.EbayURL + "/search/items/category/" + categoryName)
+        .then(response => response.json())
+        .then(items => callback(items))
+
+    }
+
     // Find number of bookmarks for a given item
     // Return integer number of bookmarks
     findNumberOfBookmarksForItem(itemId, callback) {

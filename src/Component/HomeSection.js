@@ -46,7 +46,7 @@ const HomeSection = ({ items, title, desc, type }) => {
                             <div>
                                 <ItemCard
                                     item={item}
-                                    card_type={type}
+                                    itemType={type}
                                 />
                             </div>
                         )

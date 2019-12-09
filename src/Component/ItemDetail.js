@@ -9,6 +9,7 @@ import Constants from '../constants/constants';
 import ItemCard from './ItemCard'
 import StarRatings from 'react-star-ratings';
 import ItemService from '../services/ItemService';
+import ServiceItemService from '../services/ServiceItemService';
 
 
 class ItemDetail extends React.Component {
@@ -16,10 +17,13 @@ class ItemDetail extends React.Component {
     constructor(props) {
         debugger;
         super(props);
+        this.type = "ebay"
         this.nuBayService = NuBayService.getInstance()
         this.itemService = ItemService.getInstance()
+        this.serviceItemService = ServiceItemService.getInstance()
         this.setItem = this.setItem.bind(this);
         this.setRelatedItems = this.setRelatedItems.bind(this);
+        this.getImageListForItem = this.getImageListForItem.bind(this);
         this.constants = Constants.getInstance()
         this.responsive = {
                superLargeDesktop: {
@@ -50,6 +54,7 @@ class ItemDetail extends React.Component {
         itemType:"",
         item: {
               },
+        seller:{},
         relatedItems: []
 
         }
@@ -58,35 +63,60 @@ class ItemDetail extends React.Component {
         if(this.props.match.params.id.includes("e")) {
         var id = this.props.match.params.id.substring(1)
         this.nuBayService.getEbayItemById(id, this.setItem)
-        this.setState(prevState => ({
-            itemType: "ebay"
-        }))
+        this.type = "ebay"
         }
         else if(this.props.match.params.id.includes("i")){
         var id = this.props.match.params.id.substring(1)
         this.itemService.findItemById(id, this.setItem)
-        this.setState(prevState => ({
-                    itemType: "northeasternItem"
-                }))
-                }
+        this.type = "northeasternItem"
+         }
+        else if(this.props.match.params.id.includes("s")) {
+         var id = this.props.match.params.id.substring(1)
+         this.type = "northeasternService"
+         this.serviceItemService.findServiceItemById(id, this.setItem)
+        }
+
         }
 
     }
 
     setItem(item) {
-    this.nuBayService.getEbayItemByCategory(item.categoryId, this.setRelatedItems)
+    if(this.type == "ebay") {
+        this.nuBayService.getEbayItemByCategory(item.categoryId, this.setRelatedItems)
+    }
+    else {
+        this.itemService.findSimilarItems(item.categoryName, this.setRelatedItems)
+    }
+
         this.setState(prevState => ({
           ...prevState,
-          item: item
+          item: item,
+          itemType: this.type,
+
         }))
       }
+
+    getImageListForItem() {
+        var imageSrcs = []
+        debugger;
+        if(this.state.item.image1) {
+            imageSrcs.push("data:image/png;base64,".concat(this.state.item.image1))
+        }
+        if(this.state.item.image2) {
+            imageSrcs.push("data:image/png;base64,".concat(this.state.item.image2))
+        }
+        if(this.state.item.image3) {
+            imageSrcs.push("data:image/png;base64,".concat(this.state.item.image3))
+        }
+        return imageSrcs
+    }
 
     setRelatedItems(items) {
 
     this.setState(prevState => ({
               ...prevState,
-              relatedItems: items
-            }))
+              relatedItems: items.filter(item => item.itemId != this.state.item.itemId)
+      }))
     }
 
     componentWillReceiveProps(nextProps) {
@@ -104,7 +134,7 @@ class ItemDetail extends React.Component {
                     <div className="row detail-image">
                     <div className="col-12 h-100">
                         <ImageCarosel className="mh-100"images={this.state.item.imageUrl ? this.state.item.imageUrl
-                        : []} />
+                        : this.getImageListForItem()} />
                         </div>
                         </div>
                     <div className="row mt-3">
@@ -114,7 +144,8 @@ class ItemDetail extends React.Component {
                     </div>
                     <div>
                      <ul>
-                     <li className="more-detail-items"> {this.state.item.refundPolicy} </li>
+                     {this.type != "northeasternService" &&
+                     <li className="more-detail-items"> {this.state.item.refundPolicy} </li>}
                      <li className="more-detail-items"> Payment Methods Accepted:
                     {this.state.item.paymentOptions ?
                     this.state.item.paymentOptions:
@@ -139,6 +170,7 @@ class ItemDetail extends React.Component {
                                                     {this.state.item.categoryName} </span>
                                                 </div>
                         <div className="col-12 ml-0">
+                        {this.state.itemType == "ebay" &&
                           <span>
                            <a href={"https://www.ebay.com/usr/".concat(this.state.item.sellerId)}>
                          <span className="seller-link text-dark">
@@ -155,10 +187,12 @@ class ItemDetail extends React.Component {
                                                               starSpacing='2px'
                                                             />
                                                  </span>
+                        }
                                                  </div>
 
 
-
+                        {this.state.itemType != "northeasternService" ?
+                        <div>
                         <div className="col-12 mt-2">
                                                           <span>
                                                       <b className="item-condition-detail">
@@ -166,6 +200,7 @@ class ItemDetail extends React.Component {
                                                          </b>
                                                            </span>
                                                    </div>
+
                          <div className="col-12 mt-1">
                                                    <span>
 
@@ -174,13 +209,27 @@ class ItemDetail extends React.Component {
                                                       </b>
                                                    </span>
                                                     </div>
+                          </div>
+                           :<div className="col-12 mt-2">
+                              <span>
+                              <b className="item-condition-detail">
+                               Availability:
+                                </b>
+                                <span className="description-text"> {this.state.item.availability}
+                                </span>
+
+                                 </span>
+                                </div>}
+
                         <div className="col-12 mt-3">
                                                 <span>
 
                                                 <b className="item-detail-price">
                                                 {this.state.item.value ? this.constants.getItemPrice(this.state.item.value)
                                                 : ""}</b>
-                                                 <b className="ml-2 item-detail-shipping-cost"> Free Shipping </b>
+                                                {this.state.itemType != "northeasternService" &&
+                                                 <b className="ml-2 item-detail-shipping-cost">
+                                                 Free Shipping </b>}
 
                                                  </span>
                                                 </div>
@@ -198,7 +247,8 @@ class ItemDetail extends React.Component {
 
                         <button type="button" className="btn btn-success w-100">
 
-                        <a className="text-white w-100" href={this.state.item.ebayUrl}>Buy Now on eBay </a>
+                        <a className="text-white w-100" href={this.state.item.ebayUrl}>
+                        {this.state.itemType != "ebay" ? "Contact Seller" : "Buy Now on eBay"} </a>
                         </button>
 
                         </div>
@@ -216,12 +266,15 @@ class ItemDetail extends React.Component {
                 <b class="view-related-items-font"> View Related Items </b>
 
                 </div>
+                {
+                this.state.relatedItems.length > 0 &&
                 <div className="col-12 h-100 w-100">
                     <Carousel responsive={this.responsive} keyBoardControl={false}>
                       {this.state.relatedItems.map((item) => {
                          return(
                             <div>
                             <ItemCard
+                            itemType={this.state.itemType}
                             item={item}
                             />
                             </div>
@@ -231,6 +284,7 @@ class ItemDetail extends React.Component {
                       }
                     </Carousel>
                 </div>
+                }
                </div>
 
             </div>

@@ -11,20 +11,27 @@ var divStyle = {
 }
 
 
-const ItemCard = ({item, card_type})  => {
+const ItemCard = ({item, itemType})  => {
     // console.log(item)
     // console.log(card_type)
+   // <div className="img_container card-image">
+       //     {item.imageUrl &&
+       // <img
+         //   className="img-responsive card-img-top mb-0 card-image"
+         //   src={item.imageUrl.length > 0 ? item.imageUrl[0] : ""}
+          //  />
+   console.log("BOOGA")
    var constants = Constants.getInstance()
 	return (
 	<div className="container-fluid">
 	<div className="card card-size" styles={divStyle}>
 	<div className="img_container card-image">
-        {item.imageUrl &&
-    <img 
+
+    <img
         className="img-responsive card-img-top mb-0 card-image"
-        src={item.imageUrl.length > 0 ? item.imageUrl[0] : ""}
+        src={constants.getImageSource(item, itemType)}
         />
-}
+
 	</div>
 	<div className="card-body mt-0 ml-0 pl-0 mb-0 pt-0">
 

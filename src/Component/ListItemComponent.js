@@ -41,7 +41,6 @@ class ListItemComponent extends React.Component {
         this.nuBayService = ItemService.getInstance()
         this.serviceItem = ServiceItemService.getInstance()
         this.constants = Constants.getInstance();
-        this.builtInArray = [0,2];
         this.state = { pictures: [],images:[],images2:[],updateMode:false,
         item:{
             title:'',
@@ -88,6 +87,7 @@ class ListItemComponent extends React.Component {
       }
 
         this.convertImagesToArray = this.convertImagesToArray.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
 		this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
 		this.fileUploadedDone = this.fileUploadedDone.bind(this);
 		this.getByteArrayFromImage = this.getByteArrayFromImage.bind(this)
@@ -191,9 +191,50 @@ class ListItemComponent extends React.Component {
 
              }))
             }
+        }
+    else {
+    if(selectedIndex == 0) {
+       this.setState(prevState => ({
+             ...prevState,
+             images: prevState.images.filter((picture, index) => selectedIndex != index),
+             service:{
+             ...prevState.service,
+             image1:prevState.service.image2,
+              image2:prevState.service.image3,
+              image3:""
 
+              }
+
+         }))
+       }
+      else if(selectedIndex == 1) {
+       this.setState(prevState => ({
+           ...prevState,
+            images: prevState.images.filter((picture, index) => selectedIndex != index),
+            service:{
+             ...prevState.service,
+              image2:prevState.service.image3,
+              image3:""
 
         }
+
+       }))
+     }
+      else {
+        this.setState(prevState => ({
+            ...prevState,
+            images: prevState.images.filter((picture, index) => selectedIndex != index),
+             service:{
+             ...prevState.service,
+             image3:""
+         }
+
+       }))
+                }
+
+
+
+    }
 
     }
 
@@ -204,19 +245,20 @@ callBack(json) {
 itemSubmit() {
     if(!this.state.updateMode) {
     if(this.type == "item") {
-    this.nuBayService.createItemForUser("151", this.state.item, this.callBack)
+    this.nuBayService.createItemForUser(this.props.userId, this.state.item, this.callBack)
     }
     else {
-        this.serviceItem.createServiceItemForUser("151", this.state.service, this.callBack)
+        this.serviceItem.createServiceItemForUser(this.props.userId, this.state.service, this.callBack)
     }
 }
     else {
         if(this.type == "item") {
-        this.nuBayService.updateItem(this.state.item, "71", this.callBack)
+        debugger;
+        this.nuBayService.updateItem(this.state.item, this.state.item.itemId, this.callBack)
 
     }
     else {
-            this.serviceItem.updateServiceItem(this.state.service, "21", this.callBack)
+            this.serviceItem.updateServiceItem(this.state.service, this.state.service.id, this.callBack)
 
     }
 
@@ -309,6 +351,12 @@ else{
 
   }
 
+  deleteItem() {
+    if(this.type == "item") {
+        this.nuBayService.deleteItemById(this.state.item.itemId);
+
+    }
+  }
 
 
 
@@ -347,7 +395,7 @@ else{
 
     }
     }
-    else if(image2 || image2 == '') {
+    else if(!image2 || image2 == '') {
      if(this.type == "item") {
         this.setState(prevState => ({
         ...prevState,
@@ -744,7 +792,9 @@ quantityChanged = (event) => {
                                 <button type="button" onClick = {this.itemSubmit}
                                 className="btn btn-success btn">
                                 {this.state.updateMode ? "Update Item" : "List Item"}</button>
-                                <button type="button" className="ml-2 btn btn-danger btn">Delete Listing</button>
+                                <button type="button" className="ml-2 btn btn-danger btn"
+                                onClick={this.deleteItem}>
+                                Delete Listing</button>
                             </div>
                         </div>
 
