@@ -9,6 +9,7 @@ export default class ProfileTabs extends React.Component {
             selectedTab: 0
         }
         console.log(Object.keys(this.props.match.params).length === 0)
+
     }
 
 
@@ -26,11 +27,12 @@ export default class ProfileTabs extends React.Component {
         let tabContent = <div></div>;
         let dataExists = Object.keys(this.props.userInfo).length !== 0;
         if(this.state.selectedTab === 0) {
-            tabContent = <ProfileDetails userInfo={this.props.userInfo} dataExists={dataExists}/>
+            tabContent = <ProfileDetails userInfo={this.props.userInfo} setLoggedInUser={this.props.setLoggedInUser} dataExists={dataExists}/>
         } else if (this.state.selectedTab === 1) {
-            tabContent = <ListingsDetails items={this.props.userInfo.items} dataExists={dataExists} headingTitle="My Listings"/>
+            var title = Object.keys(this.props.match.params).length === 0 ? 'My Listings': "Seller's Listings";
+            tabContent = <ListingsDetails items={this.props.userInfo.items} ebayItems={[]} services={this.props.userInfo.serviceItems} dataExists={dataExists} headingTitle={title}/>
         } else if (this.state.selectedTab === 2) {
-            tabContent = <ListingsDetails items={this.props.userInfo.bookmarkedItems} dataExists={dataExists} headingTitle="My Bookmarks"/>
+            tabContent = <ListingsDetails items={this.props.userInfo.bookmarkedItems} services={[]} ebayItems={this.props.userInfo.bookmarkedEbayItems === null ? [] : this.props.userInfo.bookmarkedEbayItems.split(",")} dataExists={dataExists} headingTitle="My Bookmarks"/>
         }
         return(
 

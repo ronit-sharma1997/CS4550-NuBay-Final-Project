@@ -245,7 +245,7 @@ class NuBayManagerNavBar extends React.Component {
                             </UncontrolledDropdown>
                             <IconButton className="col-1 ml-2 my-auto" >
                                 <MuiThemeProvider theme={theme}>
-                                <Badge badgeContent={0} color="primary">
+                                <Badge badgeContent={this.props.bookmarkCount} color="primary">
                                     <BookmarkIcon className={"bookmark-icon"} />
                                 </Badge>
                                 </MuiThemeProvider>

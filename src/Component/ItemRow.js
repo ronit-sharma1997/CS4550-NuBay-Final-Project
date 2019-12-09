@@ -2,8 +2,9 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Constants from '../constants/constants'
 
-const ItemRow = ({item, index, loggedIn, itemType}) => {
+const ItemRow = ({item, index, loggedIn, itemType, bookmarkIds, addBookmark}) => {
 var constants = Constants.getInstance()
+    var itemAlreadyBookmarked = bookmarkIds.includes(item.itemId)
 console.log(loggedIn)
 debugger;
 
@@ -39,7 +40,8 @@ return(
                     </div>
                     <div className="col-12 text-center text-md-left">
                         <a href={item.ebayUrl}> <button type="button" className="btn btn-success">View On Ebay</button></a>
-                            <button type="button" className="ml-2 btn btn-warning">Bookmark</button>
+                        {loggedIn && !itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-warning" onClick={() => addBookmark(item.itemId)}>Bookmark</button>}
+                        {!loggedIn && <Link to="/login"><button type="button" className="ml-2 btn btn-warning" onClick={() => addBookmark(item.itemId)}>Bookmark</button></Link>}
                     </div>
                 </div>
             </div>

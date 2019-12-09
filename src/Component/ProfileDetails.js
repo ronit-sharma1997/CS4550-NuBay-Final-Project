@@ -1,4 +1,5 @@
 import React from 'react'
+import UserService from "../services/UserService";
 
 const wordWrap = {
     wordWrap: 'break-word'
@@ -11,15 +12,20 @@ export default class ProfileDetails extends React.Component {
             editingTextPassword: "",
             editingTextPhone: "",
             editingTextEmail: "",
-            editingRoleType: ""
+            displayUpdateButton: false
         }
+        this.userService = UserService.getInstance();
+        this.updateUser = this.updateUser.bind(this)
+        this.setNewUserState = this.setNewUserState.bind(this)
     }
+
 
     passwordChangeRegister = (event) => {
         event.persist()
         this.setState(prevState => ({
             ...prevState,
-            editingTextPassword: event.target.value
+            editingTextPassword: event.target.value,
+            displayUpdateButton: true
         }))
 
     }
@@ -28,7 +34,8 @@ export default class ProfileDetails extends React.Component {
         event.persist()
         this.setState(prevState => ({
             ...prevState,
-            editingTextPhone: event.target.value
+            editingTextPhone: event.target.value,
+            displayUpdateButton: true
         }))
     }
 
@@ -36,20 +43,54 @@ export default class ProfileDetails extends React.Component {
         event.persist()
         this.setState(prevState => ({
             ...prevState,
-            editingTextEmail: event.target.value
+            editingTextEmail: event.target.value,
+            displayUpdateButton: true
         }))
     }
 
-    roleChangeRegister = (event) => {
-        event.persist()
-        this.setState(prevState => ({
-            ...prevState,
-            editingRoleType: event.target.value
-        }))
+
+    fieldsChanged() {
+        return (this.state.editingTextPassword !== this.props.userInfo.password && this.state.editingTextPassword !== "")
+            || (this.state.editingTextPhone !== this.props.userInfo.phoneNumber && this.state.editingTextPhone !== "")
+            || (this.state.editingTextEmail !== this.props.userInfo.email && this.state.editingTextEmail !== "")
+    }
+
+    updateUser() {
+        let componentState = this.state
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var phoneno = /^\d{10}$/;
+        if (!re.test(componentState.editingTextEmail) && componentState.editingTextEmail !== "") {
+            alert("Please input a valid email")
+        } else if (this.props.userInfo.userRole === "SELLER" && (componentState.editingTextEmail !== "" && !componentState.editingTextEmail.endsWith("@husky.neu.edu"))) {
+            alert("As a seller you must provide a valid Northeastern email(@husky.neu.edu)")
+        } else if (!componentState.editingTextPhone.match(phoneno) && componentState.editingTextPhone !== "") {
+            alert("Please provide valid phone number")
+        } else {
+            console.log(this.props.userInfo.id)
+            this.userService.updateUser({
+                "id": this.props.userInfo.id,
+                "firstName": this.props.userInfo.firstName,
+                "lastName": this.props.userInfo.lastName,
+                "username": this.props.userInfo.username,
+                "password": componentState.editingTextPassword === "" ? this.props.userInfo.password : componentState.editingTextPassword,
+                "email": componentState.editingTextEmail === "" ? this.props.userInfo.email : componentState.editingTextEmail,
+                "phoneNumber": componentState.editingTextPhone === "" ? this.props.userInfo.phoneNumber : componentState.editingTextPhone,
+                "userRole": this.props.userInfo.userRole,
+                "items": this.props.userInfo.items,
+                "serviceItems": this.props.userInfo.serviceItems,
+                "bookmarkedItems": this.props.userInfo.bookmarkedItems,
+                "bookmarkedEbayItems" : this.props.userInfo.bookmarkedEbayItems
+            }, this.props.userInfo.id, this.setNewUserState)
+        }
+    }
+
+    setNewUserState(user) {
+        this.props.setLoggedInUser(user.id)
     }
 
     render() {
-        let listingText = this.props.userInfo.userRole === "SELLER" ?  " Listings •" : "";
+        console.log(this.state.editingRoleType)
+        let listingText = this.props.userInfo.userRole === "SELLER" ?  " Listings • " : "";
         return (
                 <form className="container">
                     <div className="form-group row">
@@ -70,7 +111,7 @@ export default class ProfileDetails extends React.Component {
                     <div className="form-group row mt-0">
                         <label className="col-sm-2 col-form-label"></label>
                         <div className="col-sm-10" >
-                            {this.props.dataExists && <span> {this.props.userInfo.userRole === "SELLER" && <b>{this.props.userInfo.items.length}</b>}{this.props.userInfo.userRole === "SELLER" && listingText}<b>{this.props.userInfo.bookmarkedItems.length}</b> Bookmarks</span>}
+                            {this.props.dataExists && <span> {this.props.userInfo.userRole === "SELLER" && <b>{this.props.userInfo.items.length + this.props.userInfo.serviceItems.length}</b>}{this.props.userInfo.userRole === "SELLER" && listingText}<b>{this.props.userInfo.bookmarkedItems.length + this.props.userInfo.bookmarkedEbayItems.split(",").length}</b> Bookmarks</span>}
                         </div>
                     </div>
                     <div className="form-group row">
@@ -99,6 +140,15 @@ export default class ProfileDetails extends React.Component {
                         </div>
                     </div>
                     <div className="form-group row">
+                        <label htmlFor="role" className="col-sm-2 col-form-label">
+                            Role </label>
+                        <div className="col-sm-10">
+                            <input className="form-control wbdv-field wbdv-role" id="role"
+                                    placeholder={this.props.dataExists ? this.props.userInfo.userRole : ""} readOnly>
+                            </input>
+                        </div>
+                    </div>
+                    <div className="form-group row">
                         <label htmlFor="password" className="col-sm-2 col-form-label">
                             Password </label>
                         <div className="col-sm-10">
@@ -123,21 +173,10 @@ export default class ProfileDetails extends React.Component {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="role" className="col-sm-2 col-form-label">
-                            Role </label>
-                        <div className="col-sm-10">
-                            <select className="custom-select wbdv-field wbdv-role" id="role" onChange={this.roleChangeRegister} placeholder={this.props.dataExists ? this.props.userInfo.userRole : ""}
-                                    value={this.state.editingRoleType}>
-                                <option value="BUYER">Buyer</option>
-                                <option value="SELLER">Seller</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="form-group row">
                         <label className="col-sm-2 col-form-label"></label>
                         <div className="col-sm-10">
-                            <a href="" className="btn btn-success btn-block wbdv-button wbdv-update"
-                               role="button">Update</a>
+                            {this.fieldsChanged() && <button className="btn btn-success btn-block wbdv-button wbdv-update"
+                               type="button" onClick={this.updateUser}>Update</button>}
                         </div>
                     </div>
 

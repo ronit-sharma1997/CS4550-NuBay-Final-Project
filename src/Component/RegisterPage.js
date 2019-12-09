@@ -9,6 +9,7 @@ export default class RegisterPage extends React.Component {
         this.state = {
             editingTextFirstName: "",
             editingTextLastName: "",
+            editingTextEmail: "",
             editingTextUserName: "",
             editingTextPassword: "",
             editingTextVerifyPassword: "",
@@ -51,6 +52,15 @@ export default class RegisterPage extends React.Component {
 
     }
 
+    emailChangeRegister = (event) => {
+        event.persist()
+        this.setState(prevState => ({
+            ...prevState,
+            editingTextEmail: event.target.value
+        }))
+
+    }
+
     passwordChangeRegister = (event) => {
         event.persist()
         this.setState(prevState => ({
@@ -77,10 +87,13 @@ export default class RegisterPage extends React.Component {
     }
 
     createUser = () => {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(this.state.editingTextUserName === "" || this.state.editingTextFirstName === ""
             || this.state.editingTextLastName === "" || this.state.editingTextPassword === ""
             || this.state.editingTextVerifyPassword === "") {
             alert("Please fill in all necessary fields")
+        } else if (!re.test(this.state.editingTextEmail)) {
+            alert("Please enter a valid email")
         } else if (this.state.editingTextPassword !== this.state.editingTextVerifyPassword) {
             alert("Please make sure both passwords typed are the same")
         } else {
@@ -93,7 +106,7 @@ export default class RegisterPage extends React.Component {
                 "items": [],
                 "serviceItems": [],
                 "bookmarkedItems": [],
-                "email": "myemail@husky.neu.edu",
+                "email": this.state.editingTextEmail,
                 "phoneNumber": "1111111111",
             }, this.submitUserInfoCallback)
         }
@@ -103,7 +116,7 @@ export default class RegisterPage extends React.Component {
         if(responseCode === -1) {
             alert("User already exists!")
         } else if(responseCode === -2) {
-            alert("Please use a Northeastern certified email(husky.neu.edu")
+            alert("Please use a Northeastern certified email(husky.neu.edu) if you are signing up as a seller")
         } else {
             this.props.setLoggedInUser(responseCode)
             this.props.history.push(`/profile`)
@@ -124,22 +137,24 @@ export default class RegisterPage extends React.Component {
                                 <div className="form-group">
                                     <h4>Create An Account</h4>
                                 </div>
-                                <div className="form-group">
+                                <div className="form-row">
+                                <div className="form-group col-md-6">
                                     <label htmlFor="firstname" className="col-form-label float-left">
                                         First Name </label>
                                     <input className="form-control wbdv-field wbdv-firstname" id="firstname"
                                            value={this.state.editingTextFirstName}
                                            placeholder="First Name" onChange={this.firstNameChangeRegister}/>
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group col-md-6 mt-0">
                                     <label htmlFor="lastname" className="col-form-label float-left">
                                         Last Name </label>
                                     <input className="form-control wbdv-field wbdv-lastname" id="lastname"
                                            placeholder="Last Name"
                                             value={this.state.editingTextLastName} onChange={this.lastNameChangeRegister}/>
                                 </div>
-
-                                <div className="form-group">
+                                </div>
+                                <div className="form-row">
+                                <div className="form-group col-md-6">
                                     <label htmlFor="role" className="col-form-label float-left">
                                         Role </label>
                                         <select className="custom-select wbdv-field wbdv-role" id="role" onChange={this.selectRoleChange}>
@@ -148,6 +163,13 @@ export default class RegisterPage extends React.Component {
                                         </select>
                                 </div>
 
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="email" className="col-form-label float-left">
+                                        Email </label>
+                                    <input className="form-control wbdv-field wbdv-username" id="email"
+                                           placeholder="alice@husky.neu.edu" onChange={this.emailChangeRegister} value={this.state.editingTextEmail}/>
+                                </div>
+                                </div>
                                 <div className="form-group">
                                     <label htmlFor="username" className="col-form-label float-left">
                                         Username </label>

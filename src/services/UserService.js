@@ -62,6 +62,8 @@ export default class UserService {
     // Update a user via user object and user id 
     // NOTE: Technically, userId is not necessary. (should be able to access from user object)
     updateUser(user, userId, callback) {
+        console.log("Updating user")
+        console.log(user)
         fetch(this.EbayURL + 'users/' + userId, {
             method: 'put', 
             body: JSON.stringify(user),
@@ -81,9 +83,20 @@ export default class UserService {
             headers: {
                 'content-type': 'application/json'   }
             })
-            .then(response => console.log("Bookmark Item Result: " + response))
+            .then(response => response.json())
             .then(result => callback(result))
     }
+
+    bookmarkEbayItemForUser(userId, itemId, callback) {
+        fetch(this.EbayURL + 'users/' + userId + '/ebaybookmarks/' + itemId, {
+            method: 'post',
+            body: [],
+            headers: {
+                'content-type': 'application/json'   }
+            })
+            .then(callback)
+        }
+
 
     // Get Bookmarked Items
     // Returns List of Bookmarked Items
@@ -91,6 +104,12 @@ export default class UserService {
         fetch(this.EbayURL + 'users/' + userId + '/bookmarks')
         .then(response => response.json())
         .then(bookmarkedItemList => callback(bookmarkedItemList))
+    }
+
+    getEbayBookmarkedItemsForUser(userId, callback) {
+        fetch(this.EbayURL + 'users/' + userId + '/ebaybookmarks')
+            .then(response => response.json())
+            .then(ebayItems => callback(ebayItems))
     }
 
     // Delete Bookmarked Items
@@ -110,5 +129,15 @@ export default class UserService {
         .then(response => response.json())
         .then(bookmarkedItemList => callback(bookmarkedItemList))
     }
+    
+    deleteEbayBookmarkedItemForUser(userId, itemId, callback) {
+        fetch(this.EbayURL + 'users/' + userId + 'ebaybookmarks/' + itemId, {
+            method: 'delete',
+            headers: {
+                'content-type': 'application/json'   }
+            })
+            .then(response => response.json())
+            .then(result => callback(result))
+        }
 }
 

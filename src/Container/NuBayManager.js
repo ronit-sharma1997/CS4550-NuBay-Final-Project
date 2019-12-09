@@ -34,6 +34,7 @@ export default class NuBayManager extends React.Component {
                 "/add/:type", "/profile", "/home", '/editService/:serviceid',"/editItem/:itemid"]} render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
+                        bookmarkCount={Object.keys(this.props.userInfo).length === 0 ? 0 : this.props.userInfo.bookmarkedItems.length + this.props.userInfo.bookmarkedEbayItems.split(",").length}
                         searchText={this.props.searchText}
                         onSearchTextChanged= {this.props.searchStringChanged}
                         userInfo={this.props.userInfo}
@@ -42,7 +43,7 @@ export default class NuBayManager extends React.Component {
                 />}/>
                 <Route exact path="/profile/:id" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
 
-                <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
+                <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo} setLoggedInUser={this.props.setLoggedInUser}/>}/>
 
 
 
@@ -53,14 +54,19 @@ export default class NuBayManager extends React.Component {
                         <div>
                             <NuBayTable
                                 {...props}
+                                userId={this.props.userInfo.id}
                                 itemType="northeasternItem"
+                                bookmarkIds={Object.keys(this.props.userInfo).length === 0 ? [] : this.props.userInfo.bookmarkedItems}
                                 loggedIn={this.props.loggedIn}
+                                setLoggedInUser={this.props.setLoggedInUser}
                             />
                             <NuBayTable
                                 {...props}
-
+                                userId={this.props.userInfo.id}
                                 itemType="ebay"
+                                bookmarkIds={(Object.keys(this.props.userInfo).length === 0 || this.props.userInfo.bookmarkedEbayItems === null) ? [] : this.props.userInfo.bookmarkedEbayItems.split(",")}
                                 loggedIn={this.props.loggedIn}
+                                setLoggedInUser={this.props.setLoggedInUser}
                             />
                         </div>}/>
                 </div>

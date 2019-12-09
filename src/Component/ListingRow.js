@@ -1,14 +1,14 @@
 import React from 'react'
 import Constants from '../constants/constants'
 
-const ListingRow = ({item}) => {
+const ListingRow = ({item, itemType}) => {
     var constants = Constants.getInstance()
     return(
         <div className="my-auto">
             <div className="row">
                 <div className ="col-md-3 col-12">
                     <div className="detail-image table-image-width">
-                        {item && <img src={item.base64Image.length > 0 ? item.base64Image : ""} className="mx-auto w-100"/>}
+                        {item && <img src={constants.getImageSource(item, itemType)} className="mx-auto w-100"/>}
                     </div>
                 </div>
                 <div className="col-md-7 col-12 my-auto">
