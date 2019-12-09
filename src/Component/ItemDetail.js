@@ -8,14 +8,16 @@ import "react-multi-carousel/lib/styles.css";
 import Constants from '../constants/constants';
 import ItemCard from './ItemCard'
 import StarRatings from 'react-star-ratings';
-
+import ItemService from '../services/ItemService';
 
 
 class ItemDetail extends React.Component {
 
     constructor(props) {
+        debugger;
         super(props);
         this.nuBayService = NuBayService.getInstance()
+        this.itemService = ItemService.getInstance()
         this.setItem = this.setItem.bind(this);
         this.setRelatedItems = this.setRelatedItems.bind(this);
         this.constants = Constants.getInstance()
@@ -45,6 +47,7 @@ class ItemDetail extends React.Component {
              }
 
         this.state = {
+        itemType:"",
         item: {
               },
         relatedItems: []
@@ -52,9 +55,22 @@ class ItemDetail extends React.Component {
         }
 
         if(props.match) {
+        if(this.props.match.params.id.includes("e")) {
+        var id = this.props.match.params.id.substring(1)
+        this.nuBayService.getEbayItemById(id, this.setItem)
+        this.setState(prevState => ({
+            itemType: "ebay"
+        }))
+        }
+        else if(this.props.match.params.id.includes("i")){
+        var id = this.props.match.params.id.substring(1)
+        this.itemService.findItemById(id, this.setItem)
+        this.setState(prevState => ({
+                    itemType: "northeasternItem"
+                }))
+                }
+        }
 
-        this.nuBayService.getEbayItemById(props.match.params.id, this.setItem)
-    }
     }
 
     setItem(item) {
@@ -100,11 +116,8 @@ class ItemDetail extends React.Component {
                      <ul>
                      <li className="more-detail-items"> {this.state.item.refundPolicy} </li>
                      <li className="more-detail-items"> Payment Methods Accepted:
-                    {this.state.item.paymentOptions ? this.state.item.paymentOptions.map((option,index) =>{return(
-                    index != 0 ? " ,".concat(option) :  " ".concat(option)
-
-
-                    )}):
+                    {this.state.item.paymentOptions ?
+                    this.state.item.paymentOptions:
                     "None"}</li>
                      <li className="more-detail-items"> Shipped From: {this.state.item.location} </li>
                      </ul>

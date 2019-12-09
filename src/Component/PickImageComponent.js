@@ -8,7 +8,8 @@ return (
         onClick={() => onImageDelete(index)}></i>
 
         <img className="img-responsive w-100 h-100"
-             src={image}/>
+             src={image.includes("localhost") ? image :
+             "data:image/png;base64,".concat(image)}/>
     </div>
 
 )

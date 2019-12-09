@@ -47,7 +47,10 @@ class NuBayManagerNavBar extends React.Component {
             addObjectOpen: false,
             isOpen: false
         };
-        // this.classes = useStyles();
+        if(props.match) {
+
+
+        }
 
     }
 

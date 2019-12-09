@@ -30,7 +30,8 @@ export default class NuBayManager extends React.Component {
                 <Route exact path="/login" render={(props) => <LoginPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
                 <Route exact path="/register" render={(props) => <RegisterPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
 
-                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id", "/add/:type", "/profile"]} render={(props) =>
+                <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id",
+                "/add/:type", "/profile", '/editService/:serviceid',"/editItem/:itemid"]} render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
                         searchText={this.props.searchText}
@@ -67,6 +68,14 @@ export default class NuBayManager extends React.Component {
                                             <ListItemComponent
                                                 {...props}
                                                 />}/>
+                    <Route exact path ="/editItem/:itemid" render={(props) =>
+                                  <ListItemComponent
+                                   {...props}
+                            />}/>
+                     <Route exact path ="/editService/:serviceid" render={(props) =>
+                           <ListItemComponent
+                           {...props}
+                        />}/>
                     <Route exact path ="/home" render={(props) =>
                                     <HomePage
                                       {...props}

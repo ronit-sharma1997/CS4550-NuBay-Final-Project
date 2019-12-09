@@ -2,6 +2,8 @@ export default class Constants {
 
     static myInstance = null;
 
+
+
     static getInstance() {
         if (Constants.myInstance == null) {
             Constants.myInstance = new Constants()
@@ -11,6 +13,63 @@ export default class Constants {
     }
 
 
+    getAllCategories(){
+    return [{"categoryName": "Sports", "id": 1},
+            {"categoryName": "Clothing", "id": 2},
+            {"categoryName": "Clothing123", "id": 3}]
+
+    }
+
+    itemTypeChar(itemType) {
+    if(itemType == "northeasternItem") {
+        return "i";
+    }
+    else if(itemType == "northeasternService") {
+        return "s";
+    }
+    else{
+        return "e";
+    }
+
+    }
+
+    getItemCategory(categoryName) {
+       var getAllCategories = this.getAllCategories();
+
+       for(var i = 0; i < getAllCategories.length; i++) {
+           var category = getAllCategories[i]
+           if(category["categoryName"] == categoryName) {
+                return category;
+           }
+
+       }
+       return {}
+
+
+    }
+
+
+    getCurrentPaymentMethods(paymentMethodString){
+        var paymentValues = paymentMethodString.split(",")
+        var allPaymentMethods = this.getPaymentMethods();
+        var currPaymentValues = [];
+        for(var i = 0; i < allPaymentMethods.length; i ++){
+            var paymentMethod = allPaymentMethods[i];
+            if(paymentValues.includes(paymentMethod["paymentMethod"])) {
+                currPaymentValues.push(paymentMethod)
+            }
+        }
+        return currPaymentValues;
+
+    }
+
+
+    getPaymentMethods() {
+        return [{"paymentMethod": "Venmo", "id": 1},
+                {"paymentMethod": "PayPal", "id": 2},
+                {"paymentMethod": "CashApp", "id": 3}]
+
+    }
 
     getItemPrice(price) {
         if(price) {

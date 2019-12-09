@@ -18,7 +18,7 @@ return(
             <div className="col-md-7 col-12 my-auto">
                 <div className="row">
                     <div className="col-12 text-center text-md-left">
-                        <Link to={`/details/${item.itemId}`}>
+                        <Link to={`/details/${constants.itemTypeChar(itemType)}${item.itemId}`}>
                             <b className="item-name"> {item.title} </b></Link>
                     </div>
                     <div className="col-12 text-center text-md-left">
