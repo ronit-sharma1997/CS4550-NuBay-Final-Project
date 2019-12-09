@@ -12,26 +12,22 @@ var divStyle = {
 
 
 const ItemCard = ({item, itemType})  => {
-    // console.log(item)
-    // console.log(card_type)
-   // <div className="img_container card-image">
-       //     {item.imageUrl &&
-       // <img
-         //   className="img-responsive card-img-top mb-0 card-image"
-         //   src={item.imageUrl.length > 0 ? item.imageUrl[0] : ""}
-          //  />
-   console.log("BOOGA")
+
    var constants = Constants.getInstance()
 
    // logic for determining which page to link to goes here
    // in other words, prepending 'i', 's' or 'e' to id depending on type
    // note: use card_type here
    var item_id_for_link = "";
-   if (card_type == "ITEM_TYPE") {
+   if (itemType == "northeasternItem") {
        item_id_for_link = "i" + item.itemId;
    }
-   else if (card_type == "SERVICE_TYPE") {
-       item_id_for_link = "s" + item.itemId;
+   else if (itemType == "northeasternService") {
+       item_id_for_link = "s" + item.id;
+   }
+   else {
+       item_id_for_link = "e" + item.itemId
+
    }
    
 	return (
