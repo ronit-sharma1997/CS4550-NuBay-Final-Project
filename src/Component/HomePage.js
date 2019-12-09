@@ -240,7 +240,8 @@ export default class HomePage extends React.Component {
                             <HomeSection
                                 title={"Your Bookmarked NEU Items"}
                                 items={this.state.bookmarked_neu_items}
-                                desc={"Here are the most recent Northeastern items that you have bookmarked."}> </HomeSection>
+                                desc={"Here are the most recent Northeastern items that you have bookmarked."}
+                                type={"ITEM_TYPE"}> </HomeSection>
                         </div>
                     </section>
                 }
@@ -250,7 +251,8 @@ export default class HomePage extends React.Component {
                         <HomeSection
                             title={"Recent NEU Items"}
                             items={this.state.recent_neu_items}
-                            desc={"Here are the most recent Northeastern items that have been posted."}> </HomeSection>
+                            desc={"Here are the most recent Northeastern items that have been posted."}
+                            type={"ITEM_TYPE"}> </HomeSection>
                     </div>
                 </section>
 
@@ -259,7 +261,8 @@ export default class HomePage extends React.Component {
                         <HomeSection
                             title={"Recent NEU Services"}
                             items={this.state.recent_neu_services}
-                            desc={"Here are the most recent Northeastern services that have been posted."}> </HomeSection>
+                            desc={"Here are the most recent Northeastern services that have been posted."}
+                            type={"SERVICE_TYPE"}> </HomeSection>
                     </div>
                 </section>
 

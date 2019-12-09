@@ -4,7 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import ItemCard from './ItemCard'
 import { Link } from 'react-router-dom'
 
-const HomeSection = ({ items, title, desc }) => {
+const HomeSection = ({ items, title, desc, type }) => {
     var responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
@@ -46,6 +46,7 @@ const HomeSection = ({ items, title, desc }) => {
                             <div>
                                 <ItemCard
                                     item={item}
+                                    card_type={type}
                                 />
                             </div>
                         )

@@ -11,8 +11,9 @@ var divStyle = {
 }
 
 
-const ItemCard = ({item})  => {
+const ItemCard = ({item, card_type})  => {
     // console.log(item)
+    // console.log(card_type)
    var constants = Constants.getInstance()
 	return (
 	<div className="container-fluid">
