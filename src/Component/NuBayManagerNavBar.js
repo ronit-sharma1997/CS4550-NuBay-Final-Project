@@ -4,7 +4,7 @@ import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import {createMuiTheme, makeStyles, MuiThemeProvider} from '@material-ui/core/styles';
 import {
-    withRouter
+    withRouter, Link
 } from 'react-router-dom';
 import { Collapse,
     Navbar,
@@ -128,7 +128,13 @@ class NuBayManagerNavBar extends React.Component {
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
-                    <NavbarBrand href="/">NuBay</NavbarBrand>
+                <Link to='/home'>
+                    <NavbarBrand>
+                        
+                            NuBay
+                        
+                    </NavbarBrand>
+                    </Link>
                     <NavbarToggler onClick={() => this.toggle()} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

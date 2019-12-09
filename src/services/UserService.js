@@ -10,6 +10,7 @@ export default class UserService {
     }
 
     EbayURL = 'https://peaceful-caverns-80012.herokuapp.com/api/'
+    localURL = 'http://localhost:8080/api/'
 
     // Return array of user objects
 	getAllUsers(callback) {
@@ -102,6 +103,12 @@ export default class UserService {
             })
             .then(response => console.log("Deleted Bookmark Item Result: " + response))
             .then(result => callback(result))
+    }
+
+    getRecentBookmarkedItemsForUser(userId, callback) {
+        fetch(this.localURL + 'users/' + userId + '/recentbookmarks')
+        .then(response => response.json())
+        .then(bookmarkedItemList => callback(bookmarkedItemList))
     }
 }
 

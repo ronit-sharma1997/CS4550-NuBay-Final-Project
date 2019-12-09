@@ -10,6 +10,7 @@ export default class ServiceItemService {
     }
 
     EbayURL = 'https://peaceful-caverns-80012.herokuapp.com/api/'
+    localURL = 'http://localhost:8080/api/'
 
     // Return array of service item objects
 	getAllServiceItems(callback) {
@@ -65,5 +66,11 @@ export default class ServiceItemService {
             })
             .then(response => response.json())
             .then(serviceItem => callback(serviceItem))
+    }
+
+    findFiveRecentServiceItems(callback) {
+        fetch(this.localURL + 'recentserviceitems')
+        .then(response => response.json())
+        .then(serviceitems => callback(serviceitems))
     }
 }
