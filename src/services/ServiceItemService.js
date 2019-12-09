@@ -69,7 +69,7 @@ export default class ServiceItemService {
     }
 
     findFiveRecentServiceItems(callback) {
-        fetch(this.localURL + 'recentserviceitems')
+        fetch(this.EbayURL + 'recentserviceitems')
         .then(response => response.json())
         .then(serviceitems => callback(serviceitems))
     }

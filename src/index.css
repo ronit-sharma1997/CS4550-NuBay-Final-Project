@@ -248,6 +248,10 @@ color:black;
     max-height: 450px;
 }
 
+.add-icon {
+    color: white;
+}
+
 .home-card-img.card-img-top {
     width: 200px;
     height: 200px;

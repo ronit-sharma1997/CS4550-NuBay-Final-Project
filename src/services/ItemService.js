@@ -77,7 +77,7 @@ export default class ItemService {
     }
 
     findFiveRecentItems(callback) {
-        fetch(this.localURL + 'recentitems')
+        fetch(this.EbayURL + 'recentitems')
         .then(response => response.json())
         .then(items => callback(items))
     }

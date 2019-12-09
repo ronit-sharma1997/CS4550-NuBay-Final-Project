@@ -14,9 +14,11 @@ export default class HomePage extends React.Component {
         this.itemService = ItemService.getInstance();
         this.serviceItemService = ServiceItemService.getInstance();
 
+        console.log(this.props.location.state)
+
         this.state = {
-            loggedIn: true,
-            userId: 1,
+            loggedIn: this.props.location.state.logged_in,
+            userId: this.props.location.state.user_id,
             bookmarked_neu_items: [],
             recent_neu_items: [],
             recent_neu_services: []
@@ -181,59 +183,59 @@ export default class HomePage extends React.Component {
         return (
 
             <div className="container w-100 h-100">
-                <header class="home-header py-5 bg-image-full">
-                    <img class="home-logo img-fluid d-block mx-auto" src={this.neu_logo_url} alt="" />
+                <header className="home-header py-5 bg-image-full">
+                    <img className="home-logo img-fluid d-block mx-auto" src={this.neu_logo_url} alt="" />
                 </header>
 
-                <section class="py-5">
-                    <div class="container">
+                <section className="py-5">
+                    <div className="container">
                         <h1>Welcome to NuBay</h1>
-                        <p class="lead">A one-stop-shop for Northeastern Students.</p>
+                        <p className="lead">A one-stop-shop for Northeastern Students.</p>
                         <p>We created a website for any Northeastern student looking to purchase a product or service. Our site allows you to search both Ebay and our inter-Northeastern marketplace for any item or service we can find.</p>
                     </div>
                 </section>
 
-                <div class="row">
-                    <div class="col-md-4 mb-5">
-                        <div class="home-card card h-100">
-                            <img class="home-card-img card-img-top" src="https://cdn.iconscout.com/icon/free/png-256/ebay-4-226578.png" alt="" />
-                            <div class="card-body">
-                                <h4 class="card-title">Search Items on Ebay</h4>
-                                <p class="card-text">Search for any item, and we'll do our best to find it on Ebay!</p>
+                <div className="row">
+                    <div className="col-md-4 mb-5">
+                        <div className="home-card card h-100">
+                            <img className="home-card-img card-img-top" src="https://cdn.iconscout.com/icon/free/png-256/ebay-4-226578.png" alt="" />
+                            <div className="card-body">
+                                <h4 className="card-title">Search Items on Ebay</h4>
+                                <p className="card-text">Search for any item, and we'll do our best to find it on Ebay!</p>
                             </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-primary">Click here!</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <div class="home-card card h-100">
-                            <img class="home-card-img card-img-top" src="https://www.creativefabrica.com/wp-content/uploads/2018/10/Shopping-cart-logo-by-DEEMKA-STUDIO-580x406.jpg" alt="" />
-                            <div class="card-body">
-                                <h4 class="card-title">Search Items at NEU</h4>
-                                <p class="card-text">Search for items at Northeastern!</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-primary">Click here!</a>
+                            <div className="card-footer">
+                                <a href="#" className="btn btn-primary">Click here!</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-5">
-                        <div class="home-card card h-100">
-                            <img class="home-card-img card-img-top" src="http://www.logoinlogo.com/list-logo/service.jpg" alt="" />
-                            <div class="card-body">
-                                <h4 class="card-title">Search Services at NEU</h4>
-                                <p class="card-text">Search for services at Northeastern!</p>
+                    <div className="col-md-4 mb-5">
+                        <div className="home-card card h-100">
+                            <img className="home-card-img card-img-top" src="https://www.creativefabrica.com/wp-content/uploads/2018/10/Shopping-cart-logo-by-DEEMKA-STUDIO-580x406.jpg" alt="" />
+                            <div className="card-body">
+                                <h4 className="card-title">Search Items at NEU</h4>
+                                <p className="card-text">Search for items at Northeastern!</p>
                             </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-primary">Click here!</a>
+                            <div className="card-footer">
+                                <a href="#" className="btn btn-primary">Click here!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4 mb-5">
+                        <div className="home-card card h-100">
+                            <img className="home-card-img card-img-top" src="http://www.logoinlogo.com/list-logo/service.jpg" alt="" />
+                            <div className="card-body">
+                                <h4 className="card-title">Search Services at NEU</h4>
+                                <p className="card-text">Search for services at Northeastern!</p>
+                            </div>
+                            <div className="card-footer">
+                                <a href="#" className="btn btn-primary">Click here!</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {this.state.loggedIn &&
-                    <section class="py-5">
+                    <section className="py-5">
                         <div className="row border-bottom mb-2">
                             <HomeSection
                                 title={"Your Bookmarked NEU Items"}
@@ -243,7 +245,7 @@ export default class HomePage extends React.Component {
                     </section>
                 }
 
-                <section class="py-5">
+                <section className="py-5">
                     <div className="row border-bottom mb-2">
                         <HomeSection
                             title={"Recent NEU Items"}
@@ -252,7 +254,7 @@ export default class HomePage extends React.Component {
                     </div>
                 </section>
 
-                <section class="py-5">
+                <section className="py-5">
                     <div className="row border-bottom mb-2">
                         <HomeSection
                             title={"Recent NEU Services"}

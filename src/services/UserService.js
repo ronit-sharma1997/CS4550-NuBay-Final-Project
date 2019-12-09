@@ -106,7 +106,7 @@ export default class UserService {
     }
 
     getRecentBookmarkedItemsForUser(userId, callback) {
-        fetch(this.localURL + 'users/' + userId + '/recentbookmarks')
+        fetch(this.EbayURL + 'users/' + userId + '/recentbookmarks')
         .then(response => response.json())
         .then(bookmarkedItemList => callback(bookmarkedItemList))
     }

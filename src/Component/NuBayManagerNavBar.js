@@ -2,6 +2,7 @@ import React from 'react'
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 import {createMuiTheme, makeStyles, MuiThemeProvider} from '@material-ui/core/styles';
 import {
     withRouter, Link
@@ -32,14 +33,18 @@ class NuBayManagerNavBar extends React.Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.toggleDropDownSearch = this.toggleDropDownSearch.bind(this);
-        this.toggleDropDownSignIn = this.toggleDropDownSignIn(this);
+        this.toggleDropDownSignIn = this.toggleDropDownSignIn.bind(this);
+        this.toggleDropDownAddObject = this.toggleDropDownAddObject.bind(this)
         this.onMouseEnterSignIn = this.onMouseEnterSignIn.bind(this);
         this.onMouseLeaveSignIn = this.onMouseLeaveSignIn.bind(this);
         this.onMouseEnterSearch = this.onMouseEnterSearch.bind(this);
         this.onMouseLeaveSearch = this.onMouseLeaveSearch.bind(this);
+        this.onMouseEnterAddObject = this.onMouseEnterAddObject.bind(this);
+        this.onMouseLeaveAddObject = this.onMouseLeaveAddObject.bind(this);
         this.state = {
             dropdownOpenSignIn: false,
             dropdownSearch: false,
+            addObjectOpen: false,
             isOpen: false
         };
         // this.classes = useStyles();
@@ -68,6 +73,12 @@ class NuBayManagerNavBar extends React.Component {
         }));
     }
 
+    toggleDropDownAddObject() {
+        this.setState(prevState => ({
+            ...prevState,
+            addObjectOpen: !prevState.addObjectOpen
+        }))
+    }
 
     onMouseEnterSignIn() {
         this.setState(prevState => ({
@@ -81,6 +92,20 @@ class NuBayManagerNavBar extends React.Component {
             ...prevState,
             dropdownOpenSignIn: false
         }));
+    }
+
+    onMouseEnterAddObject() {
+        this.setState(prevState => ({
+            ...prevState,
+            addObjectOpen: true
+        }))
+    }
+
+    onMouseLeaveAddObject() {
+        this.setState(prevState => ({
+            ...prevState,
+            addObjectOpen: false
+        }))
     }
 
     onMouseEnterSearch() {
@@ -106,6 +131,23 @@ class NuBayManagerNavBar extends React.Component {
         this.props.history.push(`/login`)
     }
 
+    addItemSelected() {
+        if(this.props.loggedIn) {
+            this.props.history.push('/add/item')
+        } else {
+            this.props.history.push('/login')
+        }
+
+    }
+
+    addServiceSelected() {
+        if(this.props.loggedIn) {
+            this.props.history.push('/add/service')
+        } else {
+            this.props.history.push('/login')
+        }
+    }
+
     registerSelected() {
         this.props.history.push(`/register`)
     }
@@ -125,21 +167,20 @@ class NuBayManagerNavBar extends React.Component {
 
 
     render() {
+        console.log(this.props.userInfo.id, this.props.loggedIn)
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
-                <Link to='/home'>
+                <Link to={{pathname:'/home', state: {user_id: this.props.userInfo.id, logged_in: this.props.loggedIn}}}>
                     <NavbarBrand>
-                        
-                            NuBay
-                        
+                        NuBay
                     </NavbarBrand>
                     </Link>
                     <NavbarToggler onClick={() => this.toggle()} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <UncontrolledDropdown className="mr-3" onMouseOver={this.onMouseEnterSearch} onMouseLeave={this.onMouseLeaveSearch} isOpen={this.state.dropdownSearch} toggle={this.toggleDropDownSearch} nav inNavbar>
-                                <DropdownToggle nav>
+                                <DropdownToggle className="mt-1" nav>
                                     <i className="fa fa-search"></i> Search
                                 </DropdownToggle>
                                 <div id="searchBar">
@@ -157,13 +198,13 @@ class NuBayManagerNavBar extends React.Component {
                             <UncontrolledDropdown onMouseOver={this.onMouseEnterSignIn}
                             onMouseLeave={this.onMouseLeaveSignIn}
                             isOpen={this.state.dropdownOpenSignIn} toggle={this.toggleDropDownSignIn} nav inNavbar>
-                                {!this.props.loggedIn && <DropdownToggle nav caret>
+                                {!this.props.loggedIn && <DropdownToggle className="mt-1" nav caret>
                                     Sign In
                                 </DropdownToggle>}
-                                {this.props.loggedIn && <DropdownToggle nav caret>
+                                {this.props.loggedIn && <DropdownToggle className="mt-1" nav caret>
                                     Hello, {this.props.userInfo.firstName}!
                                 </DropdownToggle>}
-                                <DropdownMenu right>
+                                <DropdownMenu className="col-4" right>
                                     {!this.props.loggedIn && <Button size={"md"} onClick={() => this.loginSelected()} className="btn btn-primary CenterSignIn">
                                         Sign In
                                     </Button>}
@@ -182,7 +223,24 @@ class NuBayManagerNavBar extends React.Component {
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
-                            <IconButton aria-label="4 pending messages" className="col-1 col-md-2" >
+                            <UncontrolledDropdown onMouseOver={this.onMouseEnterAddObject}
+                                                  onMouseLeave={this.onMouseLeaveAddObject}
+                                                  isOpen={this.state.addObjectOpen} toggle={this.toggleDropDownAddObject} nav inNavbar>
+                                <DropdownToggle nav>
+                                    <i className="fa fa-plus mt-2 ml-4 ml-md-2"></i>
+                                </DropdownToggle>
+                                <DropdownMenu className="col-4" right>
+                                    <Button size={"md"} onClick={() => this.addItemSelected()} className="btn btn-primary CenterAddItem">
+                                        Add Item
+                                    </Button>
+                                    <DropdownItem divider />
+                                    <Button size={"md"} onClick={() => this.addServiceSelected()} className="btn btn-primary CenterAddService">
+                                        Add Service
+                                    </Button>
+
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                            <IconButton className="col-1 ml-2 my-auto" >
                                 <MuiThemeProvider theme={theme}>
                                 <Badge badgeContent={0} color="primary">
                                     <BookmarkIcon className={"bookmark-icon"} />
