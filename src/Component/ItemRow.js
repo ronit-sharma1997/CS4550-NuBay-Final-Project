@@ -71,14 +71,30 @@ return(
                          }
                     </div>
                     <div className="col-12 text-center text-md-left">
-                        {!itemOwner && <a href={itemType === "ebay" ? item.ebayUrl : !loggedIn ? "/login" : "/profile"}> <button type="button" className="btn btn-success">{contactSellerText}</button></a>}
+                        {itemType != "ebay" && itemType == "northeasternItem" ? <Link to={`/details/${item.itemId}`}>
+                        <button type="button" className="btn btn-success"> {contactSellerText}
+                        </button>
+                         </Link>
+                         : itemType == "northeasternService" &&
+                         <Link to={`/details/${item.id}`}>
+                              <button type="button" className="btn btn-success"> {contactSellerText}
+                               </button>
+                               </Link>
+
+                         }
+                        {!itemOwner && itemType == "ebay" && <a href={itemType === "ebay" ? item.ebayUrl : !loggedIn ? "/login" : "/profile"}>
+                        <button type="button" className="btn btn-success">{contactSellerText}</button></a>}
+
                         {loggedIn && !itemOwner && !itemAlreadyBookmarked && itemType != "northeasternService" &&
                         <button type="button" className="ml-2 btn btn-warning"
                         onClick={() => addBookmark(item.itemId)}>Bookmark</button>}
                         {!loggedIn && <Link to="/login"><button type="button" className="ml-2 btn btn-warning">Bookmark</button></Link>}
-                        {loggedIn && itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-danger" onClick={() => deleteBookmark(item.itemId)}>Unbookmark</button>}
-                        {loggedIn && itemOwner && <button type="button" className="ml-2 btn btn-danger" onClick={() => editItem(item.itemId)}>Edit Item</button>}
-                        {loggedIn && serviceOwner && <button type="button" className="ml-2 btn btn-danger" onClick={() => editService(item.id)}>Edit Service</button>}
+                        {loggedIn && itemAlreadyBookmarked && <button type="button"
+                        className="ml-2 btn btn-danger" onClick={() => deleteBookmark(item.itemId)}>Unbookmark</button>}
+                        {loggedIn && itemOwner && <button type="button" className="ml-2 btn btn-danger"
+                        onClick={() => editItem(item.itemId)}>Edit Item</button>}
+                        {loggedIn && serviceOwner && <button type="button" className="ml-2 btn btn-danger"
+                        onClick={() => editService(item.id)}>Edit Service</button>}
                     </div>
                 </div>
             </div>
