@@ -316,7 +316,7 @@ class ItemDetail extends React.Component {
                                         <a className="text-white w-100" target="_blank" href={this.state.item.ebayUrl}>
                                             Buy Now on ebay</a>
                                         : <Link className="text-white w-100"
-                                                to={!this.props.loggedIn ? `/login` : `/profile/${this.state.item.seller_id}`}>
+                                                to={`/profile/${this.state.item.seller_id}`}>
                                             Contact Seller </Link>}
 
                                 </button>}

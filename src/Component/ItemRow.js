@@ -73,21 +73,16 @@ const ItemRow = ({item, index, loggedIn, userId, itemType, bookmarkIds, addBookm
                             }
                         </div>
                         <div className="col-12 text-center text-md-left">
-                            {!itemOwner && loggedIn && itemType != "ebay" && itemType == "northeasternItem" ?
+                            {!itemOwner && itemType != "ebay" && itemType == "northeasternItem" ?
                                 <Link to={`/profile/${item.seller_id}`}>
                                     <button type="button" className="btn btn-success"> {contactSellerText}
                                     </button>
                                 </Link>
-                                : !serviceOwner && loggedIn && itemType == "northeasternService" ?
+                                : !serviceOwner && itemType == "northeasternService" ?
                                 <Link to={`/profile/${item.seller_id}`}>
                                     <button type="button" className="btn btn-success"> {contactSellerText}
                                     </button>
-                                </Link> : !loggedIn && itemType == "northeasternItem" ? <Link to={`/login`}>
-                                        <button type="button" className="btn btn-success"> {contactSellerText}
-                                        </button>
-                                    </Link> : !loggedIn && itemType == "northeasternService" ? <Link to={`/login`}>
-                                            <button type="button" className="btn btn-success"> {contactSellerText}
-                                            </button></Link> : <div></div>
+                                </Link> : <div></div>
 
                             }
                             {!itemOwner && itemType == "ebay" &&
