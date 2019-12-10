@@ -21,6 +21,15 @@ const dispatchToPropertyMapper = dispatch => {
 		},
 		removeLoggedInUser: () => {
 			dispatch({type: 'REMOVE_LOGGED_IN_USER'})
+		},
+		addToSearchCount: (count) => {
+			dispatch({type: 'ADD_TO_SEARCH_COUNT', count: count})
+		},
+		resetSearchCount: () => {
+			dispatch({type: 'RESET_SEARCH_COUNT'})
+		},
+		setSearchKeyword: (keyword) => {
+			dispatch({type: 'SET_SEARCH_KEYWORD', keyword:keyword})
 		}
 	}
 }
@@ -31,7 +40,10 @@ const stateToPropertyMapper = (state) => {
     return {
 		searchText : state.searchText,
 		loggedIn: state.loggedIn,
-		userInfo: state.userInfo
+		userInfo: state.userInfo,
+		currentSearchCount: state.currentSearchCount,
+		initialLoad: state.initialLoad,
+		searchKeyword: state.searchKeyword
     }
 
 }

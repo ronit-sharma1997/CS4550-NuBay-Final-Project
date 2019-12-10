@@ -27,5 +27,10 @@ export default class NuBayService {
 
 	}
 
+	getTrendingEbayItems(callback) {
+		let ebayUrl=`http://nubay-server.herokuapp.com/api/ebayItems/trending`
+		fetch(ebayUrl).then(response => response.json()).then(callback)
+	}
+
 }
 

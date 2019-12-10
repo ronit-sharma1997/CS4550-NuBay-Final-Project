@@ -71,12 +71,12 @@ return(
                          }
                     </div>
                     <div className="col-12 text-center text-md-left">
-                        {itemType != "ebay" && itemType == "northeasternItem" ? <Link to={`/details/${item.itemId}`}>
+                        {itemType != "ebay" && itemType == "northeasternItem" ? <Link to={`/details/i${item.itemId}`}>
                         <button type="button" className="btn btn-success"> {contactSellerText}
                         </button>
                          </Link>
                          : itemType == "northeasternService" &&
-                         <Link to={`/details/${item.id}`}>
+                         <Link to={`/details/s${item.id}`}>
                               <button type="button" className="btn btn-success"> {contactSellerText}
                                </button>
                                </Link>

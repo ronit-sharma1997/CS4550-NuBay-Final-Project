@@ -17,6 +17,7 @@ import { Collapse,
     DropdownMenu,
     DropdownItem,
     Dropdown, Button } from 'reactstrap';
+import NuBayManagerHeaderBar from "./NuBayManagerHeaderBar";
 
 const theme = createMuiTheme({
     overrides: {
@@ -127,6 +128,7 @@ class NuBayManagerNavBar extends React.Component {
 
     afterSubmission(event, searchText) {
         event.preventDefault()
+        this.props.resetCount()
         this.props.history.push(`/search/${searchText}`)
     }
 
@@ -182,6 +184,7 @@ class NuBayManagerNavBar extends React.Component {
 
     render() {
         console.log(this.props.userInfo.id, this.props.loggedIn)
+        console.log(this.props.initialLoad)
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
@@ -237,7 +240,7 @@ class NuBayManagerNavBar extends React.Component {
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
-                            <UncontrolledDropdown onMouseOver={this.onMouseEnterAddObject}
+                            {this.props.userInfo && (this.props.userInfo.userRole === "SELLER" || !this.props.loggedIn) && <UncontrolledDropdown onMouseOver={this.onMouseEnterAddObject}
                                                   onMouseLeave={this.onMouseLeaveAddObject}
                                                   isOpen={this.state.addObjectOpen} toggle={this.toggleDropDownAddObject} nav inNavbar>
                                 <DropdownToggle nav>
@@ -253,7 +256,7 @@ class NuBayManagerNavBar extends React.Component {
                                     </Button>
 
                                 </DropdownMenu>
-                            </UncontrolledDropdown>
+                            </UncontrolledDropdown>}
                             <IconButton onClick={() => this.navigateToBookmarks()} className="col-1 ml-2 my-auto" >
                                 <MuiThemeProvider theme={theme}>
                                 <Badge badgeContent={this.props.bookmarkCount} color="primary">
@@ -264,6 +267,9 @@ class NuBayManagerNavBar extends React.Component {
                         </Nav>
                     </Collapse>
                 </Navbar>
+                <div className={this.props.initialLoad ? "d-none" : "container-fluid"}>
+                    <NuBayManagerHeaderBar itemlength={this.props.searchResultCount} searchResult={this.props.searchKeyword}/>
+                </div>
             </div>
         )
     }

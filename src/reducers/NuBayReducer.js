@@ -3,7 +3,10 @@ import React from 'react'
 const initialItems = {
 	searchText : "",
 	loggedIn: false,
-	userInfo: {}
+	userInfo: {},
+	currentSearchCount: 0,
+	initialLoad: true,
+	searchKeyword: ""
 }
 
 const NuBayReducer = (state=initialItems, action) => {
@@ -26,11 +29,30 @@ const NuBayReducer = (state=initialItems, action) => {
 				loggedIn: false,
 				userInfo: {}
 			}
+		case 'ADD_TO_SEARCH_COUNT':
+			return {
+				...state,
+				currentSearchCount: state.currentSearchCount + action.count,
+				initialLoad: false
+			}
+		case 'RESET_SEARCH_COUNT':
+			return {
+				...state,
+				currentSearchCount: 0
+			}
+		case 'SET_SEARCH_KEYWORD':
+			return {
+				...state,
+				searchKeyword: action.keyword
+			}
 		default:
 		return {
 			...state,
 			loggedIn: initialItems.loggedIn,
-			userInfo: initialItems.userInfo
+			userInfo: initialItems.userInfo,
+			currentSearchCount: initialItems.currentSearchCount,
+			initialLoad: initialItems.initialLoad,
+			searchKeyword: initialItems.searchKeyword
 		}
 
 	}

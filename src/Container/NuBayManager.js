@@ -20,7 +20,7 @@ export default class NuBayManager extends React.Component {
 
     render() {
         // debugger;
-        console.log(this.props.userInfo);
+        console.log(this.props.initialLoad);
 
         return (
             <Router>
@@ -40,6 +40,10 @@ export default class NuBayManager extends React.Component {
                         userInfo={this.props.userInfo}
                         loggedIn={this.props.loggedIn}
                         logOut={this.props.removeLoggedInUser}
+                        searchResultCount={this.props.currentSearchCount}
+                        resetCount={this.props.resetSearchCount}
+                        initialLoad={this.props.initialLoad}
+                        searchKeyword={this.props.searchKeyword}
                 />}/>
                 <Route exact path="/profile/:id" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
 
@@ -52,10 +56,22 @@ export default class NuBayManager extends React.Component {
                             <NuBayTable
                                 {...props}
                                 userId={this.props.userInfo.id}
+                                itemType="northeasternService"
+                                bookmarkIds={[]}
+                                loggedIn={this.props.loggedIn}
+                                setLoggedInUser={this.props.setLoggedInUser}
+                                addToSearchCount={this.props.addToSearchCount}
+                                setSearch={this.props.setSearchKeyword}
+                            />
+                            <NuBayTable
+                                {...props}
+                                userId={this.props.userInfo.id}
                                 itemType="northeasternItem"
                                 bookmarkIds={Object.keys(this.props.userInfo).length === 0 ? [] : this.props.userInfo.bookmarkedItems}
                                 loggedIn={this.props.loggedIn}
                                 setLoggedInUser={this.props.setLoggedInUser}
+                                addToSearchCount={this.props.addToSearchCount}
+                                setSearch={this.props.setSearchKeyword}
                             />
                             <NuBayTable
                                 {...props}
@@ -64,6 +80,8 @@ export default class NuBayManager extends React.Component {
                                 bookmarkIds={(Object.keys(this.props.userInfo).length === 0 || this.props.userInfo.bookmarkedEbayItems === null) ? [] : this.props.userInfo.bookmarkedEbayItems.split(",")}
                                 loggedIn={this.props.loggedIn}
                                 setLoggedInUser={this.props.setLoggedInUser}
+                                addToSearchCount={this.props.addToSearchCount}
+                                setSearch={this.props.setSearchKeyword}
                             />
                         </div>}/>
                 </div>
