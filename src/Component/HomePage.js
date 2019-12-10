@@ -153,7 +153,7 @@ export default class HomePage extends React.Component {
                             title={"Trending NEU Items"}
                             items={this.state.trending_neu_items}
                             desc={"Here are the hottest NEU Items, in order of most bookmarked to least from left to right."}
-                            type={"ITEM_TYPE"}> </HomeSection>
+                            type={"northeasternItem"}> </HomeSection>
                     </div>
                 </section>
 
@@ -173,7 +173,7 @@ export default class HomePage extends React.Component {
                             title={"Recent NEU Services"}
                             items={this.state.recent_neu_services}
                             desc={"Here are the most recent Northeastern services that have been posted."}
-                            type={"SERVICE_TYPE"}> </HomeSection>
+                            type={"northeasternService"}> </HomeSection>
                     </div>
                 </section>
 

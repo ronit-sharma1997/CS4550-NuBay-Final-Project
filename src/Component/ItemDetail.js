@@ -247,14 +247,17 @@ class ItemDetail extends React.Component {
 
                         <button type="button" className="btn btn-success w-100">
 
-                        <a className="text-white w-100" href={this.state.item.ebayUrl}>
-                        {this.state.itemType != "ebay" ? "Contact Seller" : "Buy Now on eBay"} </a>
+                       {this.state.itemType == "ebay" ? <a className="text-white w-100" target="_blank" href={this.state.item.ebayUrl}>
+                        Buy Now on ebay</a>
+                       : <Link className="text-white w-100" to={`/profile/${this.state.item.seller_id}`}>
+                       Contact Seller </Link>}
+
                         </button>
 
                         </div>
 
                         <div className="col-8 ml-0 mt-3">
-                       <button type="button" className="btn btn-warning w-100">Add to Cart</button>
+                       <button type="button" className="btn btn-warning w-100">Bookmark</button>
                        </div>
                         </div>
                         </div>
