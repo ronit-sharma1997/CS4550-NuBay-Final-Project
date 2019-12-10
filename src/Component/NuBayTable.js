@@ -103,11 +103,12 @@ class NuBayTable extends React.Component {
 
     render() {
         let componentProps = this.props;
+        console.log(componentProps.userId)
         let component = this;
         let headingText = this.props.itemType === "northeasternItem" ? "Northeastern Items" : this.props.itemType === "ebay"?  "Ebay Items" : "Northeastern Services"
         return(
         <div>
-            <div className={this.props.initialLoad ? "d-none" : ""}>
+            <div className={this.props.initialLoad ? "d-none" : "container-fluid"}>
                 <NuBayManagerHeaderBar itemlength={this.state.items.length} searchResult={this.props.match.params.searchTerm}/>
             </div>
             <div className="container" style={{'background-color': 'white'}}>

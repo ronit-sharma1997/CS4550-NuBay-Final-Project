@@ -20,7 +20,7 @@ export default class NuBayManager extends React.Component {
 
     render() {
         // debugger;
-        console.log(this.props);
+        console.log(this.props.userInfo);
 
         return (
             <Router>

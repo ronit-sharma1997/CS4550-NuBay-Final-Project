@@ -17,16 +17,12 @@ import ItemDetail from './Component/ItemDetail'
 const store = createStore(NuBayReducer, {})
 
 ReactDOM.render(
-  <div className ="row h-100">
-  <div className="col-12">
 
   <Provider store={store}>
     <NuBayContainer/>
 
     </Provider>
 
-</div>
-</div>
    , document.getElementById('root'))
 
 // ReactDOM.render(

@@ -27,12 +27,12 @@ const ItemCard = ({item, itemType})  => {
    // in other words, prepending 'i', 's' or 'e' to id depending on type
    // note: use card_type here
    var item_id_for_link = "";
-   if (card_type == "ITEM_TYPE") {
-       item_id_for_link = "i" + item.itemId;
-   }
-   else if (card_type == "SERVICE_TYPE") {
-       item_id_for_link = "s" + item.itemId;
-   }
+   // if (card_type == "ITEM_TYPE") {
+   //     item_id_for_link = "i" + item.itemId;
+   // }
+   // else if (card_type == "SERVICE_TYPE") {
+   //     item_id_for_link = "s" + item.itemId;
+   // }
    
 	return (
 	<div className="container-fluid">
