@@ -49,6 +49,7 @@ export default class ProfileDetails extends React.Component {
     }
 
 
+
     fieldsChanged() {
         return (this.state.editingTextPassword !== this.props.userInfo.password && this.state.editingTextPassword !== "")
             || (this.state.editingTextPhone !== this.props.userInfo.phoneNumber && this.state.editingTextPhone !== "")
@@ -89,8 +90,8 @@ export default class ProfileDetails extends React.Component {
     }
 
     render() {
-        console.log(this.state.editingRoleType)
-        let listingText = this.props.userInfo.userRole === "SELLER" ?  " Listings • " : "";
+        console.log(this.props)
+        let listingText = this.props.userInfo === undefined ? "" : this.props.userInfo.userRole === "SELLER" ?  " Listings • " : "";
         return (
                 <form className="container">
                     <div className="form-group row">
@@ -111,7 +112,8 @@ export default class ProfileDetails extends React.Component {
                     <div className="form-group row mt-0">
                         <label className="col-sm-2 col-form-label"></label>
                         <div className="col-sm-10" >
-                            {this.props.dataExists && <span> {this.props.userInfo.userRole === "SELLER" && <b>{this.props.userInfo.items.length + this.props.userInfo.serviceItems.length}</b>}{this.props.userInfo.userRole === "SELLER" && listingText}<b>{this.props.userInfo.bookmarkedItems.length + (this.props.userInfo.bookmarkedEbayItems === "" || this.props.userInfo.bookmarkedEbayItems === null ? 0 : this.props.userInfo.bookmarkedEbayItems.split(",").length)}</b> Bookmarks</span>}
+                            {this.props.dataExists && this.props.viewOnly && <span><b>{this.props.userInfo.items.length + this.props.userInfo.serviceItems.length}</b> Listings</span>}
+                            {this.props.dataExists && !this.props.viewOnly && <span> {this.props.userInfo.userRole === "SELLER" && <b>{this.props.userInfo.items.length + this.props.userInfo.serviceItems.length}</b>}{this.props.userInfo.userRole === "SELLER" && listingText}<b>{this.props.userInfo.bookmarkedItems.length + (this.props.userInfo.bookmarkedEbayItems === "" || this.props.userInfo.bookmarkedEbayItems === null ? 0 : this.props.userInfo.bookmarkedEbayItems.split(",").length)}</b> Bookmarks</span>}
                         </div>
                     </div>
                     <div className="form-group row">
@@ -148,34 +150,34 @@ export default class ProfileDetails extends React.Component {
                             </input>
                         </div>
                     </div>
-                    <div className="form-group row">
+                    {!this.props.viewOnly && <div className="form-group row">
                         <label htmlFor="password" className="col-sm-2 col-form-label">
                             Password </label>
                         <div className="col-sm-10">
                             <input type="password" className="form-control wbdv-field wbdv-password" id="password" onChange={this.passwordChangeRegister}
                                    placeholder={this.props.dataExists ? this.props.userInfo.password : ""} value={this.state.editingTextPassword}/>
                         </div>
-                    </div>
-                    <div className="form-group row">
+                    </div>}
+                    {this.props.loggedIn && <div className="form-group row">
                         <label htmlFor="phone" className="col-sm-2 col-form-label">
                             Phone </label>
                         <div className="col-sm-10">
                             <input type="tel" className="form-control wbdv-field wbdv-phone" id="phone" onChange={this.phoneChangeRegister}
-                                   placeholder={this.props.dataExists ? this.props.userInfo.phoneNumber : ""} value={this.state.editingTextPhone}/>
+                                   placeholder={this.props.dataExists ? this.props.userInfo.phoneNumber : ""} value={this.state.editingTextPhone} readOnly={this.props.viewOnly}/>
                         </div>
-                    </div>
-                    <div className="form-group row">
+                    </div>}
+                    {this.props.loggedIn && <div className="form-group row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">
                             Email </label>
                         <div className="col-sm-10">
                             <input type="email" className="form-control wbdv-field wbdv-email" id="email" onChange={this.emailChangeRegister}
-                                   placeholder={this.props.dataExists ? this.props.userInfo.email : ""} value={this.state.editingTextEmail}/>
+                                   placeholder={this.props.dataExists ? this.props.userInfo.email : ""} value={this.state.editingTextEmail} readOnly={this.props.viewOnly}/>
                         </div>
-                    </div>
+                    </div>}
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"></label>
                         <div className="col-sm-10">
-                            {this.fieldsChanged() && <button className="btn btn-success btn-block wbdv-button wbdv-update"
+                            {this.props.userInfo && this.fieldsChanged() && <button className="btn btn-success btn-block wbdv-button wbdv-update"
                                type="button" onClick={this.updateUser}>Update</button>}
                         </div>
                     </div>

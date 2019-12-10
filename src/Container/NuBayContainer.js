@@ -30,6 +30,12 @@ const dispatchToPropertyMapper = dispatch => {
 		},
 		setSearchKeyword: (keyword) => {
 			dispatch({type: 'SET_SEARCH_KEYWORD', keyword:keyword})
+		},
+		hideNavBar: () => {
+			dispatch({type: 'HIDE_NAV_BAR'})
+		},
+		showNavBar: () => {
+			dispatch({type: 'SHOW_NAV_BAR'})
 		}
 	}
 }
@@ -42,8 +48,8 @@ const stateToPropertyMapper = (state) => {
 		loggedIn: state.loggedIn,
 		userInfo: state.userInfo,
 		currentSearchCount: state.currentSearchCount,
-		initialLoad: state.initialLoad,
-		searchKeyword: state.searchKeyword
+		searchKeyword: state.searchKeyword,
+		showHeaderBar: state.showHeaderBar
     }
 
 }

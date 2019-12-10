@@ -47,6 +47,7 @@ class NuBayTable extends React.Component {
         }))
         console.log(this.state.items.length)
         this.props.addToSearchCount(this.state.items.length)
+        this.props.showNavBar()
     }
 
     addBookmark(itemId) {

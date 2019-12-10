@@ -39,6 +39,7 @@ export default class ListingsDetails extends React.Component {
                                 item={item}
                                 itemType={"northeasternItem"}
                                 listingType={"Listing"}
+                                viewOnly={componentProps.viewOnly}
                             />
 
                         )
@@ -57,6 +58,7 @@ export default class ListingsDetails extends React.Component {
                             item={item}
                             itemType={"northeasternService"}
                             listingType={"Listing"}
+                            viewOnly={componentProps.viewOnly}
                         />
 
                     )

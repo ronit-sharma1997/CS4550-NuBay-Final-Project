@@ -133,10 +133,12 @@ class NuBayManagerNavBar extends React.Component {
     }
 
     loginSelected() {
+        this.props.hideNavBar()
         this.props.history.push(`/login`)
     }
 
     addItemSelected() {
+        this.props.hideNavBar()
         if(this.props.loggedIn) {
             this.props.history.push('/add/item')
         } else {
@@ -146,6 +148,7 @@ class NuBayManagerNavBar extends React.Component {
     }
 
     addServiceSelected() {
+        this.props.hideNavBar()
         if(this.props.loggedIn) {
             this.props.history.push('/add/service')
         } else {
@@ -154,15 +157,18 @@ class NuBayManagerNavBar extends React.Component {
     }
 
     registerSelected() {
+        this.props.hideNavBar()
         this.props.history.push(`/register`)
     }
 
     logOutSelected() {
+        this.props.hideNavBar()
         this.props.logOut();
         this.props.history.push('/')
     }
 
     navigateToProfile() {
+        this.props.hideNavBar()
         if(this.props.loggedIn) {
             this.props.history.push('/profile')
         } else {
@@ -171,6 +177,7 @@ class NuBayManagerNavBar extends React.Component {
     }
 
     navigateToBookmarks() {
+        this.props.hideNavBar()
         if(this.props.loggedIn) {
             this.props.history.push({
                 pathname: '/profile',
@@ -184,11 +191,10 @@ class NuBayManagerNavBar extends React.Component {
 
     render() {
         console.log(this.props.userInfo.id, this.props.loggedIn)
-        console.log(this.props.initialLoad)
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
-                <Link to={{pathname:'/home', state: {user_id: this.props.userInfo.id, logged_in: this.props.loggedIn}}}>
+                <Link to={{pathname:'/', state: {user_id: this.props.userInfo.id, logged_in: this.props.loggedIn}}}>
                     <NavbarBrand>
                         NuBay
                     </NavbarBrand>
@@ -267,7 +273,7 @@ class NuBayManagerNavBar extends React.Component {
                         </Nav>
                     </Collapse>
                 </Navbar>
-                <div className={this.props.initialLoad ? "d-none" : "container-fluid"}>
+                <div className={!this.props.displayHeader ? "d-none" : "container-fluid"}>
                     <NuBayManagerHeaderBar itemlength={this.props.searchResultCount} searchResult={this.props.searchKeyword}/>
                 </div>
             </div>

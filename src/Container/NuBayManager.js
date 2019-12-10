@@ -20,18 +20,18 @@ export default class NuBayManager extends React.Component {
 
     render() {
         // debugger;
-        console.log(this.props.initialLoad);
+        console.log(this.props.loggedIn);
 
         return (
             <Router>
             <div className="h-100">
 
 
-                <Route exact path="/login" render={(props) => <LoginPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
-                <Route exact path="/register" render={(props) => <RegisterPage {...props} setLoggedInUser={this.props.setLoggedInUser}/>}/>
+                <Route exact path="/login" render={(props) => <LoginPage {...props} setLoggedInUser={this.props.setLoggedInUser} hideNavBar={this.props.hideNavBar}/>}/>
+                <Route exact path="/register" render={(props) => <RegisterPage {...props} setLoggedInUser={this.props.setLoggedInUser} hideNavBar={this.props.hideNavBar}/>}/>
 
                 <Route exact path={["/details/:id", "/search/:searchTerm", "/", "/profile/:id",
-                "/add/:type", "/profile", "/home", '/editService/:serviceid',"/editItem/:itemid"]} render={(props) =>
+                "/add/:type", "/profile", "/home", '/editService/:serviceid',"/editItem/:itemid", "/search"]} render={(props) =>
                     <NuBayManagerNavBar
                         {...props}
                         bookmarkCount={Object.keys(this.props.userInfo).length === 0 ? 0 : this.props.userInfo.bookmarkedItems.length + (this.props.userInfo.bookmarkedEbayItems === "" || this.props.userInfo.bookmarkedEbayItems === null ? 0 : this.props.userInfo.bookmarkedEbayItems.split(",").length)}
@@ -42,14 +42,18 @@ export default class NuBayManager extends React.Component {
                         logOut={this.props.removeLoggedInUser}
                         searchResultCount={this.props.currentSearchCount}
                         resetCount={this.props.resetSearchCount}
-                        initialLoad={this.props.initialLoad}
+                        displayHeader={this.props.showHeaderBar}
                         searchKeyword={this.props.searchKeyword}
+                        hideNavBar={this.props.hideNavBar}
                 />}/>
-                <Route exact path="/profile/:id" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo}/>}/>
+                <Route exact path="/profile/:id" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo} loggedIn={this.props.loggedIn} hideNavBar={this.props.hideNavBar}/>}/>
 
-                <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo} setLoggedInUser={this.props.setLoggedInUser}/>}/>
+                <Route exact path="/profile" render={(props) => <ProfileTabs {...props} userInfo={this.props.userInfo} setLoggedInUser={this.props.setLoggedInUser} loggedIn={this.props.loggedIn} hideNavBar={this.props.hideNavBar} logOut={this.props.removeLoggedInUser}/>}/>
 
-                           <Route exact path="/details/:id" component={ItemDetail}/>
+                           <Route exact path="/details/:id" render={(props) => <ItemDetail {...props}
+                                                                                           userInfo={this.props.userInfo}
+                                                                                            loggedIn={this.props.loggedIn}
+                                                                                           setLoggedInUser={this.props.setLoggedInUser} hideNavBar={this.props.hideNavBar}/>}/>
                 <div style={{'backgroundColor': '#EAEDED'}}>
                     <Route exact path ="/search/:searchTerm" render={(props) =>
                         <div>
@@ -62,6 +66,7 @@ export default class NuBayManager extends React.Component {
                                 setLoggedInUser={this.props.setLoggedInUser}
                                 addToSearchCount={this.props.addToSearchCount}
                                 setSearch={this.props.setSearchKeyword}
+                                showNavBar={this.props.showNavBar}
                             />
                             <NuBayTable
                                 {...props}
@@ -72,6 +77,7 @@ export default class NuBayManager extends React.Component {
                                 setLoggedInUser={this.props.setLoggedInUser}
                                 addToSearchCount={this.props.addToSearchCount}
                                 setSearch={this.props.setSearchKeyword}
+                                showNavBar={this.props.showNavBar}
                             />
                             <NuBayTable
                                 {...props}
@@ -82,6 +88,7 @@ export default class NuBayManager extends React.Component {
                                 setLoggedInUser={this.props.setLoggedInUser}
                                 addToSearchCount={this.props.addToSearchCount}
                                 setSearch={this.props.setSearchKeyword}
+                                showNavBar={this.props.showNavBar}
                             />
                         </div>}/>
                 </div>
@@ -89,18 +96,22 @@ export default class NuBayManager extends React.Component {
                                             <ListItemComponent
                                                 {...props}
                                                 userId={this.props.userInfo.id}
+                                                hideNavBar={this.props.hideNavBar}
                                                 />}/>
                     <Route exact path ="/editItem/:itemid" render={(props) =>
                                   <ListItemComponent
                                   userId={this.props.userInfo.id}
+                                  hideNavBar={this.props.hideNavBar}
                                    {...props}
                             />}/>
                      <Route exact path ="/editService/:serviceid" render={(props) =>
                            <ListItemComponent
+                               hideNavBar={this.props.hideNavBar}
                            {...props}
                         />}/>
-                    <Route exact path ="/home" render={(props) =>
+                    <Route exact path ="/" render={(props) =>
                                     <HomePage
+                                        hideNavBar={this.props.hideNavBar}
                                       {...props}
 
                                       />}/>

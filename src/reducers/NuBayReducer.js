@@ -5,8 +5,8 @@ const initialItems = {
 	loggedIn: false,
 	userInfo: {},
 	currentSearchCount: 0,
-	initialLoad: true,
-	searchKeyword: ""
+	searchKeyword: "",
+	showHeaderBar: false
 }
 
 const NuBayReducer = (state=initialItems, action) => {
@@ -32,8 +32,7 @@ const NuBayReducer = (state=initialItems, action) => {
 		case 'ADD_TO_SEARCH_COUNT':
 			return {
 				...state,
-				currentSearchCount: state.currentSearchCount + action.count,
-				initialLoad: false
+				currentSearchCount: state.currentSearchCount + action.count
 			}
 		case 'RESET_SEARCH_COUNT':
 			return {
@@ -45,14 +44,25 @@ const NuBayReducer = (state=initialItems, action) => {
 				...state,
 				searchKeyword: action.keyword
 			}
+		case 'HIDE_NAV_BAR':
+			return {
+				...state,
+				showHeaderBar: false,
+				currentSearchCount: 0
+			}
+		case 'SHOW_NAV_BAR':
+			return {
+				...state,
+				showHeaderBar: true
+			}
 		default:
 		return {
 			...state,
 			loggedIn: initialItems.loggedIn,
 			userInfo: initialItems.userInfo,
 			currentSearchCount: initialItems.currentSearchCount,
-			initialLoad: initialItems.initialLoad,
-			searchKeyword: initialItems.searchKeyword
+			searchKeyword: initialItems.searchKeyword,
+			showHeaderBar: initialItems.showHeaderBar
 		}
 
 	}

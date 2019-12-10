@@ -13,6 +13,8 @@ export default class LoginPage extends React.Component {
 
         this.userNameChangeRegister = this.userNameChangeRegister.bind(this)
         this.passwordChangeRegister = this.passwordChangeRegister.bind(this)
+
+        props.hideNavBar();
     }
 
     userNameChangeRegister = (event) => {

@@ -44,6 +44,7 @@ export default class BookmarkDetails extends React.Component {
                 item={rowItem}
                 itemType={"ebay"}
                 listingType={"Bookmark"}
+                viewOnly={"false"}
             />
 
         )
@@ -81,8 +82,8 @@ export default class BookmarkDetails extends React.Component {
                         <ListingRow
                             item={item}
                             itemType={"northeasternItem"}
-                            userRole={this.props.userRole}
                             listingType={"Bookmark"}
+                            viewOnly={"false"}
                         />
 
                     )
@@ -100,8 +101,8 @@ export default class BookmarkDetails extends React.Component {
                         <ListingRow
                             item={item}
                             itemType={"ebay"}
-                            userRole={this.props.userRole}
                             listingType={"Bookmark"}
+                            viewOnly={"false"}
                         />
 
                     )
