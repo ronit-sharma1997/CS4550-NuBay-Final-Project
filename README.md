@@ -4,6 +4,13 @@ Project Title: NUBAY
 
 Authors: Saif Billah, Andre Dahan, and Ronit Sharma
 
+Steps to run:
+1. Clone repository
+2. Change directory to root of repo
+3. Run `npm install`
+4. Run `npm start`
+5. The project should open up in your default browser at http://localhost:3000/
+
 ## 1. State the problem you are trying to solve. Include a description of at least two types of users that would use your Web application. For each of the types of users, provide two goals the user would like to achieve with your Web application.
 
 The problem that we want to solve is that there isn't an easy to use, Northeastern-only marketplace. We want to allow anyone with access to a husky email to buy and sell products and services. Our goal is to make our website a one-stop-shop for any Northeastern student looking to purchase a product or service.
