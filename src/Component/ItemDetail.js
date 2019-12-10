@@ -121,7 +121,21 @@ class ItemDetail extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id != nextProps.match.params.id) {
-            this.nuBayService.getEbayItemById(nextProps.match.params.id, this.setItem)
+            if(nextProps.match.params.id.includes("e")) {
+                var id = nextProps.match.params.id.substring(1)
+                this.nuBayService.getEbayItemById(id, this.setItem)
+                this.type = "ebay"
+            }
+            else if(nextProps.match.params.id.includes("i")){
+                var id = nextProps.match.params.id.substring(1)
+                this.itemService.findItemById(id, this.setItem)
+                this.type = "northeasternItem"
+            }
+            else if(nextProps.match.params.id.includes("s")) {
+                var id = nextProps.match.params.id.substring(1)
+                this.type = "northeasternService"
+                this.serviceItemService.findServiceItemById(id, this.setItem)
+            }
         }
     }
 
