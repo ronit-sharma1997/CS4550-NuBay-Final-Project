@@ -44,24 +44,37 @@ return(
                             <b className="item-name"> {item.title} </b></Link>
                     </div>
                     <div className="col-12 text-center text-md-left">
-                        <span className="condition-text"> {item.conditionString} • {item.categoryName}</span>
+                        <span className="condition-text"> {itemType != "northeasternService" ?
+                        `${item.conditionString} • ` : ""}
+                        {item.categoryName}</span>
                     </div>
                     <div className="col-12 text-center text-md-left">
-
-           <a className="seller-link" href={"https://www.ebay.com/usr/".concat(item.sellerId)}>
+                    {itemType && itemType == "ebay" ?
+                            <a className="seller-link"
+                            href={"https://www.ebay.com/usr/".concat(item.sellerId)}>
                                 {item.sellerId}
                             </a>
+                       : <Link to={`/profile/${item.seller_id}`} className="seller-link">
+                            {item.seller_name}
+                       </Link>
+                       }
                     </div>
                     <div className="col-12 mt-1 text-center text-md-left">
                         <b className="price-string"> {constants.getItemPrice(item.value)}
                         </b>
                     </div>
                     <div className="col-12 text-center text-md-left">
-                        <b className="shipping-cost"> {constants.getItemPrice(item.shippingCost)} Shipping </b>
+                        {itemType != "northeasternService" &&
+                        <b className="shipping-cost">
+                        {constants.getItemPrice(item.shippingCost)}
+                         Shipping </b>
+                         }
                     </div>
                     <div className="col-12 text-center text-md-left">
                         {!itemOwner && <a href={itemType === "ebay" ? item.ebayUrl : !loggedIn ? "/login" : "/profile"}> <button type="button" className="btn btn-success">{contactSellerText}</button></a>}
-                        {loggedIn && !itemOwner && !itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-warning" onClick={() => addBookmark(item.itemId)}>Bookmark</button>}
+                        {loggedIn && !itemOwner && !itemAlreadyBookmarked && itemType != "northeasternService" &&
+                        <button type="button" className="ml-2 btn btn-warning"
+                        onClick={() => addBookmark(item.itemId)}>Bookmark</button>}
                         {!loggedIn && <Link to="/login"><button type="button" className="ml-2 btn btn-warning">Bookmark</button></Link>}
                         {loggedIn && itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-danger" onClick={() => deleteBookmark(item.itemId)}>Unbookmark</button>}
                         {loggedIn && itemOwner && <button type="button" className="ml-2 btn btn-danger" onClick={() => editItem(item.itemId)}>Edit Item</button>}

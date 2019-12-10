@@ -170,7 +170,7 @@ class ItemDetail extends React.Component {
                                                     {this.state.item.categoryName} </span>
                                                 </div>
                         <div className="col-12 ml-0">
-                        {this.state.itemType == "ebay" &&
+                        {this.state.itemType == "ebay" ?
                           <span>
                            <a href={"https://www.ebay.com/usr/".concat(this.state.item.sellerId)}>
                          <span className="seller-link text-dark">
@@ -187,7 +187,12 @@ class ItemDetail extends React.Component {
                                                               starSpacing='2px'
                                                             />
                                                  </span>
+                            : <Link className="seller-link text-dark w-100"
+                            to={`/profile/${this.state.item.seller_id}`}>
+                                {this.state.item.seller_name}
+                            </Link>
                         }
+
                                                  </div>
 
 
@@ -249,28 +254,29 @@ class ItemDetail extends React.Component {
 
                        {this.state.itemType == "ebay" ? <a className="text-white w-100" target="_blank" href={this.state.item.ebayUrl}>
                         Buy Now on ebay</a>
-                       : <Link className="text-white w-100" to={`/profile/${this.state.item.seller_id}`}>
+                       : <Link className="text-white w-100"
+                       to={`/profile/${this.state.item.seller_id}`}>
                        Contact Seller </Link>}
 
                         </button>
 
                         </div>
-
+                    {this.type != "northeasternService" &&
                         <div className="col-8 ml-0 mt-3">
                        <button type="button" className="btn btn-warning w-100">Bookmark</button>
                        </div>
+                       }
                         </div>
                         </div>
 
                 </div>
-
+            {this.state.relatedItems.length > 0 &&
                 <div className ="row h-25 w-100">
                 <div className ="col-12 mt-3 mb-3">
                 <b class="view-related-items-font"> View Related Items </b>
 
                 </div>
-                {
-                this.state.relatedItems.length > 0 &&
+
                 <div className="col-12 h-100 w-100">
                     <Carousel responsive={this.responsive} keyBoardControl={false}>
                       {this.state.relatedItems.map((item) => {
@@ -287,8 +293,9 @@ class ItemDetail extends React.Component {
                       }
                     </Carousel>
                 </div>
-                }
+
                </div>
+               }
 
             </div>
         )

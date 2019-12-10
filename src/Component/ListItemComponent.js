@@ -657,7 +657,8 @@ quantityChanged = (event) => {
             <div>
                 <div className="row mt-3 thickBorderBottom">
                     <div className="container">
-                        <h2> List Your New {this.type == "service" ? "Service" : "Item"} </h2>
+                        <h2> {this.state.updateMode ? "Update Your" : "List Your New"}
+                        {this.type == "service" ? "Service" : "Item"} </h2>
                     </div>
                 </div>
                 <div className="container mt-4">

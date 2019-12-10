@@ -36,7 +36,7 @@ export default class Constants {
         return [
             { "categoryName": "Sports", "id": 1 },
             { "categoryName": "Clothing", "id": 2 },
-            { "categoryName": "Clothing123", "id": 3 },
+            { "categoryName": "Service", "id": 3},
             { "categoryName": "Auto Parts and Vehicles", "id": 6000},
             { "categoryName": "Womens Clothing", "id": 15724 },
             { "categoryName": "Mens Clothing", "id": 1059 },
@@ -115,7 +115,7 @@ export default class Constants {
             }
         }
         else {
-            return ""
+            return "Free "
         }
     }
 
