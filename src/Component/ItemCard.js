@@ -7,11 +7,14 @@ var divStyle = {
 	width: '100%',
 	height: '15vw',
 	'object-fit': 'cover'
+}
 
+var bookmarkStyle = {
+    padding: "0px 5px 0px 0px"
 }
 
 
-const ItemCard = ({item, itemType})  => {
+const ItemCard = ({item, itemType, sectionName})  => {
 
    var constants = Constants.getInstance()
 
@@ -28,7 +31,6 @@ const ItemCard = ({item, itemType})  => {
    }
    else {
        item_id_for_link = "e" + item.itemId
-
    }
    
 	return (
@@ -53,9 +55,13 @@ const ItemCard = ({item, itemType})  => {
 	</div>
 
 	<div className ="row mt-0 pl-0 ml-1">
-	<div className="col-12 mt-0 ml-0 pl-0">
-		<b className="subTextFont">{constants.getItemPrice(item.value)} </b>
-	</div>
+        <div className="col-9 mt-0 ml-0 pl-0">
+            <b className="subTextFont">{constants.getItemPrice(item.value)} </b>
+        </div>
+        <div className="col-3 mt-0 ml-0 pl-0">
+            {sectionName == "Trending NEU Items" && item.numBookmarks}
+            {sectionName == "Trending NEU Items" && <i className="item-bookmark fa fa-bookmark"></i>} 
+        </div>
 
 	</div>
 	</div>

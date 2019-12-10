@@ -257,3 +257,8 @@ color:black;
     height: 200px;
     align-self: center;
 }
+
+.item-bookmark {
+    padding-left: 5px;
+    padding-right: 5px;
+}
