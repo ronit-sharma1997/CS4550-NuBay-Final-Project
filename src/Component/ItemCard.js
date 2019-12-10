@@ -19,6 +19,7 @@ const ItemCard = ({item, itemType})  => {
    // in other words, prepending 'i', 's' or 'e' to id depending on type
    // note: use card_type here
    var item_id_for_link = "";
+
    if (itemType == "northeasternItem") {
        item_id_for_link = "i" + item.itemId;
    }

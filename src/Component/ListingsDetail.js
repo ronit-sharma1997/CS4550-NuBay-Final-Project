@@ -38,7 +38,7 @@ export default class ListingsDetails extends React.Component {
                             <ListingRow
                                 item={item}
                                 itemType={"northeasternItem"}
-                                userRole={componentProps.userRole}
+                                listingType={"Listing"}
                             />
 
                         )
@@ -56,7 +56,7 @@ export default class ListingsDetails extends React.Component {
                         <ListingRow
                             item={item}
                             itemType={"northeasternService"}
-                            userRole={componentProps.userRole}
+                            listingType={"Listing"}
                         />
 
                     )

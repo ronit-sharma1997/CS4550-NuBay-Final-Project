@@ -11,7 +11,9 @@ var constants = Constants.getInstance()
     if(itemType === "ebay") {
         itemAlreadyBookmarked = bookmarkIds.includes(item.itemId)
     } else if (itemType === "northeasternItem") {
-        if(item.sellerId === userId) {
+        console.log(item.seller_id)
+        console.log(userId)
+        if(item.seller_id === userId) {
             itemOwner = true;
         }
         for(var i = 0; i < bookmarkIds.length; i++) {
@@ -21,11 +23,11 @@ var constants = Constants.getInstance()
             }
         }
     } else if (itemType === "northeasternService") {
-        if(item.sellerId === userId) {
+        if(item.seller_Id === userId) {
             serviceOwner = true;
         }
     }
-
+var contactSellerText = itemType === "ebay" ? "View On Ebay" : "Contact Seller"
 
 return(
     <div className="my-auto">
@@ -46,7 +48,7 @@ return(
                     </div>
                     <div className="col-12 text-center text-md-left">
 
-           <a className="seller-link" href={loggedIn ? "https://www.ebay.com/usr/".concat(item.sellerId) : "/login"}>
+           <a className="seller-link" href={"https://www.ebay.com/usr/".concat(item.sellerId)}>
                                 {item.sellerId}
                             </a>
                     </div>
@@ -58,7 +60,7 @@ return(
                         <b className="shipping-cost"> {constants.getItemPrice(item.shippingCost)} Shipping </b>
                     </div>
                     <div className="col-12 text-center text-md-left">
-                        <a href={item.ebayUrl}> <button type="button" className="btn btn-success">View On Ebay</button></a>
+                        {!itemOwner && <a href={itemType === "ebay" ? item.ebayUrl : !loggedIn ? "/login" : "/profile"}> <button type="button" className="btn btn-success">{contactSellerText}</button></a>}
                         {loggedIn && !itemOwner && !itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-warning" onClick={() => addBookmark(item.itemId)}>Bookmark</button>}
                         {!loggedIn && <Link to="/login"><button type="button" className="ml-2 btn btn-warning">Bookmark</button></Link>}
                         {loggedIn && itemAlreadyBookmarked && <button type="button" className="ml-2 btn btn-danger" onClick={() => deleteBookmark(item.itemId)}>Unbookmark</button>}

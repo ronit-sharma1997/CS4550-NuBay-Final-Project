@@ -9,7 +9,7 @@ export default class UserService {
         return this.myInstance
     }
 
-    EbayURL = 'https://peaceful-caverns-80012.herokuapp.com/api/'
+    EbayURL = 'http://nubay-server.herokuapp.com/api/'
     localURL = 'http://localhost:8080/api/'
 
     // Return array of user objects

@@ -247,7 +247,7 @@ class ItemDetail extends React.Component {
 
                         <button type="button" className="btn btn-success w-100">
 
-                       {this.state.itemType == "ebay" ? <a className="text-white w-100" href={this.state.item.ebayUrl}>
+                       {this.state.itemType == "ebay" ? <a className="text-white w-100" target="_blank" href={this.state.item.ebayUrl}>
                         Buy Now on ebay</a>
                        : <Link className="text-white w-100" to={`/profile/${this.state.item.seller_id}`}>
                        Contact Seller </Link>}

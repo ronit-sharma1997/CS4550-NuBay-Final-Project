@@ -2,22 +2,27 @@ import React from 'react'
 import Constants from '../constants/constants'
 import {Link} from 'react-router-dom'
 
-const ListingRow = ({item, itemType, userRole}) => {
+const ListingRow = ({item, itemType, listingType}) => {
     var constants = Constants.getInstance()
     var linkItem;
-    if (userRole === "SELLER") {
-        if(itemType === "northeasternItem") {
+    if (listingType === "Bookmark") {
+        if(itemType === "ebay") {
+            linkItem = `/details/e${item.itemId}`
+        } else {
+            linkItem = `/details/i${item.itemId}`
+        }
+    } else if (listingType === "Listing") {
+        if (itemType === "northeasternItem") {
             linkItem = `/editItem/${item.itemId}`
         } else if (itemType === "northeasternService") {
             linkItem = `/editService/${item.id}`
         }
-    } else if (userRole === "BUYER") {
-        linkItem = `/details/${item.itemId}`
     }
-    return(
+
+    return (
         <div className="my-auto">
             <div className="row">
-                <div className ="col-md-3 col-12">
+                <div className="col-md-3 col-12">
                     <div className="detail-image table-image-width">
                         {item && <img src={constants.getImageSource(item, itemType)} className="mx-auto w-100"/>}
                     </div>
@@ -28,7 +33,8 @@ const ListingRow = ({item, itemType, userRole}) => {
                             {item && <Link to={linkItem}><b className="item-name"> {item.title} </b></Link>}
                         </div>
                         <div className="col-12">
-                            {item && <span className="condition-text"> {item.conditionString} • {item.categoryName}</span>}
+                            {item &&
+                            <span className="condition-text"> {item.conditionString} • {item.categoryName}</span>}
                         </div>
                         {/*</Link>*/}
                     </div>

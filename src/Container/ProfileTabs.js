@@ -35,7 +35,7 @@ export default class ProfileTabs extends React.Component {
             var title = Object.keys(this.props.match.params).length === 0 ? 'My Listings': "Seller's Listings";
             tabContent = <ListingsDetails items={this.props.userInfo.items} services={this.props.userInfo.serviceItems} dataExists={dataExists} headingTitle={title} userRole={this.props.userInfo.userRole}/>
         } else if (currentTab === 2) {
-            tabContent = <BookmarkDetails items={this.props.userInfo.bookmarkedItems} ebayItems={this.props.userInfo.bookmarkedEbayItems === null || this.props.userInfo.bookmarkedEbayItems === "" ? [] : this.props.userInfo.bookmarkedEbayItems.split(",")} dataExists={dataExists} headingTitle="My Bookmarks" userRole={this.props.userInfo.userRole}/>
+            tabContent = <BookmarkDetails items={this.props.userInfo.bookmarkedItems} ebayItems={this.props.userInfo.bookmarkedEbayItems === null || this.props.userInfo.bookmarkedEbayItems === "" ? [] : this.props.userInfo.bookmarkedEbayItems.split(",")} dataExists={dataExists} headingTitle="My Bookmarks" userRole={this.props.userInfo.userRole} userId={this.props.userInfo.id}/>
         }
         return(
 
