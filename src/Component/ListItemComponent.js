@@ -633,12 +633,21 @@ quantityChanged = (event) => {
 
 
 
-
-
-
-
-
-
+    componentWillReceiveProps(nextProps) {
+        if(this.props != nextProps) {
+            if(nextProps.match.params.itemid) {
+                this.type = "item"
+                this.nuBayService.findItemById(nextProps.match.params.itemid, this.setItem)
+            }
+            else if(nextProps.match.params.serviceid) {
+                this.type ="service"
+                this.serviceItem.findServiceItemById(nextProps.match.params.serviceid, this.setService)
+            }
+            else if(nextProps.match.params.type) {
+                this.type = nextProps.match.params.type
+            }
+        }
+    }
 
 
     fileSelectedHandler = event => {
@@ -657,7 +666,7 @@ quantityChanged = (event) => {
             <div>
                 <div className="row mt-3 thickBorderBottom">
                     <div className="container">
-                        <h2> {this.state.updateMode ? "Update Your" : "List Your New"}
+                        <h2> {this.state.updateMode ? "Update Your " : "List Your New "}
                         {this.type == "service" ? "Service" : "Item"} </h2>
                     </div>
                 </div>
