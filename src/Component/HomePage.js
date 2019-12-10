@@ -102,7 +102,7 @@ export default class HomePage extends React.Component {
                     <div className="container">
                         <h1>Welcome to NuBay</h1>
                         <p className="lead">A one-stop-shop for Northeastern Students.</p>
-                        <p>We created a website for any Northeastern student looking to purchase a product or service. Our site allows you to search both Ebay and our inter-Northeastern marketplace for any item or service we can find.</p>
+                        <p>We created a website for any Northeastern student looking to purchase a product or service. Our site allows you to search both Ebay and our inter-Northeastern marketplace for any item or service we can find. We also allow you to sign up as a seller (only if you are a northeastern student), and post items or services to be sold.</p>
                         <a href="#" onClick={() => this.toggle()}>View Our Privacy Policy!</a>
 
                     </div>
