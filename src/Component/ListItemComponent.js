@@ -253,7 +253,6 @@ itemSubmit() {
 }
     else {
         if(this.type == "item") {
-        debugger;
         this.nuBayService.updateItem(this.state.item, this.state.item.itemId, this.callBack)
 
     }
@@ -352,6 +351,7 @@ else{
   }
 
   deleteItem() {
+    this.props.history.push(`/add/${this.type}`)
     if(this.type == "item") {
         this.nuBayService.deleteItemById(this.state.item.itemId);
 

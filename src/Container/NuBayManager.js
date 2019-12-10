@@ -74,6 +74,7 @@ export default class NuBayManager extends React.Component {
                                                 />}/>
                     <Route exact path ="/editItem/:itemid" render={(props) =>
                                   <ListItemComponent
+                                  userId={this.props.userInfo.id}
                                    {...props}
                             />}/>
                      <Route exact path ="/editService/:serviceid" render={(props) =>
