@@ -11,24 +11,24 @@ export default class NuBayService {
     }
 
 	getEbayItems(text,callback) {
-        let ebayUrl = `http://nubay-server.herokuapp.com/api/ebayItems/${text}`
+        let ebayUrl = `https://nubay-server.herokuapp.com/api/ebayItems/${text}`
         fetch(ebayUrl).then(response => response.json()).then(callback)
 	}
 
 	getEbayItemById(id,callback) {
-	let ebayUrl = `http://nubay-server.herokuapp.com/api/ebayItem/${id}`
+	let ebayUrl = `https://nubay-server.herokuapp.com/api/ebayItem/${id}`
 	fetch(ebayUrl).then(response => response.json()).then(callback)
 	}
 
 
 	getEbayItemByCategory(id, callback) {
-	let ebayUrl = `http://nubay-server.herokuapp.com/api/ebayCategories/${id}`
+	let ebayUrl = `https://nubay-server.herokuapp.com/api/ebayCategories/${id}`
 	fetch(ebayUrl).then(response => response.json()).then(callback)
 
 	}
 
 	getTrendingEbayItems(callback) {
-		let ebayUrl=`http://nubay-server.herokuapp.com/api/ebayItems/trending`
+		let ebayUrl=`https://nubay-server.herokuapp.com/api/ebayItems/trending`
 		fetch(ebayUrl).then(response => response.json()).then(callback)
 	}
 
