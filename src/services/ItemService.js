@@ -1,6 +1,6 @@
 export default class ItemService {
 	
-	static myInstance = null;
+    static myInstance = null;
 
     static getInstance() {
     if (ItemService.myInstance == null) {
