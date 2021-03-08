@@ -4,6 +4,26 @@ Project Title: NUBAY
 
 Authors: Saif Billah, Andre Dahan, and Ronit Sharma
 
+### Landing Page
+<img width="1440" alt="Screen Shot 2021-03-08 at 11 06 05 AM" src="https://user-images.githubusercontent.com/20268204/110348277-7ae2bd00-7fff-11eb-8f2a-e66777821edd.png">
+
+<img width="1440" alt="Screen Shot 2021-03-08 at 11 17 59 AM" src="https://user-images.githubusercontent.com/20268204/110348768-ff354000-7fff-11eb-854a-d01cf02ca6de.png">
+
+### Register/Login Page
+<img width="1440" alt="Screen Shot 2021-03-08 at 11 06 29 AM" src="https://user-images.githubusercontent.com/20268204/110348406-9e0d6c80-7fff-11eb-88d9-a930bb60c4cb.png">
+
+<img width="1440" alt="Screen Shot 2021-03-08 at 11 15 18 AM" src="https://user-images.githubusercontent.com/20268204/110348383-964dc800-7fff-11eb-8d26-b75655518bef.png">
+
+### Profile Page
+<img width="1440" alt="Screen Shot 2021-03-08 at 11 06 59 AM" src="https://user-images.githubusercontent.com/20268204/110348472-b1203c80-7fff-11eb-95a4-b937918625e4.png">
+
+### Search Page
+<img width="1440" alt="Screen Shot 2021-03-08 at 11 08 24 AM" src="https://user-images.githubusercontent.com/20268204/110348511-ba110e00-7fff-11eb-9c87-9cce5a3df533.png">
+
+### Bookmark Page
+<img width="1440" alt="Screen Shot 2021-03-08 at 11 09 02 AM" src="https://user-images.githubusercontent.com/20268204/110348555-c72dfd00-7fff-11eb-913a-c1b180ae8abb.png">
+
+
 Steps to run:
 1. Clone repository
 2. Change directory to root of repo
